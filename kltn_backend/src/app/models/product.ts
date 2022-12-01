@@ -8,10 +8,6 @@ const productSchema = new Schema(
 			type: String,
 			require: true,
 		},
-		star: {
-			type: Number,
-			default: 0,
-		},
 		price: {
 			type: Number,
 			require: true,
@@ -26,12 +22,10 @@ const productSchema = new Schema(
 			default: 0,
 			require: true,
 		},
-		isHot: {
-			type: Boolean,
-			default: true,
-		},
+
 		images: {
 			type: Array<String>,
+			require: true,
 			default: [],
 		},
 		amount_size_s: {
@@ -61,6 +55,14 @@ const productSchema = new Schema(
 		detail_des: {
 			type: String,
 			require: true,
+		},
+		isHot: {
+			type: Boolean,
+			default: true,
+		},
+		star: {
+			type: Number,
+			default: 0,
 		},
 		reviews: {
 			type: Array<any>,

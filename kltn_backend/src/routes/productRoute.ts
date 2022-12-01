@@ -1,7 +1,7 @@
 import express from 'express';
 
+import ProductController from '../app/controllers/productController';
 import {authMiddlewares} from '../middlewares/auth';
-import UploadController from '../app/controllers/uploadController';
 
 const router = express.Router();
 
@@ -13,12 +13,15 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage});
 
-// Upload nhiều ảnh
+// Thêm sản phẩm
+router.post('/create', authMiddlewares.isAdmin, ProductController.create);
+
+// Thêm ảnh cho sản phẩm
 router.post(
-	'/images',
-	upload.array('images', 12),
-	authMiddlewares.authVerify,
-	UploadController.uploadImages
+	'/add-images/:id',
+	authMiddlewares.isAdmin,
+	upload.array('image-product', 10),
+	ProductController.addImage
 );
 
 export default router;

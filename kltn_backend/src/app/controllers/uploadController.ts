@@ -1,7 +1,6 @@
 import {Request, Response} from 'express';
 import resultData from '../../common/resultData';
 
-// import uploader from '../../config/cloudinary';
 import uploader from '../../config/cloudinary';
 
 const UploadController = {
