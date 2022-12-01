@@ -1,0 +1,439 @@
+@import './anim';
+@import './grid';
+@import './color';
+@import './stylesGlobals';
+
+:root {
+	--toastify-toast-min-height: 56px;
+
+	--primary-color: #1967d2;
+	--secondary-color: #fb5516;
+	--white-color: #fff;
+
+	--text-color: #333;
+	--header-color: #333;
+	--text-color-2: #777;
+	--text-color-3: #999;
+	--border-color-sidebar: rgba(200, 23, 23, 0.1);
+	--overlay-color: rgba(15, 15, 15, 0.8);
+
+	//size
+	--header-height: 64px;
+	--round-main: 2px;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-size: 62.5%;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+		Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	::-moz-selection {
+		color: $light;
+		background: $primary;
+	}
+
+	::selection {
+		color: #fff;
+		background: rgb(253, 179, 179);
+	}
+}
+
+@font-face {
+	font-family: flamingregular;
+	src: url('../public/static/fonts/flaming-webfont.woff2');
+	font-weight: 400;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	height: 100%;
+}
+body {
+	line-height: 1.5;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+	font: inherit;
+	outline: none;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+
+//progress Page
+/* Make clicks pass-through */
+#nprogress {
+	pointer-events: none;
+}
+
+#nprogress .bar {
+	background: $primary;
+
+	position: fixed;
+	z-index: 1031;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 2px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+	display: block;
+	position: absolute;
+	right: 0px;
+	width: 100px;
+	height: 100%;
+	box-shadow: 0 0 10px $primary, 0 0 5px $primary;
+	opacity: 1;
+
+	-webkit-transform: rotate(3deg) translate(0px, -4px);
+	-ms-transform: rotate(3deg) translate(0px, -4px);
+	transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+	display: block;
+	position: fixed;
+	z-index: 1031;
+	top: 15px;
+	right: 15px;
+}
+
+#nprogress .spinner-icon {
+	width: 18px;
+	height: 18px;
+	box-sizing: border-box;
+
+	border: solid 2px transparent;
+	border-top-color: $primary;
+	border-left-color: $primary;
+	border-radius: 50%;
+
+	-webkit-animation: nprogress-spinner 400ms linear infinite;
+	animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+	overflow: hidden;
+	position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+	position: absolute;
+}
+
+.show-color {
+	transition: background-color 0.5s;
+	background-color: var(--header-color);
+	animation: fadeIn 0.5s;
+}
+
+@-webkit-keyframes nprogress-spinner {
+	0% {
+		-webkit-transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+@keyframes nprogress-spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+// Custom popop
+#walktour-portal {
+	border: none !important;
+	* {
+		border: none !important;
+
+		&:focus {
+			border: none !important;
+		}
+
+		&:active {
+			border: none !important;
+		}
+	}
+
+	rect {
+		fill-opacity: 0.6 !important;
+	}
+}
+
+.toastify-custom {
+	color: $light;
+	text-align: center;
+	padding: 6px;
+	line-height: 24px;
+	background-color: rgba(0, 0, 0, 0.6);
+	border-radius: 4px;
+}
+
+.toastify-custom-success {
+	color: $light;
+	text-align: center;
+	padding: 6px;
+	line-height: 24px;
+	background-color: rgba(19, 199, 2, 0.7);
+	border-radius: 4px;
+}
+
+.toastify-custom-info {
+	color: $light;
+	text-align: center;
+	padding: 6px;
+	line-height: 24px;
+	background-color: rgba(0, 117, 226, 0.7);
+	border-radius: 4px;
+}
+
+.toastify-custom-error {
+	color: $light;
+	text-align: center;
+	padding: 6px;
+	line-height: 24px;
+	background-color: rgba(255, 0, 0, 0.7);
+	border-radius: 4px;
+}
+
+.toastify-custom-warn {
+	color: $light;
+	text-align: center;
+	padding: 6px;
+	line-height: 24px;
+	background-color: rgba(255, 191, 0, 0.7);
+	border-radius: 4px;
+}
+
+// Custom input-range__slider-container
+.input-range__label-container {
+	color: rgba(0, 0, 0, 0.85) !important;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+		Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+	font-size: 14px !important;
+}
+
+.input-range__track {
+	height: 8px !important;
+	border-radius: 4px !important;
+}
+
+.input-range__track--active {
+	background-color: #333 !important;
+}
+
+.input-range__slider {
+	height: 16px !important;
+	width: 16px !important;
+	margin-top: -12px !important;
+	background: #fff !important;
+}
+
+.input-range__label--min,
+.input-range__label--max {
+	bottom: -28px !important;
+}
+
+.input-range__label--value {
+	top: -32px !important;
+}
+
+// Custom slider antd
+
+.ant-tooltip-inner {
+	position: relative !important;
+	background: transparent !important;
+	color: var(--text-color-3) !important;
+	bottom: -15px !important;
+	box-shadow: none !important;
+
+	&::before {
+		content: '' !important;
+		position: absolute !important;
+		width: 10px !important;
+		height: 10px !important;
+		left: 0 !important;
+		margin-right: 2px !important;
+	}
+}
+.ant-tooltip-arrow {
+	display: none !important;
+}
+
+.ant-slider-dot {
+	border: 1px solid var(--text-color) !important;
+}
+
+.ant-collapse {
+	border: none !important;
+	background: var(--white-color) !important;
+}
+.ant-collapse-header {
+	font-size: 1.6rem !important;
+	display: flex !important;
+	flex-direction: row-reverse !important;
+	justify-content: space-between !important;
+	padding-left: 0 !important;
+	.anticon {
+		margin-right: 7px !important;
+	}
+}
+.ant-collapse-content-box {
+	padding-left: 0 !important;
+}
+
+.ant-slider {
+	&:hover {
+		.ant-slider-track {
+			background: var(--text-color) !important;
+		}
+	}
+	.ant-slider-track {
+		transition: 0.5s !important;
+		background: var(--text-color) !important;
+	}
+	.ant-slider-handle {
+		transition: 0.5s !important;
+		border: 1px solid #333 !important;
+		&:focus {
+			box-shadow: 0 0 10px -2px var(--primary-color) !important;
+		}
+	}
+
+	.ant-slider-handle {
+		border: none !important;
+	}
+
+	.ant-slider-handle::after {
+		width: 12px !important;
+		height: 12px !important;
+		box-shadow: 0 0 0 1px #333 !important;
+	}
+
+	.ant-slider-dot {
+		width: 10px !important;
+		height: 10px !important;
+	}
+}
+
+.ant-slider-horizontal .ant-slider-dot {
+	inset-block-start: -2.333333px !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+
+/* Custom Slick Dots */
+.slick-dots {
+	position: absolute;
+	bottom: 28px !important;
+	display: block;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	text-align: center;
+}
+
+.ft-slick__dots--custom {
+	height: 6px;
+	width: 18px;
+	background-color: #8895a1;
+	border-radius: 4px;
+	position: relative;
+	margin-top: 14px;
+}
+
+.slick-dots li {
+	width: 18px;
+	margin: 0 2px;
+	transition: width 0.3s ease-in-out;
+}
+
+.slick-dots .slick-active {
+	width: 18px;
+	transition: width 0.3s ease-in-out;
+}
+
+.slick-dots .slick-active .ft-slick__dots--custom {
+	width: 18px;
+	top: 0px;
+	overflow: hidden;
+
+	.loading {
+		height: 8px;
+		animation: loading 3s ease-in;
+		background: #3dc5ff;
+		display: inline-block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		border-radius: 4px;
+	}
+}
+
+@keyframes loading {
+	from {
+		width: 0%;
+	}
+
+	to {
+		width: 100%;
+	}
+}

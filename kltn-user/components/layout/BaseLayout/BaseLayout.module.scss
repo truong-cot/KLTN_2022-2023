@@ -1,0 +1,23 @@
+@import '../../../styles/color';
+@import '../../../styles/variables';
+
+.app {
+	overflow: hidden;
+}
+
+.header {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	z-index: 10;
+	transition: top 0.5s;
+
+	&.scroll {
+		top: calc(($heightHeader + $headerContact) * -1);
+	}
+}
+
+.main {
+	min-height: 90vh;
+}

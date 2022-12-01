@@ -1,0 +1,67 @@
+@import "../../../styles/color";
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+
+  .list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .item {
+      height: 40px;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 4px;
+      border: solid 1px #cbdff7;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.7;
+      }
+    }
+
+    .item + .item {
+      margin-left: 10px;
+    }
+
+    .item.active {
+      background-color: $primary_2;
+      color: $light;
+      pointer-events: none;
+      border: solid 1px $primary_2;
+    }
+  }
+
+  .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    color: $neutral_1;
+    outline: none;
+    border-radius: 4px;
+    border: solid 1px #cbdff7;
+    background-color: $light;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+  }
+  .btn.left {
+    margin-right: 10px;
+  }
+  .btn.right {
+    margin-left: 10px;
+  }
+}

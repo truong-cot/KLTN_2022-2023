@@ -1,0 +1,21 @@
+@import "../../../styles/color";
+@import "../../../styles/variables";
+
+.container {
+  background-color: $light_blue_2;
+  height: $headerContact;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contact {
+  color: $primary;
+  font-weight: 600;
+}

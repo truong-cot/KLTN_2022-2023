@@ -1,0 +1,19 @@
+.container {
+	margin-top: 24px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px;
+	height: 650px;
+
+	.right {
+		display: grid;
+		grid-template-rows: 1fr 1fr;
+		gap: 24px;
+	}
+}
+
+@media (max-width: 768px) {
+	.container {
+		grid-template-columns: 1fr;
+	}
+}

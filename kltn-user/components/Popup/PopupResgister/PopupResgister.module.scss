@@ -1,0 +1,171 @@
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.main {
+		background-color: #ffffff;
+		border-radius: 20px;
+		z-index: 1;
+		padding: 32px;
+
+		.logo {
+			.link_logo {
+				display: block;
+				position: relative;
+				width: 100px;
+				height: 32px;
+				z-index: 10;
+				margin-bottom: 20px;
+			}
+		}
+
+		.text {
+			color: #000;
+			font-size: 1.6rem;
+			font-weight: bold;
+			text-align: justify;
+			width: 70%;
+		}
+
+		.main_input {
+			width: 100%;
+			margin-top: 36px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			gap: 24px;
+
+			.top {
+				width: 70%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 12px;
+			}
+
+			.input_name {
+				width: 70%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: #fff;
+			}
+
+			.register {
+				width: 70%;
+				display: flex;
+				align-items: center;
+				justify-content: flex-start;
+
+				p {
+					font-weight: 500;
+					font-size: 1.4rem;
+					line-height: 20px;
+					color: #000;
+					font-weight: bold;
+
+					a {
+						text-decoration: underline;
+					}
+				}
+			}
+
+			.btn {
+				width: 16%;
+			}
+		}
+	}
+}
+
+// === Responsive === //
+@media only screen and (max-width: 1024px) {
+	.container {
+		.main {
+			width: 95%;
+			height: 95%;
+			padding: 36px;
+			border-radius: 24px;
+
+			.text {
+				width: 100%;
+				font-size: 1.5rem;
+			}
+
+			.main_input {
+				.top {
+					width: 85%;
+				}
+
+				.input_name {
+					width: 85%;
+				}
+
+				.checkbox {
+					width: 85%;
+				}
+
+				.register {
+					width: 85%;
+
+					p {
+						font-size: 1.5rem;
+					}
+				}
+
+				.btn {
+					width: 24%;
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.container {
+		.main {
+			width: 100vw;
+			height: 100vh;
+			padding: 24px;
+			border-radius: 0px;
+
+			.text {
+				width: 100%;
+				font-size: 1.4rem;
+			}
+
+			.main_input {
+				.top {
+					width: 95%;
+				}
+
+				.input_name {
+					width: 95%;
+				}
+
+				.checkbox {
+					width: 95%;
+				}
+
+				.register {
+					width: 95%;
+
+					p {
+						font-size: 1.4rem;
+					}
+				}
+
+				.btn {
+					width: 28%;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.container {
+		width: 95vw;
+	}
+}

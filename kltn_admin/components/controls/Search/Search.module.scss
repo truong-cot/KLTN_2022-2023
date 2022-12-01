@@ -1,0 +1,49 @@
+@import '../../../styles/color';
+
+.container {
+	font-size: 1.4rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.search {
+	flex: 1;
+	display: flex;
+	align-items: center;
+}
+
+.input {
+	flex: 1;
+	margin-left: 18px;
+	input {
+		background-color: transparent;
+		border: none;
+		width: 100%;
+		color: $light;
+
+		&::placeholder {
+			color: $neutral_4;
+		}
+	}
+}
+
+.btnClose {
+	margin-right: 8px;
+	cursor: pointer;
+	&:hover {
+		opacity: 0.8;
+	}
+}
+
+.filter {
+	user-select: none;
+	position: relative;
+	border-left: 1px solid $light;
+	padding-left: 18px;
+	font-size: 2.4rem;
+	cursor: pointer;
+	&.active {
+		color: $primary_1_1;
+	}
+}

@@ -1,0 +1,43 @@
+.wrapper {
+	height: 100vh;
+	position: relative;
+	align-items: center;
+	background-size: cover;
+	background-position: 50%;
+}
+.inner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	width: 100%;
+}
+
+.top_suggest,
+.bottom_suggest {
+	color: var(--white-color);
+	font-size: 2.4rem;
+	font-weight: 300;
+	display: block;
+}
+.tiltle {
+	font-family: flamingregular, serif;
+	color: var(--white-color);
+	font-size: 15rem;
+	line-height: 8rem;
+	letter-spacing: 1.2rem;
+	margin-bottom: 50px;
+}
+.bottom_suggest {
+	margin-bottom: 30px;
+}
+.btn {
+	font-weight: 300;
+	font-size: 1.6rem;
+}
+@media (max-width: 769px) {
+	.tiltle {
+		font-size: 9.4rem;
+	}
+}

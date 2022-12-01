@@ -1,0 +1,12 @@
+.container {
+	padding: 14px 0;
+	border-bottom: 1px solid #ebebeb;
+
+	.main {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 14px;
+		color: #777;
+	}
+}

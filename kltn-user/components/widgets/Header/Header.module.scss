@@ -1,0 +1,177 @@
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	.left {
+		display: flex;
+		align-items: center;
+
+		.logo {
+			.image {
+				width: 98px;
+				height: 32px;
+				max-width: 100%;
+				vertical-align: middle;
+				border-style: none;
+			}
+		}
+
+		.list_link {
+			display: flex;
+			align-items: center;
+			margin-left: 50px;
+
+			.item {
+				color: #fff;
+				font-size: 1.5rem;
+				font-weight: 400;
+				margin: 5px;
+				padding: 10px;
+				position: relative;
+				text-decoration: none;
+				text-transform: uppercase;
+			}
+		}
+	}
+
+	.right {
+		display: flex;
+		align-items: center;
+
+		.group_btn {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin-left: 40px;
+		}
+
+		.box_right {
+			display: flex;
+			align-items: center;
+			gap: 24px;
+			margin-left: 24px;
+			color: #fff;
+
+			.icon_heart {
+				position: relative;
+				font-size: 1.9rem;
+				cursor: pointer;
+
+				.qlt {
+					position: absolute;
+					top: -14px;
+					right: -12px;
+					background-color: #d27474;
+					color: #fff;
+					width: 20px;
+					height: 20px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					border-radius: 50%;
+					font-size: 1.4rem;
+				}
+			}
+
+			.icon_compare {
+				position: relative;
+				font-size: 2.2rem;
+				cursor: pointer;
+
+				.qlt {
+					position: absolute;
+					top: -12px;
+					right: -12px;
+					background-color: #d27474;
+					color: #fff;
+					width: 20px;
+					height: 20px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					border-radius: 50%;
+					font-size: 1.4rem;
+				}
+			}
+
+			.icon_cart {
+				position: relative;
+				font-size: 2.2rem;
+				cursor: pointer;
+
+				.cart_box {
+					position: absolute;
+					top: 54px;
+					right: -12px;
+					z-index: 10;
+				}
+
+				.qlt {
+					position: absolute;
+					top: -12px;
+					right: -12px;
+					background-color: #d27474;
+					color: #fff;
+					width: 20px;
+					height: 20px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					border-radius: 50%;
+					font-size: 1.4rem;
+				}
+			}
+
+			.icon_profile {
+				position: relative;
+				font-size: 2.2rem;
+				cursor: pointer;
+
+				.profile_box {
+					position: absolute;
+					top: 54px;
+					right: -12px;
+					z-index: 10;
+				}
+			}
+		}
+	}
+}
+
+.wrapper {
+	background-color: transparent;
+	width: 100%;
+	height: 64px;
+	transition: background-color 0.5s;
+	padding: 6px 36px 0 36px;
+}
+
+.headerActive {
+	background-color: #333;
+	transition: background-color 0.5s;
+	animation: fadeIn 0.5s;
+}
+
+.bg_header {
+	background-color: #333;
+	transition: background-color 0.5s;
+	animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+@keyframes fadeOut {
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}

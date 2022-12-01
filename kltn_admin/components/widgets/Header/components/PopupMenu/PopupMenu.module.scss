@@ -1,0 +1,75 @@
+@import '../../../../../styles/color';
+
+.container {
+	background-color: $neutral_2;
+	width: 440px;
+	font-size: 1.6rem;
+	padding: 22px 40px;
+	border: 1px solid #252525;
+	box-shadow: 0px 2px 24px #181818;
+	border-radius: 32px;
+}
+
+.header {
+	user-select: none;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: $light;
+
+	.title {
+		.icon {
+			font-size: 2rem;
+			color: #95e149;
+			margin-right: 8px;
+		}
+
+		display: flex;
+		align-items: center;
+	}
+
+	.btnClose {
+		font-size: 2.6rem;
+		cursor: pointer;
+	}
+}
+
+.infoUser {
+	display: flex;
+	align-items: center;
+	padding-bottom: 20px;
+	padding-top: 44px;
+	border-bottom: 1px dashed rgba(229, 181, 68, 0.3);
+
+	.avatar {
+		margin-right: 30px;
+	}
+
+	.info {
+		.email {
+			color: $light;
+			font-size: 1.6rem;
+			margin-bottom: 12px;
+		}
+
+		.money {
+			color: #b1b5c3;
+		}
+
+		.hightlight {
+			color: #2e9024;
+		}
+	}
+}
+
+.form {
+	margin-top: 18px;
+}
+
+@media (max-width: 764px) {
+	.container {
+		width: 95vw;
+		padding: 24px 12px;
+		border-radius: 12px;
+	}
+}

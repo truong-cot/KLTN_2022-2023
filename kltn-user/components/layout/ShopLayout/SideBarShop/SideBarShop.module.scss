@@ -1,0 +1,77 @@
+.container {
+	padding: 0 20px 12px 0;
+
+	.box_1 {
+		margin-bottom: 24px;
+	}
+
+	.top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 16px;
+		color: rgba(0, 0, 0, 0.85);
+		font: 400px;
+		cursor: pointer;
+
+		.type {
+			font-size: 18px;
+			font-weight: 400;
+			color: #333;
+		}
+		.icon {
+			transform: rotate(90deg);
+
+			svg {
+				fill: rgb(95, 95, 95);
+			}
+		}
+	}
+
+	.list {
+		font-size: 14px;
+		color: #999;
+
+		.item {
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			.text_item {
+				transition: 0.3s;
+			}
+
+			.qlt {
+				width: 25px;
+				height: 25px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: hsla(0, 0%, 94%, 0.645);
+				border-radius: 5px;
+				font-weight: 300;
+			}
+
+			&:hover {
+				.text_item {
+					color: #1967d2;
+				}
+			}
+
+			&.active {
+				.text_item {
+					color: #1967d2;
+				}
+			}
+
+			& + .item {
+				margin-top: 8px;
+			}
+		}
+
+		.filter_price {
+			margin-top: 24px;
+		}
+	}
+}

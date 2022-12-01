@@ -1,0 +1,166 @@
+.container {
+	user-select: none;
+	position: relative;
+	border-radius: 2px;
+	box-shadow: 0 0 10px 1px hsl(0deg 0% 88% / 50%);
+	cursor: pointer;
+	height: 100%;
+	padding: 8px;
+
+	&:hover .position_2 {
+		height: 42px;
+		opacity: 1;
+	}
+
+	&:hover .position_1 {
+		opacity: 1;
+	}
+
+	.position_1 {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		font-size: 1.4rem;
+		color: #fff;
+		opacity: 0;
+		transition: 0.4s 0.2s;
+
+		.icon {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 8px;
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			background-color: #333;
+			transition: 0.3s;
+
+			&:hover {
+				background-color: var(--primary-color);
+			}
+		}
+	}
+
+	.position_2 {
+		position: absolute;
+		width: 100%;
+		color: var(--white-color);
+		font-size: 1.4rem;
+		font-weight: 400;
+		height: 0px;
+		background-color: var(--text-color);
+		bottom: 150px;
+		left: 0;
+		right: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 12px;
+		text-transform: uppercase;
+		opacity: 0;
+		transition: 0.4s 0.2s;
+
+		.icon_cart {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 1.6rem;
+		}
+	}
+
+	.box_image {
+		position: relative;
+		width: 100%;
+		height: 400px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.content {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		margin-top: 10px;
+
+		.text_1 {
+			align-items: center;
+			font-size: 1.3rem;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			color: #ccc;
+			display: block;
+			font-size: 1.4rem;
+			font-weight: 300;
+		}
+
+		.text_2 {
+			text-align: center;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			color: var(--text-color);
+			display: block;
+			display: -webkit-box;
+			font-size: 1.6rem;
+			font-weight: 300;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			margin: 8px 0;
+			transition: 0.4s;
+
+			&:hover {
+				color: #1967d2;
+			}
+		}
+
+		.price {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+
+			.price_1 {
+				color: var(--primary-color);
+				font-weight: 500;
+				font-size: 1.5rem;
+			}
+
+			.price_2 {
+				color: #ccc;
+				font-weight: 500;
+				margin-left: 10px;
+				text-decoration: line-through;
+				font-weight: 500;
+				font-size: 1.5rem;
+			}
+		}
+
+		.star {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			font-size: 1.4rem;
+			color: #fadb14;
+			margin-top: 8px;
+			margin-bottom: 20px;
+
+			span {
+				color: #ccc;
+				font-size: 1.3rem;
+			}
+		}
+	}
+}
+
+@keyframes keyframe_1 {
+	from {
+		height: 0;
+		opacity: 0;
+	}
+	to {
+		height: 40px;
+		opacity: 1;
+	}
+}

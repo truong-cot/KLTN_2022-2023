@@ -1,0 +1,15 @@
+.slider {
+	height: 100px;
+
+	& div {
+		height: 100%;
+	}
+}
+
+.item {
+	display: flex !important;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	border: 1px solid #ebebeb;
+}
