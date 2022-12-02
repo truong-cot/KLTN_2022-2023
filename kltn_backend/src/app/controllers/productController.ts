@@ -98,9 +98,7 @@ const ProductController = {
 	addImage: async (req: Request, res: Response) => {
 		try {
 			const idProduct = req.params.id;
-
 			const images: any = req.files;
-			var urls: Array<any> = [];
 
 			const checkTypeImage = images.some(
 				(image: any) =>
@@ -126,7 +124,9 @@ const ProductController = {
 							idProduct
 						);
 						if (checkProduct) {
-							// Thêm ảnh
+							// Danh sách ảnh của sản phẩm
+							var urls: any = checkProduct.images;
+
 							for (const image of images) {
 								const newUrl: any = await uploader(
 									image.path,
@@ -187,6 +187,256 @@ const ProductController = {
 					})
 				);
 			}
+		} catch (error) {
+			return res.status(500).json(
+				resultData({
+					code: 500,
+					status: 0,
+					message: 'Có lỗi xảy ra!',
+					data: {},
+				})
+			);
+		}
+	},
+	// [DELETE] ==> /product/delete-images/...id?idImage=1233
+	deleteImage: async (req: Request, res: Response) => {
+		try {
+			// Lấy id sản phẩm và id image
+			const idProduct = req.params.id;
+			const idImage = req.query.idImage;
+
+			// Lấy sản phẩm theo ID
+			const product = await ProductModel.findById(idProduct);
+
+			// Hàm xóa ảnh
+			const deleteImage = async (arr: Array<any>, id: string) => {
+				const indexImage = arr.findIndex((v) => v.id === id);
+
+				if (indexImage > -1) {
+					arr.splice(indexImage, 1);
+				}
+
+				return arr;
+			};
+
+			if (idProduct && idImage) {
+				if (product) {
+					// Lấy ảnh của sản phẩm
+					const listImages: any = product?.images;
+
+					if (listImages.length === 0) {
+						return res.status(403).json(
+							resultData({
+								code: 403,
+								status: 0,
+								message: 'Sản phẩm chưa có ảnh nảo!',
+								data: {},
+							})
+						);
+					} else {
+						// Tìm id của ảnh
+						const item = listImages.find(
+							(v: any) => v.id === idImage
+						);
+						if (item) {
+							// Gọi hàm xóa ảnh
+							await deleteImage(listImages, String(idImage));
+
+							// Update danh sách ảnh cho sản phẩm
+							const product = await ProductModel.updateOne(
+								{_id: idProduct},
+								{
+									$set: {
+										images: listImages,
+									},
+								}
+							);
+
+							//
+							if (product) {
+								return res.status(200).json(
+									resultData({
+										code: 200,
+										status: 1,
+										message: 'Xóa ảnh thành công!',
+										data: listImages,
+									})
+								);
+							}
+						} else {
+							return res.status(403).json(
+								resultData({
+									code: 403,
+									status: 0,
+									message: 'ID ảnh không tồn tại!',
+									data: {},
+								})
+							);
+						}
+					}
+				} else {
+					return res.status(403).json(
+						resultData({
+							code: 403,
+							status: 0,
+							message: 'Sản phẩm không tồn tại!',
+							data: {},
+						})
+					);
+				}
+			} else {
+				return res.status(403).json(
+					resultData({
+						code: 403,
+						status: 0,
+						message: 'Không tìm thấy ID sản phẩm và ID ảnh!',
+						data: {},
+					})
+				);
+			}
+		} catch (error) {
+			return res.status(500).json(
+				resultData({
+					code: 500,
+					status: 0,
+					message: 'Có lỗi xảy ra!',
+					data: {},
+				})
+			);
+		}
+	},
+	// [GET] ==> /product/get-all-images
+	getAllImage: async (req: Request, res: Response) => {
+		try {
+			const idProduct = req.params.id;
+
+			// Lấy sản phẩm theo ID
+			const product = await ProductModel.findById(idProduct);
+
+			if (product) {
+				const listImages: any = product.images;
+
+				if (listImages.length === 0) {
+					return res.status(201).json(
+						resultData({
+							code: 201,
+							status: 0,
+							message: 'Sản phẩm chưa có ảnh nào!',
+							data: listImages,
+						})
+					);
+				} else {
+					return res.status(200).json(
+						resultData({
+							code: 200,
+							status: 1,
+							message: 'Lấy ảnh của sản phẩm thành công!',
+							data: listImages,
+						})
+					);
+				}
+			} else {
+				return res.status(403).json(
+					resultData({
+						code: 403,
+						status: 0,
+						message: 'Sản phẩm không tồn tại!',
+						data: {},
+					})
+				);
+			}
+		} catch (error) {
+			return res.status(500).json(
+				resultData({
+					code: 500,
+					status: 0,
+					message: 'Có lỗi xảy ra!',
+					data: {},
+				})
+			);
+		}
+	},
+	// [DELETE] ==> /product/delete-images?idProduct=1233
+	deleteProduct: async (req: Request, res: Response) => {
+		try {
+			const idProduct = req.query.idProduct;
+			const product = await ProductModel.findByIdAndDelete(idProduct);
+
+			if (product) {
+				return res.status(200).json(
+					resultData({
+						code: 200,
+						status: 1,
+						message: 'Xóa sản phẩm thành công!',
+						data: product,
+					})
+				);
+			} else {
+				return res.status(403).json(
+					resultData({
+						code: 403,
+						status: 0,
+						message: 'Sản phẩm không tồn tại!',
+						data: {},
+					})
+				);
+			}
+		} catch (error) {
+			return res.status(500).json(
+				resultData({
+					code: 500,
+					status: 0,
+					message: 'Có lỗi xảy ra!',
+					data: {},
+				})
+			);
+		}
+	},
+	// [PUT] ==> /product/delete-images?idProduct=1233
+	updateProduct: async (req: Request, res: Response) => {
+		try {
+			const idProduct = req.query.idProduct;
+			const product = await ProductModel.findByIdAndUpdate(
+				idProduct,
+				req.body
+			);
+
+			const newProduct = await ProductModel.findById(idProduct);
+
+			if (product) {
+				return res.status(200).json(
+					resultData({
+						code: 200,
+						status: 1,
+						message: 'Sản phẩm tài khoản thành công!',
+						data: newProduct,
+					})
+				);
+			} else {
+				return res.status(403).json(
+					resultData({
+						code: 403,
+						status: 0,
+						message: 'Sản phẩm không tồn tại!',
+						data: {},
+					})
+				);
+			}
+		} catch (error) {
+			return res.status(500).json(
+				resultData({
+					code: 500,
+					status: 0,
+					message: 'Có lỗi xảy ra!',
+					data: {},
+				})
+			);
+		}
+	},
+	// [GET] ==> /product/get-all
+	getAllProduct: async (req: Request, res: Response) => {
+		try {
+			res.json('thanh cong');
 		} catch (error) {
 			return res.status(500).json(
 				resultData({

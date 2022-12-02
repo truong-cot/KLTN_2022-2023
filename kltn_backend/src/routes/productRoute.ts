@@ -24,4 +24,39 @@ router.post(
 	ProductController.addImage
 );
 
+// Xóa ảnh sản phẩm
+router.delete(
+	'/delete-image/:id',
+	authMiddlewares.isAdmin,
+	ProductController.deleteImage
+);
+
+// Lấy ra danh sách ảnh
+router.get(
+	'/get-all-images/:id',
+	authMiddlewares.isAdmin,
+	ProductController.getAllImage
+);
+
+// Xóa sản phẩm
+router.delete(
+	'/delete-product',
+	authMiddlewares.isAdmin,
+	ProductController.deleteProduct
+);
+
+// Chỉnh sửa sản phẩm
+router.put(
+	'/update-product',
+	authMiddlewares.isAdmin,
+	ProductController.updateProduct
+);
+
+// Lấy tất cả sản phẩm
+router.get(
+	'/get-all-product',
+	authMiddlewares.authVerify,
+	ProductController.getAllProduct
+);
+
 export default router;

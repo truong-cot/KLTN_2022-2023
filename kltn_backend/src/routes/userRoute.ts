@@ -20,7 +20,7 @@ router.delete(
 
 // Chỉnh sửa tài khoản
 router.put(
-	'/update-user/:id',
+	'/update-user',
 	authMiddlewares.authVerify,
 	UserController.updateUser
 );

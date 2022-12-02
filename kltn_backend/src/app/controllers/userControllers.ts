@@ -132,10 +132,10 @@ const UserController = {
 			);
 		}
 	},
-	// [DELETE] ==> /user/delete-user
+	// [DELETE] ==> /user/delete-user?idUser=....
 	deleteUser: async (req: Request, res: Response) => {
 		try {
-			const {userId} = req.body;
+			const userId = req.query.idUser;
 
 			const user = await UserModel.findByIdAndDelete(userId);
 
@@ -170,10 +170,10 @@ const UserController = {
 		}
 	},
 
-	// [PUT] ==> /user/update-user/1232423
+	// [PUT] ==> /user/update-user?idUser=...
 	updateUser: async (req: Request, res: Response) => {
 		try {
-			const userId = req.params.id;
+			const userId = req.query.idUser;
 
 			const user = await UserModel.findByIdAndUpdate(userId, req.body);
 
