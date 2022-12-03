@@ -1,6 +1,6 @@
 import {CgMenuRight, CgMenuLeft} from 'react-icons/cg';
-// import {Home, Home2} from 'iconsax-react';
 import {AiOutlineHome} from 'react-icons/ai';
+import {HiOutlineUserGroup} from 'react-icons/hi';
 
 import TabItem from './ItemTab';
 import {ItemTab, PropsTabBar} from './interface';
@@ -20,6 +20,11 @@ function TabBar(props: PropsTabBar) {
 			icon: <AiOutlineHome size='20' />,
 			title: 'Trang chủ',
 			href: '/',
+		},
+		{
+			icon: <HiOutlineUserGroup size='20' />,
+			title: 'Quản lý tài khoản',
+			href: '/manage-user',
 		},
 	];
 
