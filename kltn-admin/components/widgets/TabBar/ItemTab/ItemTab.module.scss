@@ -1,0 +1,59 @@
+@import '../../../../styles/color';
+@import '../../../../styles/variables';
+
+.itemNav {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 12px 20px;
+	padding-right: 4px;
+	color: #000;
+
+	&.active {
+		background-color: rgb(90, 61, 236);
+		border-radius: 6px;
+
+		.icon {
+			color: #fff;
+		}
+
+		.text {
+			color: #fff;
+		}
+	}
+
+	&:hover {
+		background-color: rgb(90, 61, 236);
+		border-radius: 6px;
+
+		.icon {
+			color: #fff;
+		}
+
+		.text {
+			color: #fff;
+		}
+	}
+
+	&:hover {
+		opacity: 0.8;
+		cursor: pointer;
+	}
+
+	.icon {
+		color: #000;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.text {
+		font-size: 1.6rem;
+		font-weight: 500;
+	}
+}

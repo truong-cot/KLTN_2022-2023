@@ -1,0 +1,109 @@
+@import '../../../styles/color';
+@import '../../../styles/variables';
+
+.header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 20;
+	left: $widthTab;
+	height: $heightHeader;
+	color: #ffffff;
+	transition: 0.3s;
+	&.hidden {
+		left: $widthTabHidden;
+	}
+}
+
+.tabBar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	height: 100vh;
+	width: $widthTab;
+	color: #ffffff;
+	transition: 0.3s;
+}
+
+.container {
+	position: relative;
+	z-index: 10;
+	margin-left: $widthTab;
+	margin-top: $heightHeader;
+	transition: 0.3s;
+	background-color: #efefef;
+	min-height: calc(100vh - $heightHeader);
+	&.hidden {
+		margin-left: $widthTabHidden;
+	}
+}
+
+.main {
+	padding: 20px 40px;
+}
+
+@media (max-width: 1023px) {
+	.overlay {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 20;
+		backdrop-filter: blur(5px);
+		background-color: rgba(255, 255, 255, 0.4);
+	}
+
+	.header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 20;
+		height: $heightHeader;
+		box-shadow: 0 0 4px #000000;
+		color: #ffffff;
+		transition: 0.3s;
+		&.hidden {
+			left: $widthTabHidden;
+		}
+	}
+
+	.tabBar {
+		z-index: 100;
+		position: fixed;
+		top: $heightHeader;
+		left: -100%;
+		opacity: 0;
+		height: 100vh;
+		width: 50%;
+		color: #ffffff;
+		transition: 0.3s;
+
+		&.showMenu {
+			left: 0;
+			opacity: 1;
+		}
+	}
+
+	.container {
+		margin-left: 0;
+		margin-top: 0;
+		&.hidden {
+			margin-left: 0;
+		}
+	}
+
+	.main {
+		padding: 0;
+		padding-bottom: 80px;
+		padding-top: calc($heightHeader + 12px);
+	}
+}
+
+@media (max-width: 500px) {
+	.tabBar {
+		width: 100%;
+	}
+}
