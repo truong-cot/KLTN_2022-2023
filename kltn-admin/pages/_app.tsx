@@ -8,6 +8,7 @@ import {ToastContainer} from 'react-toastify';
 import LoadingTopBar from '~/components/common/LoadingTopBar';
 import {store} from '~/redux/store';
 import {Provider} from 'react-redux';
+import SplashScreen from '~/components/protected/SplashScreen';
 
 type NextPageWithLayout = NextPage & {
 	getLayout?: (page: ReactElement) => ReactNode;
@@ -24,7 +25,7 @@ export default function App({Component, pageProps}: AppPropsWithLayout) {
 		<Provider store={store}>
 			<ToastContainer autoClose={2000} />
 			<LoadingTopBar />
-			{getLayout(<Component {...pageProps} />)}
+			<SplashScreen>{getLayout(<Component {...pageProps} />)}</SplashScreen>
 		</Provider>
 	);
 }

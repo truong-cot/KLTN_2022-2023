@@ -14,10 +14,10 @@ export const interfaceSlice = createSlice({
 	name: 'interface',
 	initialState,
 	reducers: {
-		loadingComplete: (state: any) => {
+		loadingComplete: (state) => {
 			state.isLoading = false;
 		},
-		toogleTabBar: (state: any) => {
+		toogleTabBar: (state) => {
 			state.showTabBar = !state.showTabBar;
 		},
 	},

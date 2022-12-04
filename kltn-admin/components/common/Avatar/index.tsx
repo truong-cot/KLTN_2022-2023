@@ -11,7 +11,7 @@ function Avatar(props: PropsAvatar) {
 			<div className={clsx(styles.avatar, props.className)}>
 				<Image
 					className={styles.image}
-					src={images.placehokder}
+					src={props.avatar ? props.avatar : images.placehokder}
 					alt='avatar'
 					layout='fill'
 				/>

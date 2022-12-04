@@ -8,6 +8,7 @@ import {RootState} from '~/redux/store';
 import {useSelector} from 'react-redux';
 import TabBar from '~/components/widgets/TabBar';
 import Header from '~/components/widgets/Header';
+import RequireAuth from '~/components/protected/RequiredAuth';
 
 function BaseLayout({children, hiddenHeader, title}: PropsBaseLayout) {
 	const router = useRouter();
@@ -19,7 +20,7 @@ function BaseLayout({children, hiddenHeader, title}: PropsBaseLayout) {
 	}, [router]);
 
 	return (
-		<Fragment>
+		<RequireAuth>
 			{openMenu && <div className={styles.overlay} onClick={() => setOpenMenu(false)}></div>}
 			<header className={clsx(styles.header, {[styles.hidden]: !showTabBar})}>
 				{!hiddenHeader && (
@@ -41,7 +42,7 @@ function BaseLayout({children, hiddenHeader, title}: PropsBaseLayout) {
 			<main className={clsx(styles.container, {[styles.hidden]: !showTabBar})}>
 				<div className={styles.main}>{children}</div>
 			</main>
-		</Fragment>
+		</RequireAuth>
 	);
 }
 

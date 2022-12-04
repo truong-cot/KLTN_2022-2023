@@ -1,9 +1,14 @@
 import {ReactElement} from 'react';
 import BaseLayout from '~/components/layout/BaseLayout';
+import Page from '~/components/layout/Page';
 import MainManageUser from '~/components/pages/ManageUser/MainManageUser';
 
 export default function ManageUser() {
-	return <MainManageUser />;
+	return (
+		<Page title='Quản lý user'>
+			<MainManageUser />;
+		</Page>
+	);
 }
 
 ManageUser.getLayout = function (page: ReactElement) {

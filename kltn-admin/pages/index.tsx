@@ -1,13 +1,17 @@
 import {ReactElement} from 'react';
 import BaseLayout from '~/components/layout/BaseLayout';
+import Page from '~/components/layout/Page';
 import MainHome from '~/components/pages/Home/MainHome';
-import styles from '~/styles/Home.module.scss';
+import RequireAuth from '~/components/protected/RequiredAuth';
+import RequiredLogout from '~/components/protected/RequiredLogout';
 
 export default function Home() {
 	return (
-		<div className={styles.container}>
-			<MainHome />
-		</div>
+		<RequireAuth>
+			<Page title='Trang chủ'>
+				<MainHome />
+			</Page>
+		</RequireAuth>
 	);
 }
 

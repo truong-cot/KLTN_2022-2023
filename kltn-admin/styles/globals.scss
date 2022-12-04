@@ -203,6 +203,12 @@ h6 {
 	}
 }
 
+.Toastify__toast-body {
+	div {
+		font-size: 1.4rem !important;
+	}
+}
+
 .toastify-custom {
 	color: $light;
 	text-align: center;
