@@ -13,7 +13,7 @@ const ProductController = {
 				price,
 				category,
 				sale,
-				amount_size_s,
+				amount_size_S,
 				amount_size_M,
 				amount_size_L,
 				amount_size_XL,
@@ -30,7 +30,7 @@ const ProductController = {
 				price &&
 				category &&
 				sale &&
-				amount_size_s &&
+				amount_size_S &&
 				amount_size_M &&
 				amount_size_L &&
 				amount_size_XL &&
@@ -53,7 +53,7 @@ const ProductController = {
 						price: price,
 						category: category,
 						sale: sale,
-						amount_size_s: amount_size_s,
+						amount_size_S: amount_size_S,
 						amount_size_M: amount_size_M,
 						amount_size_L: amount_size_L,
 						amount_size_XL: amount_size_XL,
