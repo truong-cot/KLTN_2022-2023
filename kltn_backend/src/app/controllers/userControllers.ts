@@ -10,6 +10,8 @@ const UserController = {
 			var users;
 			const {keyword, limit, page, type} = req.query;
 
+			var countUser;
+
 			if (type === '0') {
 				users = await UserModel.find({
 					$or: [
@@ -23,6 +25,9 @@ const UserController = {
 				})
 					.skip(Number(page) * Number(limit) - Number(limit))
 					.limit(Number(limit));
+
+				// Lấy tổng user
+				countUser = await UserModel.countDocuments();
 			} else if (type === '1') {
 				users = await UserModel.find({
 					isAdmin: true,
@@ -37,6 +42,9 @@ const UserController = {
 				})
 					.skip(Number(page) * Number(limit) - Number(limit))
 					.limit(Number(limit));
+
+				// Lấy tổng tài khoản admin
+				countUser = await UserModel.countDocuments({isAdmin: true});
 			} else if (type === '2') {
 				users = await UserModel.find({
 					isAdmin: false,
@@ -51,6 +59,9 @@ const UserController = {
 				})
 					.skip(Number(page) * Number(limit) - Number(limit))
 					.limit(Number(limit));
+
+				// Lấy tổng tài khoản user
+				countUser = await UserModel.countDocuments({isAdmin: false});
 			}
 
 			if (users) {
@@ -59,7 +70,7 @@ const UserController = {
 						code: 200,
 						status: 1,
 						message: 'Lấy tài khoản thành công!',
-						data: users,
+						data: {users, countUser},
 					})
 				);
 			}
@@ -77,7 +88,7 @@ const UserController = {
 	// [POST] ==> /user/change-role
 	changeRole: async (req: Request, res: Response) => {
 		try {
-			const {userId} = req.body;
+			const userId = req.query.idUser;
 
 			const user = await UserModel.findById(userId);
 

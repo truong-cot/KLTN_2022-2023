@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {deleteItemStorage, setItemStorage} from '~/common/func/localStorage';
 
 export interface AuthState {
 	token: string | null;
@@ -15,10 +16,12 @@ const authSlice = createSlice({
 	initialState,
 	reducers: {
 		login: (state, action: PayloadAction<{token: string}>) => {
+			setItemStorage('token', action.payload.token);
 			state.token = action.payload.token;
 			state.isLogged = true;
 		},
 		logout: (state) => {
+			deleteItemStorage('token');
 			state.token = null;
 			state.isLogged = false;
 		},

@@ -1,0 +1,19 @@
+.container {
+	padding: 24px 16px;
+	background: #f7f7fc;
+	border-radius: 8px;
+	width: 292px;
+
+	.name {
+		font-weight: 700;
+		font-size: 1.6rem;
+		color: #11142d;
+		margin-bottom: 16px;
+	}
+
+	.des {
+		font-weight: 700;
+		font-size: 16px;
+		color: #11142d;
+	}
+}

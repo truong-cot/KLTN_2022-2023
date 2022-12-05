@@ -1,0 +1,30 @@
+@import '../../../styles/color';
+
+.input {
+	position: relative;
+
+	.icon {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		left: 12px;
+	}
+
+	input {
+		background: #f7f7fc;
+		border-radius: 8px;
+		border: none;
+		padding: 12px 38px;
+		width: 100%;
+		font-size: 1.4rem;
+	}
+
+	.btnClose {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: 12px;
+		cursor: pointer;
+		transition: 0.3s;
+	}
+}

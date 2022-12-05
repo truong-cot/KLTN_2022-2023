@@ -9,6 +9,8 @@ import {loadingComplete} from '~/redux/reducers/interface';
 import styles from './SplashScreen.module.scss';
 import {login} from '~/redux/reducers/authSlice';
 import {updateDataUser} from '~/redux/reducers/userSlice';
+import userService from '~/api/user';
+import {getItemStorage} from '~/common/func/localStorage';
 
 /*===========> INTERFACE <==========*/
 interface props {
@@ -20,6 +22,7 @@ interface props {
 function SplashScreen({children}: props) {
 	const dispatch = useDispatch();
 	const {isLoading} = useSelector((state: RootState) => state.interface);
+	const {userData} = useSelector((state: RootState) => state.user);
 
 	const defaultOptions2 = {
 		loop: true,
@@ -32,15 +35,19 @@ function SplashScreen({children}: props) {
 
 	useEffect(() => {
 		(async () => {
+			const token = getItemStorage('accessToken');
+
 			try {
-				// const res: any = await axios.get<any>(`${origin}/api/check-login`);
-				// const dataCheck = res.data;
+				const res: any = await userService.getCurrentUser({
+					token: token,
+					idUser: userData._id,
+				});
 
 				// /*---------- current user logged, update state ----------*/
-				// if (dataCheck.errorCode === 0) {
-				// 	dispatch(login({token: dataCheck.data.token}));
-				// 	dispatch(updateDataUser({data: dataCheck.data.userData}));
-				// }
+				if (res.status === 1) {
+					dispatch(login({token: String(token)}));
+					dispatch(updateDataUser({data: res.data}));
+				}
 
 				setTimeout(() => {
 					dispatch(loadingComplete());
@@ -51,7 +58,8 @@ function SplashScreen({children}: props) {
 				}, 2000);
 			}
 		})();
-	}, [dispatch]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	if (!isLoading) {
 		return <>{children}</>;

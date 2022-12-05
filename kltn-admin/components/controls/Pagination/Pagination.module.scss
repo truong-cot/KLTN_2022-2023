@@ -1,67 +1,95 @@
-@import "../../../styles/color";
+.tfoot {
+	user-select: none;
+	display: flex;
+	margin-top: 24px;
+	align-items: center;
+	> * {
+		flex: 0 0 fit-content;
+	}
+	> .expan {
+		flex: 1 1 fit-content;
+	}
+	.limit_info {
+		display: flex;
+		align-items: center;
+		height: fit-content;
+		font-size: 1.4rem;
+	}
+	.limit {
+		select {
+			margin-right: 8px;
+			margin-left: 4px;
+			padding: 4px 8px;
+			border: 1px solid #bcbcbc;
+			border-radius: 4px;
+		}
+	}
+	.pagination {
+		display: flex;
+		gap: 16px;
+		flex-wrap: nowrap;
+		align-items: center;
+		font-size: 1.4rem;
+		.groupControls {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.page {
+			background: transparent;
+			border: 1px solid #bcbcbc;
+			border-radius: 6px;
+			padding: 8px 20px;
+			height: 40px;
+			margin-right: 8px;
+		}
+		.prev_next {
+			display: flex;
+			flex-wrap: nowrap;
+			cursor: pointer;
+			> * {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 8px 12px;
+				height: 40px;
+				color: #646464;
+			}
+			> *.active {
+				background: rgb(218, 218, 218);
+				color: #0d0d0e;
+			}
+			> *:first-child {
+				border-radius: 6px 0px 0px 6px;
+			}
+			> *:last-child {
+				border-radius: 0px 6px 6px 0px;
+			}
+		}
+	}
+}
 
-.main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-
-  .list {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .item {
-      height: 40px;
-      width: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 4px;
-      border: solid 1px #cbdff7;
-      &:hover {
-        cursor: pointer;
-        opacity: 0.7;
-      }
-    }
-
-    .item + .item {
-      margin-left: 10px;
-    }
-
-    .item.active {
-      background-color: $primary_2;
-      color: $light;
-      pointer-events: none;
-      border: solid 1px $primary_2;
-    }
-  }
-
-  .btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    width: 40px;
-    font-size: 16px;
-    font-weight: 600;
-    color: $neutral_1;
-    outline: none;
-    border-radius: 4px;
-    border: solid 1px #cbdff7;
-    background-color: $light;
-    &:hover {
-      cursor: pointer;
-      opacity: 0.7;
-    }
-  }
-  .btn.left {
-    margin-right: 10px;
-  }
-  .btn.right {
-    margin-left: 10px;
-  }
+@media (max-width: 1023px) {
+	.tfoot {
+		flex-direction: column;
+		align-items: stretch;
+		> .expan {
+			flex: 1;
+		}
+		.limit {
+			margin-bottom: 24px;
+		}
+		.limit_info {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		.pagination {
+			margin-top: 24px;
+			flex: 1;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+	}
 }

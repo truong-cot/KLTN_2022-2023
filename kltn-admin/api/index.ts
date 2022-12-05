@@ -9,6 +9,8 @@ const axiosClient = axios.create({
 	// paramsSerializer: (params: any) => queryString.stringify(params),
 });
 
+axiosClient.defaults.timeout = 10000;
+
 axiosClient.interceptors.request.use(async (config) => {
 	return config;
 });
@@ -22,7 +24,11 @@ axiosClient.interceptors.response.use(
 		return response;
 	},
 	(error) => {
-		throw error;
+		if (error.response && error.response.data) {
+			throw error.response.data;
+		}
+
+		if (!axios.isCancel(error)) throw error;
 	}
 );
 

@@ -16,14 +16,6 @@ function RequiredLogout({children}: props) {
 	const {isLogged} = useSelector((state: RootState) => state.auth);
 	const {isLoading} = useSelector((state: RootState) => state.interface);
 
-	var route;
-	if (router.locale === ' undefined') {
-		route = '/';
-	} else {
-		route = router.locale;
-	}
-
-	/********** redirect home when user login  **********/
 	if (isLogged && !isLoading) {
 		router.push(`/`);
 	}

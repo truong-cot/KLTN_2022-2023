@@ -1,0 +1,190 @@
+.container {
+	color: #323c47;
+	overflow-x: auto;
+	&::-webkit-scrollbar {
+		height: 5px;
+	}
+	table {
+		width: 100%;
+		border: 0;
+		border-spacing: 0px 2px;
+
+		tr:not(:first-child) th,
+		tr:not(:first-child) td {
+			margin-top: 2px;
+		}
+	}
+
+	td,
+	th {
+		border: none;
+		> * {
+			padding: 12px 20px;
+		}
+
+		.title {
+			display: flex;
+			min-width: 100px;
+			align-items: center;
+			white-space: nowrap;
+			padding: 12px 20px;
+
+			&.minWidth {
+				min-width: 140px;
+			}
+		}
+	}
+
+	thead {
+		> tr {
+			background: #f0f0f5;
+			font-weight: 400;
+			font-size: 1.4rem;
+			line-height: 24px;
+			color: #323c47;
+
+			a {
+				display: block !important;
+				width: 100%;
+
+				padding: 0px;
+			}
+
+			> * {
+				text-align: start;
+			}
+		}
+	}
+
+	tbody {
+		td {
+			cursor: pointer;
+			white-space: nowrap;
+		}
+
+		tr {
+			border-radius: 6px;
+			background: #fff;
+			font-size: 1.4rem;
+		}
+		tr:hover {
+			background: #f7f7fc;
+		}
+	}
+
+	.tfoot {
+		display: flex;
+		margin-top: 24px;
+		align-items: center;
+		> * {
+			flex: 0 0 fit-content;
+		}
+		> .expan {
+			flex: 1 1 fit-content;
+		}
+		.limit_info {
+			display: flex;
+			align-items: center;
+			height: fit-content;
+			font-size: 1.4rem;
+		}
+		.limit {
+			select {
+				margin: 0 8px;
+				background: #212121;
+				// border: 1px solid #303133;
+				box-sizing: border-box;
+				border-radius: 6px;
+				color: #d2d2d2;
+				padding: 8px;
+			}
+		}
+		.pagination {
+			display: flex;
+			gap: 16px;
+			flex-wrap: nowrap;
+			align-items: center;
+			font-size: 1.4rem;
+			.page {
+				background: #141416;
+				// border: 1px solid #303133;
+				border-radius: 6px;
+				padding: 8px 20px;
+				height: 40px;
+			}
+			.prev_next {
+				display: flex;
+				flex-wrap: nowrap;
+				> * {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					padding: 8px 12px;
+					height: 40px;
+					background: #303133;
+					color: #777e90;
+				}
+				> *.active {
+					background: radial-gradient(
+							72.29% 96.43% at 50.5% 3.57%,
+							#ffd166 0%,
+							#d0a132 100%
+						)
+						/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+					color: #0d0d0e;
+				}
+				> *:first-child {
+					border-radius: 6px 0px 0px 6px;
+				}
+				> *:last-child {
+					border-radius: 0px 6px 6px 0px;
+				}
+			}
+		}
+	}
+
+	/* -------------------------------------------------------------------------- */
+	/*                                custom style                                */
+	/* -------------------------------------------------------------------------- */
+	.align_center {
+		text-align: center;
+	}
+	.align_right {
+		text-align: right;
+	}
+}
+
+.tab {
+	border: none !important;
+	background: #000000 !important;
+
+	&:hover {
+		background: #000000 !important;
+	}
+}
+
+@media (max-width: 1023px) {
+	.container {
+		overflow-x: auto;
+		&::-webkit-scrollbar {
+			height: 5px;
+		}
+
+		table {
+			tbody {
+				td {
+					white-space: nowrap;
+				}
+			}
+		}
+	}
+
+	.title {
+		white-space: nowrap;
+	}
+}
+
+.textContent {
+	display: flex;
+	align-items: center;
+}
