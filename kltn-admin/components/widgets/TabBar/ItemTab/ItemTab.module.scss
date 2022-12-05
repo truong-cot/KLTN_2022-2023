@@ -14,6 +14,23 @@
 	padding-right: 4px;
 	color: #000;
 
+	.iconArrow {
+		transition: 0.2s;
+	}
+
+	&:hover {
+		background-color: rgb(90, 61, 236);
+		border-radius: 6px;
+
+		.icon {
+			color: #fff;
+		}
+
+		.text {
+			color: #fff;
+		}
+	}
+
 	&.active {
 		background-color: rgb(90, 61, 236);
 		border-radius: 6px;
@@ -25,24 +42,15 @@
 		.text {
 			color: #fff;
 		}
-	}
 
-	&:hover {
-		background-color: rgb(90, 61, 236);
-		border-radius: 6px;
-
-		.icon {
-			color: #fff;
+		&:hover {
+			opacity: 1;
 		}
 
-		.text {
+		.iconArrow {
 			color: #fff;
+			transform: rotate(90deg);
 		}
-	}
-
-	&:hover {
-		opacity: 0.8;
-		cursor: pointer;
 	}
 
 	.icon {
@@ -55,5 +63,111 @@
 	.text {
 		font-size: 1.6rem;
 		font-weight: 500;
+	}
+}
+
+.itemMenu {
+	background-color: #fff;
+	padding-left: 10%;
+
+	&.active {
+		background-color: rgb(90, 61, 236);
+		border-radius: 6px;
+	}
+
+	&::after {
+		display: none;
+	}
+}
+
+.tabItem {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	&:hover {
+		.iconArrow {
+			color: #fff;
+		}
+	}
+
+	.group {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+}
+
+.listMenu {
+	margin-top: 1px;
+}
+
+@media (min-width: 1024px) {
+	.container {
+		display: flex;
+		justify-content: space-between;
+		flex-direction: column;
+
+		.nav {
+			flex: 1;
+		}
+	}
+}
+
+@media (max-width: 1023px) {
+	.logout {
+		display: none;
+	}
+
+	.container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.itemMenu {
+		padding-left: 5%;
+	}
+
+	.header {
+		display: none !important;
+	}
+
+	.toogleTab {
+		display: none;
+	}
+
+	.logo {
+		display: none;
+	}
+
+	.nav {
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+		flex: 1;
+
+		.text {
+			display: none;
+		}
+
+		.itemNav {
+			&::after {
+				display: none;
+			}
+
+			&.active {
+				color: $primary_1_1;
+				background-color: transparent;
+
+				&:hover {
+					opacity: 1;
+					cursor: default;
+				}
+				&::after {
+					background-color: $primary_1_1;
+				}
+			}
+		}
 	}
 }

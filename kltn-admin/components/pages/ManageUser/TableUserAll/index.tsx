@@ -89,13 +89,11 @@ function TableUserAll() {
 
 	const handleChangeRole = async () => {
 		try {
-			setIsloading(true);
+			// setIsloading(true);
 			const res: any = await userService.changeRoleUser({
 				token: String(token),
 				idUser: idUser,
 			});
-
-			console.log(res);
 
 			if (res.status === 0) {
 				setIsloading(false);
@@ -175,7 +173,9 @@ function TableUserAll() {
 										<div className={styles.control}>
 											<div
 												className={styles.detail}
-												onClick={() => console.log('detail')}
+												onClick={() =>
+													router.push(`/manage-user/detail/${data._id}`)
+												}
 											>
 												<HiOutlineDotsCircleHorizontal size={22} />
 											</div>

@@ -1,12 +1,13 @@
 @import '../../../../../styles/color';
 
 .container {
+	font-size: 1.4rem;
 	& + .container {
 		margin-top: 24px;
 	}
 
 	.icon {
-		font-size: 2rem;
+		font-size: 18px;
 		margin-left: 18px;
 		display: flex;
 		justify-content: center;
@@ -84,7 +85,7 @@
 
 		.inputElement {
 			border: 1px solid transparent;
-			padding: 10px 24px;
+			padding: 7px 24px;
 		}
 	}
 
@@ -108,7 +109,7 @@
 		justify-content: center;
 		align-items: center;
 		color: #5e6167;
-		font-size: 24px;
+		font-size: 20px;
 		margin-right: 8px;
 	}
 
@@ -125,7 +126,7 @@
 
 	.errorText {
 		margin-left: 12px;
-		font-size: 20px;
+		font-size: 14px;
 	}
 }
 

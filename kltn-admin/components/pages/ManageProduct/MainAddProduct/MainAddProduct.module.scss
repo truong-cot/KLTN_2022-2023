@@ -1,0 +1,50 @@
+.container {
+	padding: 24px 20px;
+	background-color: #fff;
+	border-radius: 8px;
+
+	.title {
+		font-size: 2rem;
+		font-weight: 700;
+		margin-bottom: 20px;
+	}
+}
+
+.group {
+	margin-top: 24px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	gap: 24px;
+}
+
+.group_2 {
+	margin-top: 24px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px;
+
+	span {
+		font-weight: 500;
+		margin-bottom: 8px;
+		display: block;
+		font-size: 14px;
+	}
+}
+
+.content {
+	margin-top: 24px;
+	padding-bottom: 24px;
+
+	p {
+		font-weight: 500;
+		margin-bottom: 8px;
+		display: block;
+		font-size: 14px;
+	}
+}
+
+.main_text {
+	min-height: 100px;
+	max-height: 200px;
+	overflow-y: scroll;
+}

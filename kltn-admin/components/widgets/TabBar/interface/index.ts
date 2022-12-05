@@ -11,4 +11,5 @@ export interface ItemTab {
 	icon: any;
 	title: string;
 	href: string;
+	menu?: Array<any>;
 }

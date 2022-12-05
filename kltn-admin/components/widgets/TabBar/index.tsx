@@ -10,6 +10,10 @@ import {toogleTabBar} from '~/redux/reducers/interface';
 import {RootState} from '~/redux/store';
 import Logo from '~/components/common/Logo';
 
+import {BsShop} from 'react-icons/bs';
+import {MdAddchart} from 'react-icons/md';
+import {TbEdit} from 'react-icons/tb';
+
 function TabBar(props: PropsTabBar) {
 	const dispatch = useDispatch();
 
@@ -25,6 +29,23 @@ function TabBar(props: PropsTabBar) {
 			icon: <HiOutlineUserGroup size='20' />,
 			title: 'Quản lý tài khoản',
 			href: '/manage-user',
+		},
+		{
+			icon: <BsShop size='20' />,
+			title: 'Quản lý sản phẩm',
+			href: '/manage-product',
+			menu: [
+				{
+					icon: <MdAddchart size='20' />,
+					title: 'Thêm sản phẩm',
+					href: '/manage-product/add-product',
+				},
+				{
+					icon: <TbEdit size='20' />,
+					title: 'Chỉnh sản phẩm',
+					href: '/manage-product/edit-product',
+				},
+			],
 		},
 	];
 

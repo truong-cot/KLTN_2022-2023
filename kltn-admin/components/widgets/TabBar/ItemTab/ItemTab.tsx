@@ -25,16 +25,55 @@ function ItemTab({item, showTabBar, onShowTabBar, index}: PropsItemTab) {
 
 	return (
 		<Fragment>
-			<Link
-				href={item.href}
-				key={index}
-				className={clsx(styles.itemNav, {
-					[styles.active]: isActive(item.href, 1),
-				})}
-			>
-				<div className={styles.icon}>{item.icon}</div>
-				{showTabBar && <p className={styles.text}>{item.title}</p>}
-			</Link>
+			{item.menu ? (
+				<Fragment>
+					<div
+						key={index}
+						className={clsx(styles.itemNav, styles.tabItem, {
+							[styles.active]: open && showTabBar,
+						})}
+						onClick={() => {
+							!showTabBar && onShowTabBar();
+							setOpen(!open);
+						}}
+					>
+						<div className={styles.group}>
+							<div className={styles.icon}>{open ? item.icon : item.icon}</div>
+							{showTabBar && <p className={styles.text}>{item.title}</p>}
+						</div>
+						<div className={styles.iconArrow}>
+							<ArrowRight2 />
+						</div>
+					</div>
+					{open && showTabBar && (
+						<div className={styles.listMenu}>
+							{item.menu.map((v, i) => (
+								<Link
+									key={i}
+									href={v.href}
+									className={clsx(styles.itemNav, styles.itemMenu, {
+										[styles.active]: isActive(v.href, 2),
+									})}
+								>
+									<div className={styles.icon}>{v.icon}</div>
+									{showTabBar && <p className={styles.text}>{v.title}</p>}
+								</Link>
+							))}
+						</div>
+					)}
+				</Fragment>
+			) : (
+				<Link
+					href={item.href}
+					key={index}
+					className={clsx(styles.itemNav, {
+						[styles.active]: isActive(item.href, 1),
+					})}
+				>
+					<div className={styles.icon}>{item.icon}</div>
+					{showTabBar && <p className={styles.text}>{item.title}</p>}
+				</Link>
+			)}
 		</Fragment>
 	);
 }
