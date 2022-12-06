@@ -15,9 +15,9 @@ export const authMiddlewares = {
 					String(process.env.JWT_SECRET),
 					(err: any, data: any) => {
 						if (err) {
-							return res.status(403).json(
+							return res.status(201).json(
 								resultData({
-									code: 403,
+									code: 201,
 									status: 0,
 									message: 'Token không hợp lệ!',
 									data: {},
@@ -29,9 +29,9 @@ export const authMiddlewares = {
 					}
 				);
 			} else {
-				return res.status(403).json(
+				return res.status(201).json(
 					resultData({
-						code: 403,
+						code: 201,
 						status: 0,
 						message: 'Bạn chưa có token!',
 						data: {},
@@ -61,9 +61,9 @@ export const authMiddlewares = {
 					String(process.env.JWT_SECRET),
 					(err: any, data: any) => {
 						if (err) {
-							return res.status(403).json(
+							return res.status(201).json(
 								resultData({
-									code: 403,
+									code: 201,
 									status: 0,
 									message: 'Token không hợp lệ!',
 									data: {},
@@ -73,9 +73,9 @@ export const authMiddlewares = {
 							if (data.admin) {
 								next();
 							} else {
-								return res.status(403).json(
+								return res.status(201).json(
 									resultData({
-										code: 403,
+										code: 201,
 										status: 0,
 										message: 'Bạn chưa đủ quyền truy cập!',
 										data: {},
@@ -86,9 +86,9 @@ export const authMiddlewares = {
 					}
 				);
 			} else {
-				return res.status(403).json(
+				return res.status(201).json(
 					resultData({
-						code: 403,
+						code: 201,
 						status: 0,
 						message: 'Bạn chưa có token!',
 						data: {},

@@ -60,6 +60,10 @@ const productSchema = new Schema(
 			type: Boolean,
 			default: true,
 		},
+		trending: {
+			type: Boolean,
+			default: true,
+		},
 		star: {
 			type: Number,
 			default: 0,

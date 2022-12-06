@@ -112,9 +112,9 @@ const AuthController = {
 			);
 
 			if (!user) {
-				return res.status(404).json(
+				return res.status(201).json(
 					resultData({
-						code: 404,
+						code: 201,
 						status: 0,
 						message: 'Tài khoản đăng nhập không tồn tại!',
 						data: {},
@@ -123,9 +123,9 @@ const AuthController = {
 			}
 
 			if (!validPassword) {
-				return res.status(404).json(
+				return res.status(201).json(
 					resultData({
-						code: 404,
+						code: 201,
 						status: 0,
 						message: 'Mật khẩu không chính xác!',
 						data: {},
@@ -184,9 +184,9 @@ const AuthController = {
 			);
 
 			if (!user) {
-				return res.status(404).json(
+				return res.status(201).json(
 					resultData({
-						code: 404,
+						code: 201,
 						status: 0,
 						message: 'Tài khoản đăng nhập không tồn tại!',
 						data: {},
@@ -195,9 +195,9 @@ const AuthController = {
 			}
 
 			if (!validPassword) {
-				return res.status(404).json(
+				return res.status(201).json(
 					resultData({
-						code: 404,
+						code: 201,
 						status: 0,
 						message: 'Mật khẩu không chính xác!',
 						data: {},

@@ -7,10 +7,10 @@ const UserController = {
 	getAllUser: async (req: Request, res: Response) => {
 		try {
 			// type: 0 => all, type: 1 => admin, type: 2 => user
-			var users;
-			const {keyword, limit, page, type} = req.query;
-
+			var users: any;
 			var countUser;
+
+			const {keyword, limit, page, type} = req.query;
 
 			if (type === '0') {
 				users = await UserModel.find({
@@ -64,12 +64,21 @@ const UserController = {
 				countUser = await UserModel.countDocuments({isAdmin: false});
 			}
 
-			if (users) {
+			if (users?.length > 0) {
 				return res.status(200).json(
 					resultData({
 						code: 200,
 						status: 1,
 						message: 'Lấy tài khoản thành công!',
+						data: {users, countUser},
+					})
+				);
+			} else {
+				return res.status(201).json(
+					resultData({
+						code: 201,
+						status: 1,
+						message: 'Danh sách tài khoản trống!',
 						data: {users, countUser},
 					})
 				);
@@ -123,9 +132,9 @@ const UserController = {
 					);
 				}
 			} else {
-				return res.status(403).json(
+				return res.status(201).json(
 					resultData({
-						code: 403,
+						code: 201,
 						status: 0,
 						message: 'Tài khoản không tồn tại!',
 						data: {},
@@ -160,9 +169,9 @@ const UserController = {
 					})
 				);
 			} else {
-				return res.status(403).json(
+				return res.status(201).json(
 					resultData({
-						code: 403,
+						code: 201,
 						status: 0,
 						message: 'Tài khoản không tồn tại!',
 						data: {},
@@ -200,9 +209,9 @@ const UserController = {
 					})
 				);
 			} else {
-				return res.status(403).json(
+				return res.status(201).json(
 					resultData({
-						code: 403,
+						code: 201,
 						status: 0,
 						message: 'Tài khoản không tồn tại!',
 						data: {},
@@ -238,9 +247,9 @@ const UserController = {
 					})
 				);
 			} else {
-				return res.status(403).json(
+				return res.status(201).json(
 					resultData({
-						code: 403,
+						code: 201,
 						status: 0,
 						message: 'Tài khoản không tồn tại!',
 						data: {},

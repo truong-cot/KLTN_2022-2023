@@ -37,9 +37,9 @@ const UploadController = {
 					);
 				} else {
 					// Sai định dạng ảnh
-					return res.status(403).json(
+					return res.status(201).json(
 						resultData({
-							code: 403,
+							code: 201,
 							status: 0,
 							message: 'Ảnh không đúng định dạng!',
 							data: {},
@@ -47,9 +47,9 @@ const UploadController = {
 					);
 				}
 			} else {
-				return res.status(403).json(
+				return res.status(201).json(
 					resultData({
-						code: 403,
+						code: 201,
 						status: 0,
 						message: 'Không có ảnh nào được thêm!',
 						data: {},

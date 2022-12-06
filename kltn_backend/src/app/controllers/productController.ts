@@ -39,9 +39,9 @@ const ProductController = {
 				detail_des
 			) {
 				if (checkName) {
-					return res.status(403).json(
+					return res.status(201).json(
 						resultData({
-							code: 403,
+							code: 201,
 							status: 0,
 							message: 'Tên sản phẩm đã tồn tại!',
 							data: {},
@@ -51,7 +51,7 @@ const ProductController = {
 					const newProduct = new ProductModel({
 						name: name,
 						price: price,
-						category: category,
+						category: Number(category),
 						sale: sale,
 						amount_size_S: amount_size_S,
 						amount_size_M: amount_size_M,
@@ -74,9 +74,9 @@ const ProductController = {
 					);
 				}
 			} else {
-				return res.status(403).json(
+				return res.status(201).json(
 					resultData({
-						code: 403,
+						code: 201,
 						status: 0,
 						message: 'Nhập đầy đủ thông tin!',
 						data: {},
@@ -111,9 +111,9 @@ const ProductController = {
 				// Đúng định dạng ảnh
 				if (checkTypeImage === false) {
 					if (images?.length > 5) {
-						return res.status(403).json(
+						return res.status(201).json(
 							resultData({
-								code: 403,
+								code: 201,
 								status: 0,
 								message: 'Không được thêm quá 5 ảnh!',
 								data: {},
@@ -156,9 +156,9 @@ const ProductController = {
 								);
 							}
 						} else {
-							return res.status(403).json(
+							return res.status(201).json(
 								resultData({
-									code: 403,
+									code: 201,
 									status: 0,
 									message: 'Sản phẩm không tồn tại!',
 									data: {},
@@ -168,9 +168,9 @@ const ProductController = {
 					}
 				} else {
 					// Sai định dạng ảnh
-					return res.status(403).json(
+					return res.status(201).json(
 						resultData({
-							code: 403,
+							code: 201,
 							status: 0,
 							message: 'Ảnh không đúng định dạng!',
 							data: {},
@@ -178,9 +178,9 @@ const ProductController = {
 					);
 				}
 			} else {
-				return res.status(403).json(
+				return res.status(201).json(
 					resultData({
-						code: 403,
+						code: 201,
 						status: 0,
 						message: 'Không có ảnh nào được thêm!',
 						data: {},
@@ -225,9 +225,9 @@ const ProductController = {
 					const listImages: any = product?.images;
 
 					if (listImages.length === 0) {
-						return res.status(403).json(
+						return res.status(201).json(
 							resultData({
-								code: 403,
+								code: 201,
 								status: 0,
 								message: 'Sản phẩm chưa có ảnh nảo!',
 								data: {},
@@ -264,9 +264,9 @@ const ProductController = {
 								);
 							}
 						} else {
-							return res.status(403).json(
+							return res.status(201).json(
 								resultData({
-									code: 403,
+									code: 201,
 									status: 0,
 									message: 'ID ảnh không tồn tại!',
 									data: {},
@@ -275,9 +275,9 @@ const ProductController = {
 						}
 					}
 				} else {
-					return res.status(403).json(
+					return res.status(201).json(
 						resultData({
-							code: 403,
+							code: 201,
 							status: 0,
 							message: 'Sản phẩm không tồn tại!',
 							data: {},
@@ -285,9 +285,9 @@ const ProductController = {
 					);
 				}
 			} else {
-				return res.status(403).json(
+				return res.status(201).json(
 					resultData({
-						code: 403,
+						code: 201,
 						status: 0,
 						message: 'Không tìm thấy ID sản phẩm và ID ảnh!',
 						data: {},
@@ -336,9 +336,9 @@ const ProductController = {
 					);
 				}
 			} else {
-				return res.status(403).json(
+				return res.status(201).json(
 					resultData({
-						code: 403,
+						code: 201,
 						status: 0,
 						message: 'Sản phẩm không tồn tại!',
 						data: {},
@@ -372,9 +372,9 @@ const ProductController = {
 					})
 				);
 			} else {
-				return res.status(403).json(
+				return res.status(201).json(
 					resultData({
-						code: 403,
+						code: 201,
 						status: 0,
 						message: 'Sản phẩm không tồn tại!',
 						data: {},
@@ -413,9 +413,9 @@ const ProductController = {
 					})
 				);
 			} else {
-				return res.status(403).json(
+				return res.status(201).json(
 					resultData({
-						code: 403,
+						code: 201,
 						status: 0,
 						message: 'Sản phẩm không tồn tại!',
 						data: {},
@@ -436,7 +436,340 @@ const ProductController = {
 	// [GET] ==> /product/get-all
 	getAllProduct: async (req: Request, res: Response) => {
 		try {
-			res.json('thanh cong');
+			// category: 0 => all, 1: Áo len, 2: Quần Jeans, 3: Áo Phông
+			// status: 0 => all, 1: isHot = true, 2: Đang sale: sale > 0, 3: trending = true
+			// priceMin <= price <= priceMax
+			// keyword, limit, page,
+
+			var listProduct: any;
+			var countProduct;
+
+			const {category, status, priceMin, priceMax, keyword, limit, page} =
+				req.body;
+
+			if (
+				category === '0' ||
+				category !== 1 ||
+				category !== 2 ||
+				category !== 3
+			) {
+				if (status === '0') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+
+				if (status === '1') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						isHot: true,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+
+				if (status === '2') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						sale: {
+							$gte: 1,
+							$lte: 100,
+						},
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+
+				if (status === '3') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						trending: true,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+			}
+
+			if (category === '1') {
+				if (status === '0') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						category: 1,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+
+				if (status === '1') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						isHot: true,
+						category: 1,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+
+				if (status === '2') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						sale: {
+							$gte: 1,
+							$lte: 100,
+						},
+						category: 1,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+
+				if (status === '3') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						trending: true,
+						category: 1,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+			}
+			if (category === '2') {
+				if (status === '0') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						category: 2,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+
+				if (status === '1') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						isHot: true,
+						category: 2,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+
+				if (status === '2') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						sale: {
+							$gte: 1,
+							$lte: 100,
+						},
+						category: 2,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+
+				if (status === '3') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						trending: true,
+						category: 1,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+			}
+
+			if (category === '3') {
+				if (status === '0') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						category: 3,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+
+				if (status === '1') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						isHot: true,
+						category: 3,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+
+				if (status === '2') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						sale: {
+							$gte: 1,
+							$lte: 100,
+						},
+						category: 3,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+
+				if (status === '3') {
+					listProduct = await ProductModel.find({
+						$or: [
+							{
+								name: {$regex: keyword},
+							},
+						],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						trending: true,
+						category: 1,
+					})
+						.skip(Number(page) * Number(limit) - Number(limit))
+						.limit(Number(limit));
+				}
+			}
+
+			if (listProduct?.length > 0) {
+				return res.status(200).json(
+					resultData({
+						code: 200,
+						status: 1,
+						message: 'Lấy sản phẩm thành công!',
+						data: listProduct,
+					})
+				);
+			} else {
+				return res.status(201).json(
+					resultData({
+						code: 201,
+						status: 1,
+						message: 'Danh sách sản phẩm trống!',
+						data: listProduct,
+					})
+				);
+			}
 		} catch (error) {
 			return res.status(500).json(
 				resultData({
