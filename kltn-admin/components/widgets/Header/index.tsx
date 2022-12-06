@@ -25,7 +25,11 @@ function Header(props: PropsHeader) {
 					<p className={styles.title}>{props.title}</p>
 				</div>
 				<div className={styles.right} onClick={() => setOpen(true)}>
-					<Avatar avatar={userData.avatar} email={userData.email} name={userData.name} />
+					<Avatar
+						avatar={userData?.avatar}
+						email={userData?.email}
+						name={userData?.name}
+					/>
 				</div>
 			</div>
 		</Fragment>

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.snow.css';
 import Form, {Input} from '~/components/controls/Form';
 import Select, {Option} from '~/components/controls/Select';
 import styles from './MainAddProduct.module.scss';
@@ -80,12 +80,12 @@ function MainAddProduct() {
 				</div>
 				<div className={styles.content}>
 					<p>Mô tả chỉnh sản phẩm</p>
-					<ReactQuill
+					{/* <ReactQuill
 						className={styles.main_text}
 						theme='snow'
 						value={value}
 						onChange={setValue}
-					/>
+					/> */}
 				</div>
 			</Form>
 		</div>

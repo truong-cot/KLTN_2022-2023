@@ -6,9 +6,10 @@ import {NextPage} from 'next';
 import {Fragment, ReactElement, ReactNode} from 'react';
 import {ToastContainer} from 'react-toastify';
 import LoadingTopBar from '~/components/common/LoadingTopBar';
-import {store} from '~/redux/store';
+import {persistor, store} from '~/redux/store';
 import {Provider} from 'react-redux';
 import SplashScreen from '~/components/protected/SplashScreen';
+import {PersistGate} from 'redux-persist/integration/react';
 
 type NextPageWithLayout = NextPage & {
 	getLayout?: (page: ReactElement) => ReactNode;
@@ -23,9 +24,11 @@ export default function App({Component, pageProps}: AppPropsWithLayout) {
 
 	return (
 		<Provider store={store}>
-			<ToastContainer autoClose={2000} />
-			<LoadingTopBar />
-			<SplashScreen>{getLayout(<Component {...pageProps} />)}</SplashScreen>
+			<PersistGate loading={null} persistor={persistor}>
+				<ToastContainer autoClose={2000} />
+				<LoadingTopBar />
+				<SplashScreen>{getLayout(<Component {...pageProps} />)}</SplashScreen>
+			</PersistGate>
 		</Provider>
 	);
 }
