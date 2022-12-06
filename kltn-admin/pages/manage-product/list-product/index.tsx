@@ -1,16 +1,16 @@
 import {ReactElement} from 'react';
 import BaseLayout from '~/components/layout/BaseLayout';
 import Page from '~/components/layout/Page';
-import MainAddProduct from '~/components/pages/ManageProduct/MainAddProduct';
+import MainListProduct from '~/components/pages/ManageProduct/MainListProduct';
 
-export default function AddProduct() {
+export default function ListProduct() {
 	return (
-		<Page title='Thêm sản phẩm'>
-			<MainAddProduct />;
+		<Page title='Danh sách sản phẩm'>
+			<MainListProduct />;
 		</Page>
 	);
 }
 
-AddProduct.getLayout = function (page: ReactElement) {
+ListProduct.getLayout = function (page: ReactElement) {
 	return <BaseLayout title='Quản lý sản phẩm'>{page}</BaseLayout>;
 };

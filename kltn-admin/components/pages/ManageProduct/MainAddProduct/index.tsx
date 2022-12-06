@@ -1,26 +1,104 @@
 import React, {useState} from 'react';
-// import ReactQuill from 'react-quill';
-// import 'react-quill/dist/quill.snow.css';
+import {useQuill} from 'react-quilljs';
+import 'react-quill/dist/quill.snow.css';
 import Form, {Input} from '~/components/controls/Form';
 import Select, {Option} from '~/components/controls/Select';
 import styles from './MainAddProduct.module.scss';
+import Button from '~/components/controls/Button';
+import {TypeProduct} from './interfaces';
+import {useSelector} from 'react-redux';
+import {RootState} from '~/redux/store';
+import productService from '~/api/product';
+import {toast} from 'react-toastify';
+import {useRouter} from 'next/router';
 
 function MainAddProduct() {
-	// const {quill, quillRef} = useQuill();
+	const router = useRouter();
 
-	const [form, setForm] = useState<any>({
+	const {token} = useSelector((state: RootState) => state.auth);
+	const {quill, quillRef} = useQuill();
+
+	const [isLoading, setIsloading] = useState<boolean>(false);
+
+	// State form
+	const [form, setForm] = useState<TypeProduct>({
 		name: '',
 		price: '',
-		amount_size_S: null,
-		amount_size_M: null,
-		amount_size_L: null,
-		amount_size_XL: null,
+		amount_size_S: 0,
+		amount_size_M: 0,
+		amount_size_L: 0,
+		amount_size_XL: 0,
 		sale: 0,
 		category: '',
+		main_des: '',
+		general_des: '',
 	});
 
-	const handleSubmit = () => {};
-	const [value, setValue] = useState<any>('');
+	// Get value
+	const handleChange = (e: any) => {
+		const {value, name} = e.target;
+
+		setForm((prev: any) => ({
+			...prev,
+			[name]: value,
+		}));
+	};
+
+	// Get value detail des
+	const detailDes = JSON.stringify({
+		content: quill?.getContents(),
+		html: quillRef?.current?.children[0]?.innerHTML,
+	});
+
+	// Submit form
+	const handleSubmit = async () => {
+		try {
+			// if (
+			// 	form.name &&
+			// 	form.price &&
+			// 	form.amount_size_S &&
+			// 	form.amount_size_M &&
+			// 	form.amount_size_L &&
+			// 	form.amount_size_XL &&
+			// 	form.category &&
+			// 	form.sale &&
+			// 	form.main_des && form
+			// ) {
+			// }
+
+			setIsloading(true);
+
+			const res: any = await productService.createProduct({
+				...form,
+				token: String(token),
+				detail_des: detailDes,
+			});
+			if (res.status === 1) {
+				setIsloading(false);
+				setForm({
+					name: '',
+					price: '',
+					amount_size_S: 0,
+					amount_size_M: 0,
+					amount_size_L: 0,
+					amount_size_XL: 0,
+					sale: 0,
+					category: '',
+					main_des: '',
+					general_des: '',
+				});
+
+				toast.success(res.message || 'Thêm sản phẩm thành công!');
+				router.push('/manage-product/list-product');
+			} else {
+				setIsloading(false);
+				toast.warn(res.message || 'Có lỗi xảy ra!');
+			}
+		} catch (error) {
+			setIsloading(false);
+			toast.error('Có lỗi xảy ra!');
+		}
+	};
 
 	return (
 		<div className={styles.container}>
@@ -70,22 +148,47 @@ function MainAddProduct() {
 						label='Nhập số phần trăm muốn sale (%)'
 					/>
 					<div className={styles.select}>
-						<span>Sắp xếp theo: </span>
-						<Select placeholder='Thể loại sản phẩm' name='category'>
+						<span>Thể loại sản phẩm: </span>
+						<Select
+							placeholder='Thể loại sản phẩm'
+							name='category'
+							onChange={handleChange}
+						>
 							<Option title='Áo len' value='1' />
 							<Option title='Quần Jeans' value='2' />
 							<Option title='Áo Phông' value='3' />
 						</Select>
 					</div>
 				</div>
+				<div className={styles.box_des}>
+					<p className={styles.text}>Mô tả chính</p>
+					<textarea
+						onChange={handleChange}
+						className={styles.input_area}
+						placeholder='Mô tả chính'
+						name='main_des'
+					></textarea>
+				</div>
+				<div className={styles.box_des}>
+					<p className={styles.text}>Mô tả chung</p>
+					<textarea
+						onChange={handleChange}
+						className={styles.input_area}
+						placeholder='Mô tả chung'
+						name='general_des'
+					></textarea>
+				</div>
 				<div className={styles.content}>
-					<p>Mô tả chỉnh sản phẩm</p>
-					{/* <ReactQuill
-						className={styles.main_text}
-						theme='snow'
-						value={value}
-						onChange={setValue}
-					/> */}
+					<span className={styles.text}>Mô tả chi tiết</span>
+					<div className={styles.texteare}>
+						<div style={{width: '100%', height: '89%'}}>
+							<div ref={quillRef} />
+						</div>
+					</div>
+				</div>
+
+				<div className={styles.btn}>
+					<Button>Thêm sản phẩm</Button>
 				</div>
 			</Form>
 		</div>

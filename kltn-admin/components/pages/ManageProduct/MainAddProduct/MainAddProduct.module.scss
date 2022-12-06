@@ -48,3 +48,39 @@
 	max-height: 200px;
 	overflow-y: scroll;
 }
+
+.box_des {
+	margin-top: 24px;
+
+	.text {
+		font-weight: 500;
+		font-size: 14px !important;
+		margin-bottom: 8px;
+	}
+
+	.input_area {
+		resize: none;
+		width: 100%;
+		height: 200px;
+		padding: 12px 24px;
+		border: 1px solid #c8c4c4;
+		border-radius: 8px;
+		font-size: 14px;
+	}
+}
+
+.content {
+	.text {
+		font-weight: 500;
+		font-size: 14px !important;
+	}
+
+	.texteare {
+		margin-top: 8px;
+		height: 200px;
+	}
+}
+
+.btn {
+	margin-top: 32px;
+}

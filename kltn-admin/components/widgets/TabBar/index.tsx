@@ -36,14 +36,14 @@ function TabBar(props: PropsTabBar) {
 			href: '/manage-product',
 			menu: [
 				{
+					icon: <TbEdit size='20' />,
+					title: 'Danh sách sản phẩm',
+					href: '/manage-product/list-product',
+				},
+				{
 					icon: <MdAddchart size='20' />,
 					title: 'Thêm sản phẩm',
 					href: '/manage-product/add-product',
-				},
-				{
-					icon: <TbEdit size='20' />,
-					title: 'Chỉnh sản phẩm',
-					href: '/manage-product/edit-product',
 				},
 			],
 		},

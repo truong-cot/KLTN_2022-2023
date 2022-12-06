@@ -27,8 +27,8 @@ function MainLogin() {
 			setIsLoading(true);
 			try {
 				const res: any = await authService.login(form);
-
 				const dataLogin = res.data.user;
+
 				if (res.status === 1) {
 					dispatch(updateDataUser(dataLogin));
 					dispatch(login({token: dataLogin.token}));
