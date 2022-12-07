@@ -177,7 +177,9 @@ function TableProductSweater() {
 											<div
 												className={styles.detail}
 												onClick={() => {
-													// router.push(`/manage-any/detail/${data._id}`)
+													router.push(
+														`/manage-product/detaiil-product/${data._id}`
+													);
 												}}
 											>
 												<HiOutlineDotsCircleHorizontal size={22} />

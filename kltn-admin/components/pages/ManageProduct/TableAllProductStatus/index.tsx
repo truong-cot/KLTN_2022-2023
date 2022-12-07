@@ -43,6 +43,8 @@ function TableAllProductStatus() {
 
 	// Lấy danh sách sản phẩm
 	useEffect(() => {
+		console.log('log');
+
 		(async () => {
 			try {
 				setIsloading(true);
@@ -69,7 +71,7 @@ function TableAllProductStatus() {
 				toast.error('Có lỗi xảy ra!');
 			}
 		})();
-	}, [debounceKeyword, limit, page, token]);
+	}, [debounceKeyword, limit, page, token, router]);
 
 	// Xóa sản phẩm
 	const handleDelete = async () => {
@@ -86,7 +88,7 @@ function TableAllProductStatus() {
 			} else if (res.status === 1) {
 				setIsloading(false);
 				toast.success(res.message || 'Xóa sản phẩm thành công!');
-				router.replace(router.asPath, router.asPath, {scroll: false}); // reload page
+				router.replace(router.asPath); // reload page
 				setOpen(false);
 			}
 		} catch (error) {
@@ -177,7 +179,9 @@ function TableAllProductStatus() {
 											<div
 												className={styles.detail}
 												onClick={() => {
-													// router.push(`/manage-any/detail/${data._id}`)
+													router.push(
+														`/manage-product/detaiil-product/${data._id}`
+													);
 												}}
 											>
 												<HiOutlineDotsCircleHorizontal size={22} />
