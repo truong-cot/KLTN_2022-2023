@@ -60,7 +60,9 @@ function TableUserAll() {
 					setTotalItem(res?.data.countUser);
 				}
 			} catch (error) {
-				setIsloading(false); //hidden loading overlay
+				setIsloading(false);
+				console.log(error);
+				toast.error('Có lỗi xảy ra!');
 			}
 		})();
 	}, [token, limit, page, debounceKeyword]);
@@ -84,12 +86,14 @@ function TableUserAll() {
 			}
 		} catch (error) {
 			setIsloading(false);
+			console.log(error);
+			toast.error('Có lỗi xảy ra!');
 		}
 	};
 
 	const handleChangeRole = async () => {
 		try {
-			// setIsloading(true);
+			setIsloading(true);
 			const res: any = await userService.changeRoleUser({
 				token: String(token),
 				idUser: idUser,

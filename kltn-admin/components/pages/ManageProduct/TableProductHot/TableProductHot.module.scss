@@ -1,0 +1,42 @@
+.main {
+	margin: 20px 0;
+
+	.count {
+		font-weight: 600;
+		font-size: 13px;
+
+		span {
+			margin-left: 4px;
+		}
+	}
+}
+
+.control {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 10px;
+	color: #828181;
+
+	.delete {
+		transition: 0.3s;
+		&:hover {
+			color: rgb(240, 80, 80);
+		}
+	}
+
+	.edit {
+		transition: 0.3s;
+		&:hover {
+			color: rgb(60, 60, 60);
+		}
+	}
+
+	.detail {
+		transition: 0.3s;
+		&:hover {
+			color: rgb(33, 33, 33);
+		}
+	}
+}

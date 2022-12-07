@@ -11,17 +11,17 @@ import thunk from 'redux-thunk';
 const persistConfig = {
 	key: 'auth',
 	storage,
-	whitelist: ['token', 'isLogged'],
+	whitelist: ['auth', 'user'],
 };
 
 const reducers = combineReducers({
 	interface: interfaceReducer,
-	user: persistReducer(persistConfig, userReducer),
-	auth: persistReducer(persistConfig, authReducer),
+	auth: authReducer,
+	user: userReducer,
 });
 
 export const store = configureStore({
-	reducer: reducers,
+	reducer: persistReducer(persistConfig, reducers),
 	devTools: process.env.NODE_ENV !== 'production',
 	middleware: [thunk],
 });

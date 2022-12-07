@@ -8,6 +8,7 @@ import TableUser from '../TableUser';
 
 function MainManageUser() {
 	const router = useRouter();
+	const _type = router.query._type;
 
 	const listTab: Array<any> = [
 		{
@@ -26,8 +27,6 @@ function MainManageUser() {
 			pathname: '/manage-user',
 		},
 	];
-
-	const _type = router.query._type;
 
 	return (
 		<div className={styles.container}>

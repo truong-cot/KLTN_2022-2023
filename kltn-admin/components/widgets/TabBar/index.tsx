@@ -12,7 +12,9 @@ import Logo from '~/components/common/Logo';
 
 import {BsShop} from 'react-icons/bs';
 import {MdAddchart} from 'react-icons/md';
-import {TbEdit} from 'react-icons/tb';
+import {TbListCheck} from 'react-icons/tb';
+import {RiUserSettingsLine} from 'react-icons/ri';
+import {BiCategoryAlt} from 'react-icons/bi';
 
 function TabBar(props: PropsTabBar) {
 	const dispatch = useDispatch();
@@ -36,9 +38,14 @@ function TabBar(props: PropsTabBar) {
 			href: '/manage-product',
 			menu: [
 				{
-					icon: <TbEdit size='20' />,
-					title: 'Danh sách sản phẩm',
-					href: '/manage-product/list-product',
+					icon: <TbListCheck size='20' />,
+					title: 'Quản lý trạng thái sản phẩm',
+					href: '/manage-product/list-product-status',
+				},
+				{
+					icon: <BiCategoryAlt size='20' />,
+					title: 'Quản lý loại sản phẩm',
+					href: '/manage-product/list-product-category',
 				},
 				{
 					icon: <MdAddchart size='20' />,
@@ -46,6 +53,11 @@ function TabBar(props: PropsTabBar) {
 					href: '/manage-product/add-product',
 				},
 			],
+		},
+		{
+			icon: <RiUserSettingsLine size='20' />,
+			title: 'Thông tin tài khoản',
+			href: '/profile',
 		},
 	];
 
