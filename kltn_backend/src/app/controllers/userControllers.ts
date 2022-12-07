@@ -77,7 +77,7 @@ const UserController = {
 				return res.status(201).json(
 					resultData({
 						code: 201,
-						status: 1,
+						status: 0,
 						message: 'Danh sách tài khoản trống!',
 						data: {users, countUser},
 					})

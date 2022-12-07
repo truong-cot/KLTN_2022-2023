@@ -445,14 +445,9 @@ const ProductController = {
 			var countProduct;
 
 			const {category, status, priceMin, priceMax, keyword, limit, page} =
-				req.body;
+				req.query;
 
-			if (
-				category === '0' ||
-				category !== 1 ||
-				category !== 2 ||
-				category !== 3
-			) {
+			if (category === '0') {
 				if (status === '0') {
 					listProduct = await ProductModel.find({
 						$or: [
@@ -764,7 +759,7 @@ const ProductController = {
 				return res.status(201).json(
 					resultData({
 						code: 201,
-						status: 1,
+						status: 0,
 						message: 'Danh sách sản phẩm trống!',
 						data: listProduct,
 					})
