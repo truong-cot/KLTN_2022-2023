@@ -24,35 +24,6 @@ function Header({isScroll}: any) {
 	const router = useRouter();
 	const {auth} = router.query;
 
-	const onClose = () => {
-		const {auth, ...rest} = router.query;
-
-		router.replace(
-			{
-				pathname: router.pathname,
-				query: {
-					...rest,
-				},
-			},
-			undefined,
-			{shallow: true, scroll: false}
-		);
-	};
-
-	const onShow = (type: string) => {
-		router.replace(
-			{
-				pathname: router.pathname,
-				query: {
-					...router.query,
-					auth: type,
-				},
-			},
-			undefined,
-			{shallow: true, scroll: false}
-		);
-	};
-
 	const listLink: Array<any> = [
 		{
 			text: 'Trang chủ',
@@ -123,25 +94,16 @@ function Header({isScroll}: any) {
 						</div>
 					) : (
 						<div className={styles.group_btn}>
-							<Button rounded_8 p_8_24 primary4 onClick={() => onShow('login')}>
+							<Button rounded_8 p_8_24 primary4 href={'/auth/login'}>
 								Login
 							</Button>
-							<Button rounded_8 p_8_24 primary3 onClick={() => onShow('resgiter')}>
+							<Button rounded_8 p_8_24 primary3 href={'/auth/register'}>
 								Resgiter
 							</Button>
 						</div>
 					)}
 				</div>
 			</div>
-
-			{/* Pupup */}
-			<Popup open={auth === 'login'} onClose={onClose}>
-				<PopupLogin />
-			</Popup>
-			<Popup open={auth === 'resgiter'} onClose={onClose}>
-				<PopupResgister />
-			</Popup>
-			{/* </LayoutGrid> */}
 		</div>
 	);
 }

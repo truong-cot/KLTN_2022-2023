@@ -2,7 +2,8 @@ import {Request, Response} from 'express';
 import resultData from '../../common/resultData';
 
 import ProductModel from '../models/product';
-import uploader from '../../config/cloudinary';
+// import uploader from '../../config/cloudinary';
+import cloudinary from '../../config/cloudinary';
 
 const ProductController = {
 	// [POST] ==> /product/create
@@ -97,95 +98,55 @@ const ProductController = {
 	// [POST] ==> /product/add-images/...id
 	addImage: async (req: Request, res: Response) => {
 		try {
-			const idProduct = req.params.id;
-			const images: any = req.files;
+			const idProduct = req.body.idProduct;
+			const fileImage: any = req.file;
 
-			const checkTypeImage = images.some(
-				(image: any) =>
-					image.mimetype !== 'image/jpeg' &&
-					image.mimetype !== 'image/jpg' &&
-					image.mimetype !== 'image/png'
-			);
+			const checkProduct = await ProductModel.findById(idProduct);
 
-			if (Number(images?.length) > 0) {
-				// Đúng định dạng ảnh
-				if (checkTypeImage === false) {
-					if (images?.length > 5) {
-						return res.status(201).json(
-							resultData({
-								code: 201,
-								status: 0,
-								message: 'Không được thêm quá 5 ảnh!',
-								data: {},
-							})
-						);
-					} else {
-						const checkProduct = await ProductModel.findById(
-							idProduct
-						);
-						if (checkProduct) {
-							// Danh sách ảnh của sản phẩm
-							var urls: any = checkProduct.images;
+			if (checkProduct) {
+				//Danh sách ảnh của sản phẩm
+				var urls: any = checkProduct.images;
 
-							for (const image of images) {
-								const newUrl: any = await uploader(
-									image.path,
-									'KLTN'
-								);
-								urls.push(newUrl);
-							}
+				const saveImg = await cloudinary.uploader.upload(
+					fileImage.path
+				);
 
-							// Thêm ảnh vào mảng images
-							const product = await ProductModel.updateOne(
-								{_id: idProduct},
-								{
-									$set: {
-										images: urls,
-									},
-								}
-							);
+				const url: any = {
+					id: saveImg.public_id,
+					url: saveImg.secure_url,
+				};
 
-							if (product) {
-								return res.status(200).json(
-									resultData({
-										code: 200,
-										status: 1,
-										message: 'Thêm ảnh thành công!',
-										data: urls,
-									})
-								);
-							}
-						} else {
-							return res.status(201).json(
-								resultData({
-									code: 201,
-									status: 0,
-									message: 'Sản phẩm không tồn tại!',
-									data: {},
-								})
-							);
-						}
+				urls.push(url);
+
+				// Thêm ảnh vào mảng images
+				const product = await ProductModel.updateOne(
+					{_id: idProduct},
+					{
+						$set: {
+							images: urls,
+						},
 					}
+				);
+
+				if (product) {
+					return res.status(200).json(
+						resultData({
+							code: 200,
+							status: 1,
+							message: 'Thêm ảnh thành công!',
+							data: urls,
+						})
+					);
 				} else {
-					// Sai định dạng ảnh
 					return res.status(201).json(
 						resultData({
 							code: 201,
 							status: 0,
-							message: 'Ảnh không đúng định dạng!',
+							message: 'Sản phẩm không tồn tại!',
 							data: {},
 						})
 					);
 				}
-			} else {
-				return res.status(201).json(
-					resultData({
-						code: 201,
-						status: 0,
-						message: 'Không có ảnh nào được thêm!',
-						data: {},
-					})
-				);
 			}
 		} catch (error) {
 			return res.status(500).json(
@@ -197,6 +158,102 @@ const ProductController = {
 				})
 			);
 		}
+		// try {
+		// 	const idProduct = req.params.id;
+		// 	const images: any = req.files;
+		// 	const checkTypeImage = images.some(
+		// 		(image: any) =>
+		// 			image.mimetype !== 'image/jpeg' &&
+		// 			image.mimetype !== 'image/jpg' &&
+		// 			image.mimetype !== 'image/png'
+		// 	);
+		// 	if (Number(images?.length) > 0) {
+		// 		// Đúng định dạng ảnh
+		// 		if (checkTypeImage === false) {
+		// 			if (images?.length > 5) {
+		// 				return res.status(201).json(
+		// 					resultData({
+		// 						code: 201,
+		// 						status: 0,
+		// 						message: 'Không được thêm quá 5 ảnh!',
+		// 						data: {},
+		// 					})
+		// 				);
+		// 			} else {
+		// 				const checkProduct = await ProductModel.findById(
+		// 					idProduct
+		// 				);
+		// 				if (checkProduct) {
+		// 					// Danh sách ảnh của sản phẩm
+		// 					var urls: any = checkProduct.images;
+		// 					for (const image of images) {
+		// 						const newUrl: any = await uploader(
+		// 							image.path,
+		// 							'KLTN'
+		// 						);
+		// 						urls.push(newUrl);
+		// 					}
+		// 					// Thêm ảnh vào mảng images
+		// 					const product = await ProductModel.updateOne(
+		// 						{_id: idProduct},
+		// 						{
+		// 							$set: {
+		// 								images: urls,
+		// 							},
+		// 						}
+		// 					);
+		// 					if (product) {
+		// 						return res.status(200).json(
+		// 							resultData({
+		// 								code: 200,
+		// 								status: 1,
+		// 								message: 'Thêm ảnh thành công!',
+		// 								data: urls,
+		// 							})
+		// 						);
+		// 					}
+		// 				} else {
+		// 					return res.status(201).json(
+		// 						resultData({
+		// 							code: 201,
+		// 							status: 0,
+		// 							message: 'Sản phẩm không tồn tại!',
+		// 							data: {},
+		// 						})
+		// 					);
+		// 				}
+		// 			}
+		// 		} else {
+		// 			// Sai định dạng ảnh
+		// 			return res.status(201).json(
+		// 				resultData({
+		// 					code: 201,
+		// 					status: 0,
+		// 					message: 'Ảnh không đúng định dạng!',
+		// 					data: {},
+		// 				})
+		// 			);
+		// 		}
+		// 	} else {
+		// 		return res.status(201).json(
+		// 			resultData({
+		// 				code: 201,
+		// 				status: 0,
+		// 				message: 'Không có ảnh nào được thêm!',
+		// 				data: {},
+		// 			})
+		// 		);
+		// 	}
+		// } catch (error) {
+		// 	return res.status(500).json(
+		// 		resultData({
+		// 			code: 500,
+		// 			status: 0,
+		// 			message: 'Có lỗi xảy ra!',
+		// 			data: {},
+		// 		})
+		// 	);
+		// }
 	},
 	// [DELETE] ==> /product/delete-images/...id?idImage=1233
 	deleteImage: async (req: Request, res: Response) => {
@@ -433,7 +490,7 @@ const ProductController = {
 			);
 		}
 	},
-	// [GET] ==> /product/get-all
+	// [GET] ==> /product/get-all-product
 	getAllProduct: async (req: Request, res: Response) => {
 		try {
 			// category: 0 => all, 1: Áo len, 2: Quần Jeans, 3: Áo Phông
@@ -762,6 +819,43 @@ const ProductController = {
 						status: 0,
 						message: 'Danh sách sản phẩm trống!',
 						data: listProduct,
+					})
+				);
+			}
+		} catch (error) {
+			return res.status(500).json(
+				resultData({
+					code: 500,
+					status: 0,
+					message: 'Có lỗi xảy ra!',
+					data: {},
+				})
+			);
+		}
+	},
+	// [GET] ==> /product/get-detail-product
+	getDetailProduct: async (req: Request, res: Response) => {
+		try {
+			const idProduct = req.params.id;
+
+			const user = await ProductModel.findById(idProduct);
+
+			if (user) {
+				return res.status(200).json(
+					resultData({
+						code: 200,
+						status: 1,
+						message: 'Lấy chi tiết sản phẩm thành công!',
+						data: user,
+					})
+				);
+			} else {
+				return res.status(201).json(
+					resultData({
+						code: 201,
+						status: 0,
+						message: 'Sản phẩm không tồn tại!',
+						data: {},
 					})
 				);
 			}

@@ -105,12 +105,6 @@ const AuthController = {
 			// Đăng nhập theo username
 			const user: any = await UserModel.findOne({username: acc});
 
-			// Valid Password trả về true hoặc false
-			const validPassword = await bcrypt.compare(
-				password,
-				String(user?.password)
-			);
-
 			if (!user) {
 				return res.status(201).json(
 					resultData({
@@ -122,6 +116,11 @@ const AuthController = {
 				);
 			}
 
+			// Valid Password trả về true hoặc false
+			const validPassword = await bcrypt.compare(
+				password,
+				String(user?.password)
+			);
 			if (!validPassword) {
 				return res.status(201).json(
 					resultData({
@@ -159,7 +158,7 @@ const AuthController = {
 				resultData({
 					code: 500,
 					status: 0,
-					message: 'Có lỗi xảy ra!',
+					message: 'Có lỗi xảy ra !',
 					data: {},
 				})
 			);
@@ -177,12 +176,6 @@ const AuthController = {
 				isAdmin: true,
 			});
 
-			// Valid Password trả về true hoặc false
-			const validPassword = await bcrypt.compare(
-				password,
-				String(user?.password)
-			);
-
 			if (!user) {
 				return res.status(201).json(
 					resultData({
@@ -193,6 +186,12 @@ const AuthController = {
 					})
 				);
 			}
+
+			// Valid Password trả về true hoặc false
+			const validPassword = await bcrypt.compare(
+				password,
+				`${user?.password}`
+			);
 
 			if (!validPassword) {
 				return res.status(201).json(

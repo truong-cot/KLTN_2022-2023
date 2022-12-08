@@ -6,8 +6,15 @@ import {authMiddlewares} from '../middlewares/auth';
 const router = express.Router();
 
 import multer from 'multer';
+// const storage = multer.diskStorage({
+// 	filename: function (req: any, file: any, cb: any) {
+// 		cb(null, file.fieldname + '-' + Date.now());
+// 	},
+// });
+// const upload = multer({storage});
+
 const storage = multer.diskStorage({
-	filename: function (req: any, file: any, cb: any) {
+	filename: function (req, file, cb) {
 		cb(null, file.fieldname + '-' + Date.now());
 	},
 });
@@ -18,9 +25,10 @@ router.post('/create', authMiddlewares.isAdmin, ProductController.create);
 
 // Thêm ảnh cho sản phẩm
 router.post(
-	'/add-images/:id',
+	'/add-images',
 	authMiddlewares.isAdmin,
-	upload.array('image-product', 10),
+	// upload.array('files', 10),
+	upload.single('file'),
 	ProductController.addImage
 );
 
@@ -55,8 +63,15 @@ router.put(
 // Lấy tất cả sản phẩm
 router.get(
 	'/get-all-product',
-	authMiddlewares.authVerify,
+	authMiddlewares.isAdmin,
 	ProductController.getAllProduct
+);
+
+// Lấy chi tiết sản phẩm
+router.get(
+	'/get-detail-product/:id',
+	authMiddlewares.authVerify,
+	ProductController.getDetailProduct
 );
 
 export default router;

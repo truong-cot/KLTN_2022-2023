@@ -13,12 +13,12 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage});
 
-// Upload nhiều ảnh
-router.post(
-	'/images',
-	upload.array('images', 12),
-	authMiddlewares.authVerify,
-	UploadController.uploadImages
-);
+// // Upload nhiều ảnh
+// router.post(
+// 	'/images',
+// 	upload.array('images', 12),
+// 	authMiddlewares.authVerify,
+// 	UploadController.uploadImages
+// );
 
 export default router;

@@ -91,11 +91,11 @@ const productService = {
 		data: {
 			token: String;
 			idProduct: String;
-			fileImage: any;
+			images: any;
 		},
 		tokenAxios?: any
 	) => {
-		return axiosClient.post(`${routeName}/add-images`, data, {
+		return axiosClient.post(`${routeName}/add-images/${data.idProduct}`, data, {
 			cancelToken: tokenAxios,
 			headers: {
 				token: 'Bearer ' + data.token,

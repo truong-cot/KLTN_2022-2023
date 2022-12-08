@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {toast} from 'react-toastify';
+import authService from '~/api/auth';
 import Button from '~/components/controls/Button';
 import Form, {Input} from '~/components/controls/Form';
 
-import styles from './Register.module.scss';
+import styles from './MainLogin.module.scss';
 import {useRouter} from 'next/router';
 import {updateDataUser} from '~/redux/reducers/userSlice';
-import RequiredLogout from '~/components/protected/RequiredLogout';
-import authService from '~/api/auth';
 import {login} from '~/redux/reducers/authSlice';
+import RequiredLogout from '~/components/protected/RequiredLogout';
 
-function Register() {
+function MainLogin() {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [form, setForm] = useState<any>({
 		acc: '',
@@ -22,16 +22,16 @@ function Register() {
 	const router = useRouter();
 
 	const handleSubmit = () => {
-		//Call api Register
+		//Call api login
 		(async () => {
 			setIsLoading(true);
 			try {
 				const res: any = await authService.login(form);
-				const dataUser = res.data.user;
+				const dataLogin = res.data.user;
 
 				if (res.status === 1) {
-					dispatch(updateDataUser(dataUser));
-					dispatch(login({token: dataUser.token}));
+					dispatch(updateDataUser(dataLogin));
+					dispatch(login({token: dataLogin.token}));
 
 					router.push('/');
 
@@ -51,8 +51,8 @@ function Register() {
 		<RequiredLogout>
 			<div className={styles.conatiner}>
 				<div className={styles.main}>
-					<p className={styles.title}>Chào mừng bạn đến với trang web thời trang MOLLA</p>
-					<p className={styles.text}>Đăng nhập vào hệ thống</p>
+					<p className={styles.title}>Chào mừng bạn đến với hệ thống quản trị MOLLA</p>
+					<p className={styles.text}>Đăng nhập trang quản trị</p>
 					<Form form={form} setForm={setForm} onSubmit={handleSubmit}>
 						<Input type='text' placeholder='Username' name='acc' />
 						<Input type='password' placeholder='Password' name='password' />
@@ -64,4 +64,4 @@ function Register() {
 	);
 }
 
-export default Register;
+export default MainLogin;

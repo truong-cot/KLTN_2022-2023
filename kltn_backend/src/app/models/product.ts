@@ -28,7 +28,7 @@ const productSchema = new Schema(
 			require: true,
 			default: [],
 		},
-		amount_size_s: {
+		amount_size_S: {
 			type: Number,
 			require: true,
 		},

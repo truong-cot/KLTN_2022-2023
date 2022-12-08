@@ -10,22 +10,24 @@ import LoadingData from '~/components/common/LoadingData';
 import {toast} from 'react-toastify';
 import productService from '~/api/product';
 import {convertCoin} from '~/common/func/convertCoin';
+import {FaTimes} from 'react-icons/fa';
 import {IoMdClose} from 'react-icons/io';
 import clsx from 'clsx';
 import Button from '~/components/controls/Button';
 
 function MainDetailProduct() {
+	const router = useRouter();
+	const idProduct = router.asPath.split('/')[3];
+	const {token} = useSelector((state: RootState) => state.auth);
+
+	// State data product
 	const [isLoading, setIsloading] = useState<boolean>(false);
 	const [data, setData] = useState<TypeProduct>();
 	const [activeImage, setActiveImage] = useState<Number>();
-
-	const router = useRouter();
-	const {token} = useSelector((state: RootState) => state.auth);
-	const idProduct = router.asPath.split('/')[3];
-
 	const [listImage, setListImage] = useState<Array<TypeImage>>([]);
 	const [idImage, setIdImage] = useState<String>('');
 
+	// Lấy thông tin sản phẩm
 	useEffect(() => {
 		(async () => {
 			try {
@@ -52,6 +54,7 @@ function MainDetailProduct() {
 		})();
 	}, [router, idProduct, token]);
 
+	// Xóa ảnh sản phẩm
 	const handleDeleteImage = async () => {
 		try {
 			setIsloading(true);
@@ -75,28 +78,56 @@ function MainDetailProduct() {
 		}
 	};
 
-	//
-	// const [file, setFile] = useState<any>();
+	// State thêm ảnh sản phẩm
+	const [preview, setPreview] = useState<any>(null);
 
-	// const handleSubmit = async () => {
-	// 	const formdata: any = new FormData();
-	// 	formdata.append('file', file);
+	const [dataForm, setDataForm] = useState({
+		token: String(token),
+		idProduct: idProduct,
+		file: '',
+	});
 
-	// 	// console.log(token);
+	const handleColsed = () => {
+		setPreview(null);
+		setDataForm((prev) => ({...prev, file: ''}));
+	};
 
-	// 	const res: any = await productService.addImageProduct({
-	// 		token: String(token),
-	// 		idProduct: '63903d087e1befc944c647d7',
-	// 		images: formdata,
-	// 	});
+	const handleSelectImg = (e: any) => {
+		const file = e.target.files[0];
+		const maxSize = 8; //MB
+		if (file.size / 1000000 > maxSize) {
+			toast.warning(`Kích thước tối đa của ảnh là ${maxSize} mb`);
+		} else if (
+			file.type !== 'image/jpeg' &&
+			file.type !== 'image/jpg' &&
+			file.type !== 'image/png'
+		) {
+			toast.warning(`Định dạng tệp không chính xác, đuôi tệp chấp nhận jpg, jpeg, png`);
+		} else {
+			setPreview(URL.createObjectURL(file));
+			setDataForm((prev) => ({...prev, file: file}));
+		}
+	};
 
-	// 	console.log(res);
+	// Submit xóa ảnh
+	const handleSubmit = () => {
+		const {file} = dataForm;
+		const formdata: any = new FormData();
+		formdata.append('file', file);
 
-	// 	// axios
-	// 	// 	.post('http://localhost:8000/product/add-images/63903d6a7e1befc944c647e1', formdata)
-	// 	// 	.then((res) => console.log(res))
-	// 	// 	.catch((err) => console.log(err));
-	// };
+		(async () => {
+			try {
+				const res: any = await productService.addImageProduct({
+					token: dataForm.token,
+					idProduct: dataForm.idProduct,
+					fileImage: dataForm.file,
+				});
+				console.log(res);
+			} catch (error) {
+				console.log(error);
+			}
+		})();
+	};
 
 	return (
 		<LoadingData isLoading={isLoading}>
@@ -134,20 +165,35 @@ function MainDetailProduct() {
 									</div>
 							  ))}
 
-						<input
-							type='file'
-							name='file'
-							accept='image/*'
-							onChange={(e: any) => {
-								// const file: any = e.target.files[0];
-								// setFile(file);
-							}}
-						></input>
-						{/* <Button onClick={handleSubmit}>Thêm ảnh</Button> */}
-
-						{/* <input type='file' accept='image/*' onChange={handleFileSelected} />
-						<Button onClick={handleAddImage}>Thêm ảnh</Button> */}
+						{/* Input thêm ảnh */}
+						<div className={styles.select_preview}>
+							{preview ? (
+								<div className='closed-img' onClick={handleColsed}>
+									<FaTimes />
+								</div>
+							) : (
+								<label htmlFor='select-img' className='select-img'>
+									Chọn ảnh
+									<input
+										hidden
+										onChange={handleSelectImg}
+										onClick={(e: any) => {
+											e.target.value = null;
+										}}
+										type='file'
+										name='file'
+										id='select-img'
+									/>
+								</label>
+							)}
+							{preview && (
+								<img className={styles.preview} src={preview} alt='preview' />
+							)}
+						</div>
+						<Button onClick={handleSubmit}>Thêm ảnh</Button>
 					</div>
+
+					{/* main */}
 					<div className={styles.content}>
 						<div className={styles.left}>
 							<div className={styles.item}>

@@ -53,6 +53,8 @@ export const authMiddlewares = {
 		try {
 			const headerToken: any = req.headers?.token;
 
+			// console.log(req.headers);
+
 			if (headerToken) {
 				const token = headerToken.split(' ')[1];
 

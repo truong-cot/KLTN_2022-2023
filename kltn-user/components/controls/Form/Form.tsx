@@ -3,7 +3,7 @@ import {PropsForm} from './interfaces';
 import {FormContext} from './contexts';
 
 function Form({children, form, setForm, onSubmit}: PropsForm) {
-	const convertForm = Object.fromEntries(Object.entries(form).map(([key]) => [key, null]));
+	const convertForm = Object?.fromEntries(Object?.entries(form)?.map(([key]) => [key, null]));
 
 	const [countValidate, setCountValidate] = useState<number>(0);
 	const [errorText, setErrorText] = useState<any>(convertForm);
