@@ -89,7 +89,7 @@ function MainAddProduct() {
 				});
 
 				toast.success(res.message || 'Thêm sản phẩm thành công!');
-				router.push('/manage-product/list-product-status');
+				router.push(`/manage-product/detaiil-product/${res.data._id}`);
 			} else {
 				setIsloading(false);
 				toast.warn(res.message || 'Có lỗi xảy ra!');

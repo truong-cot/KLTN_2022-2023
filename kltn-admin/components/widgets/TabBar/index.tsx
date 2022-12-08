@@ -38,6 +38,11 @@ function TabBar(props: PropsTabBar) {
 			href: '/manage-product',
 			menu: [
 				{
+					icon: <MdAddchart size='20' />,
+					title: 'Thêm sản phẩm',
+					href: '/manage-product/add-product',
+				},
+				{
 					icon: <TbListCheck size='20' />,
 					title: 'Quản lý trạng thái sản phẩm',
 					href: '/manage-product/list-product-status',
@@ -47,11 +52,7 @@ function TabBar(props: PropsTabBar) {
 					title: 'Quản lý loại sản phẩm',
 					href: '/manage-product/list-product-category',
 				},
-				{
-					icon: <MdAddchart size='20' />,
-					title: 'Thêm sản phẩm',
-					href: '/manage-product/add-product',
-				},
+				
 			],
 		},
 		{

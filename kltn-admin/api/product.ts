@@ -26,6 +26,7 @@ const productService = {
 			}
 		);
 	},
+
 	deleteProduct: (data: {token: string; idProduct: String}, tokenAxios?: any) => {
 		return axiosClient.delete(`${routeName}/delete-product?idProduct=${data.idProduct}`, {
 			cancelToken: tokenAxios,
@@ -52,6 +53,49 @@ const productService = {
 		tokenAxios?: any
 	) => {
 		return axiosClient.post(`${routeName}/create`, data, {
+			cancelToken: tokenAxios,
+			headers: {
+				token: 'Bearer ' + data.token,
+			},
+		});
+	},
+	getDetailProduct: (
+		data: {
+			token: String;
+			idProduct: String;
+		},
+		tokenAxios?: any
+	) => {
+		return axiosClient.get(`${routeName}/get-detail-product/${data.idProduct}`, {
+			cancelToken: tokenAxios,
+			headers: {
+				token: 'Bearer ' + data.token,
+			},
+		});
+	},
+	deleteImageProduct: (
+		data: {token: string; idProduct: String; idImage: String},
+		tokenAxios?: any
+	) => {
+		return axiosClient.delete(
+			`${routeName}/delete-image/${data.idProduct}?idImage=${data.idImage}`,
+			{
+				cancelToken: tokenAxios,
+				headers: {
+					token: 'Bearer ' + data.token,
+				},
+			}
+		);
+	},
+	addImageProduct: (
+		data: {
+			token: String;
+			idProduct: String;
+			images: any;
+		},
+		tokenAxios?: any
+	) => {
+		return axiosClient.post(`${routeName}/add-images/${data.idProduct}`, data, {
 			cancelToken: tokenAxios,
 			headers: {
 				token: 'Bearer ' + data.token,
