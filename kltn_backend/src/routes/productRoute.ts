@@ -27,8 +27,8 @@ router.post('/create', authMiddlewares.isAdmin, ProductController.create);
 router.post(
 	'/add-images',
 	authMiddlewares.isAdmin,
-	// upload.array('files', 10),
 	upload.single('file'),
+	// upload.array('files', 10),
 	ProductController.addImage
 );
 

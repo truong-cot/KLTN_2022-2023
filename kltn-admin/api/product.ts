@@ -87,15 +87,8 @@ const productService = {
 			}
 		);
 	},
-	addImageProduct: (
-		data: {
-			token: String;
-			idProduct: String;
-			fileImage: any;
-		},
-		tokenAxios?: any
-	) => {
-		return axiosClient.post(`${routeName}/add-images`, data, {
+	addImageProduct: (data: any, tokenAxios?: any) => {
+		return axiosClient.post(`${routeName}/add-images`, data.formdata, {
 			cancelToken: tokenAxios,
 			headers: {
 				token: 'Bearer ' + data.token,

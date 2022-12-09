@@ -14,6 +14,7 @@ import {FaTimes} from 'react-icons/fa';
 import {IoMdClose} from 'react-icons/io';
 import clsx from 'clsx';
 import Button from '~/components/controls/Button';
+import FormChangeImage from '~/components/controls/FormChangeImage';
 
 function MainDetailProduct() {
 	const router = useRouter();
@@ -23,9 +24,8 @@ function MainDetailProduct() {
 	// State data product
 	const [isLoading, setIsloading] = useState<boolean>(false);
 	const [data, setData] = useState<TypeProduct>();
-	const [activeImage, setActiveImage] = useState<Number>();
+
 	const [listImage, setListImage] = useState<Array<TypeImage>>([]);
-	const [idImage, setIdImage] = useState<String>('');
 
 	// Lấy thông tin sản phẩm
 	useEffect(() => {
@@ -54,146 +54,12 @@ function MainDetailProduct() {
 		})();
 	}, [router, idProduct, token]);
 
-	// Xóa ảnh sản phẩm
-	const handleDeleteImage = async () => {
-		try {
-			setIsloading(true);
-			const res: any = await productService.deleteImageProduct({
-				token: String(token),
-				idProduct: idProduct,
-				idImage: idImage,
-			});
-			if (res.status === 0) {
-				setIsloading(false);
-				toast.warn(res.message || 'Xóa ảnh sản phẩm không thành công!');
-			} else if (res.status === 1) {
-				setIsloading(false);
-				toast.success(res.message || 'Xóa ảnh sản phẩm thành công!');
-				router.replace(router.asPath, undefined, {scroll: false}); // reload page
-			}
-		} catch (error) {
-			setIsloading(false);
-			console.log(error);
-			toast.error('Có lỗi xảy ra!');
-		}
-	};
-
-	// State thêm ảnh sản phẩm
-	const [preview, setPreview] = useState<any>(null);
-
-	const [dataForm, setDataForm] = useState({
-		token: String(token),
-		idProduct: idProduct,
-		file: '',
-	});
-
-	const handleColsed = () => {
-		setPreview(null);
-		setDataForm((prev) => ({...prev, file: ''}));
-	};
-
-	const handleSelectImg = (e: any) => {
-		const file = e.target.files[0];
-		const maxSize = 8; //MB
-		if (file.size / 1000000 > maxSize) {
-			toast.warning(`Kích thước tối đa của ảnh là ${maxSize} mb`);
-		} else if (
-			file.type !== 'image/jpeg' &&
-			file.type !== 'image/jpg' &&
-			file.type !== 'image/png'
-		) {
-			toast.warning(`Định dạng tệp không chính xác, đuôi tệp chấp nhận jpg, jpeg, png`);
-		} else {
-			setPreview(URL.createObjectURL(file));
-			setDataForm((prev) => ({...prev, file: file}));
-		}
-	};
-
-	// Submit xóa ảnh
-	const handleSubmit = () => {
-		const {file} = dataForm;
-		const formdata: any = new FormData();
-		formdata.append('file', file);
-
-		(async () => {
-			try {
-				const res: any = await productService.addImageProduct({
-					token: dataForm.token,
-					idProduct: dataForm.idProduct,
-					fileImage: dataForm.file,
-				});
-				console.log(res);
-			} catch (error) {
-				console.log(error);
-			}
-		})();
-	};
-
 	return (
 		<LoadingData isLoading={isLoading}>
 			<div className={styles.container}>
 				<h4 className={styles.title}>Chi tiết sản phẩm</h4>
 				<div className={styles.main}>
-					<div className={styles.box_image}>
-						{listImage.length <= 0
-							? 'Sản phẩm chưa có ảnh nào!'
-							: listImage.map((v, i) => (
-									<div
-										onClick={() => {
-											setActiveImage(i);
-											setIdImage(v.id);
-										}}
-										key={String(v.id)}
-										className={clsx(styles.image, {
-											[styles.activeImage]: activeImage === i,
-										})}
-									>
-										<Image
-											className={styles.img}
-											src={String(v.url)}
-											alt='image product'
-											layout='fill'
-										/>
-										{activeImage === i && (
-											<div
-												className={styles.icon_close}
-												onClick={handleDeleteImage}
-											>
-												<IoMdClose />
-											</div>
-										)}
-									</div>
-							  ))}
-
-						{/* Input thêm ảnh */}
-						<div className={styles.select_preview}>
-							{preview ? (
-								<div className='closed-img' onClick={handleColsed}>
-									<FaTimes />
-								</div>
-							) : (
-								<label htmlFor='select-img' className='select-img'>
-									Chọn ảnh
-									<input
-										hidden
-										onChange={handleSelectImg}
-										onClick={(e: any) => {
-											e.target.value = null;
-										}}
-										type='file'
-										name='file'
-										id='select-img'
-									/>
-								</label>
-							)}
-							{preview && (
-								<img className={styles.preview} src={preview} alt='preview' />
-							)}
-						</div>
-						<Button onClick={handleSubmit}>Thêm ảnh</Button>
-					</div>
-
-					{/* main */}
+					<FormChangeImage images={listImage} />
 					<div className={styles.content}>
 						<div className={styles.left}>
 							<div className={styles.item}>
@@ -264,10 +130,36 @@ function MainDetailProduct() {
 							</div>
 							<div className={styles.item_2}>
 								<p className={styles.text_3}>Mô tả chi tiết :</p>
-								<p className={styles.text_4}>{data?.detail_des}</p>
+								{data?.detail_des && (
+									<div
+										dangerouslySetInnerHTML={{
+											__html: JSON?.parse(String(data?.detail_des) || '')
+												.html,
+										}}
+										style={{
+											fontSize: '14px',
+											color: '#323448',
+											fontWeight: '400',
+										}}
+									></div>
+								)}
 							</div>
 						</div>
 					</div>
+				</div>
+
+				<div className={styles.group_btn}>
+					<Button bg_gray p_8_24 rounded_6 onClick={() => router.back()}>
+						Quay lại
+					</Button>
+					<Button
+						primary4
+						p_8_24
+						rounded_6
+						onClick={() => router.push(`/manage-product/edit-product/${idProduct}`)}
+					>
+						Chỉnh sửa
+					</Button>
 				</div>
 			</div>
 		</LoadingData>

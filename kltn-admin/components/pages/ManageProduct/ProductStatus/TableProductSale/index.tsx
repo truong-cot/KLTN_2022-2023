@@ -20,14 +20,14 @@ import RequireAuth from '~/components/protected/RequiredAuth';
 import {RootState} from '~/redux/store';
 import {TypeProduct} from './interfaces';
 
-import styles from './TableProductSweater.module.scss';
+import styles from './TableProductSale.module.scss';
 
-function TableProductSweater() {
+function TableProductSale() {
 	const router = useRouter();
 	const {token} = useSelector((state: RootState) => state.auth);
 
-	// State popup
 	const [open, setOpen] = useState<boolean>(false);
+	const [idProduct, setIdProduct] = useState<String>('');
 
 	const [isLoading, setIsloading] = useState<boolean>(false);
 	const [keyword, setKeyword] = useState<string>('');
@@ -36,20 +36,16 @@ function TableProductSweater() {
 	const [page, setPage] = useState<number>(1);
 	const debounceKeyword = useDebounce(keyword, 500);
 
-	// Lấy id sản phẩm
-	const [idProduct, setIdProduct] = useState<String>('');
-
 	const [data, setData] = useState<Array<TypeProduct>>([]);
 
-	// Lấy danh sách sản phẩm
 	useEffect(() => {
 		(async () => {
 			try {
 				setIsloading(true);
 				const res: any = await productService.getAllProduct({
 					token: String(token),
-					category: 1,
-					status: 0,
+					category: 0,
+					status: 2,
 					priceMin: 0,
 					priceMax: 1000000000,
 					keyword: debounceKeyword,
@@ -176,19 +172,19 @@ function TableProductSweater() {
 										<div className={styles.control}>
 											<div
 												className={styles.detail}
-												onClick={() => {
+												onClick={() =>
 													router.push(
-														`/manage-product/detaiil-product/${data._id}`
-													);
-												}}
+														`/manage-product/edit-product/${data._id}`
+													)
+												}
 											>
 												<HiOutlineDotsCircleHorizontal size={22} />
 											</div>
 											<div
 												className={styles.edit}
 												onClick={() => {
-													// setOpenChangeRole(true);
-													// setIdany(data._id);
+													// setOpen(true);
+													// setIdProduct(data._id);
 												}}
 											>
 												<ImPencil size={20} />
@@ -225,4 +221,4 @@ function TableProductSweater() {
 	);
 }
 
-export default TableProductSweater;
+export default TableProductSale;

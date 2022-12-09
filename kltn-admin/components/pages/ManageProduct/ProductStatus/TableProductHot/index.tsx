@@ -20,14 +20,14 @@ import RequireAuth from '~/components/protected/RequiredAuth';
 import {RootState} from '~/redux/store';
 import {TypeProduct} from './interfaces';
 
-import styles from './TableProductJeans.module.scss';
+import styles from './TableProductHot.module.scss';
 
-function TableProductJeans() {
+function TableProductHot() {
 	const router = useRouter();
 	const {token} = useSelector((state: RootState) => state.auth);
 
-	// State popup
 	const [open, setOpen] = useState<boolean>(false);
+	const [idProduct, setIdProduct] = useState<String>('');
 
 	const [isLoading, setIsloading] = useState<boolean>(false);
 	const [keyword, setKeyword] = useState<string>('');
@@ -36,20 +36,16 @@ function TableProductJeans() {
 	const [page, setPage] = useState<number>(1);
 	const debounceKeyword = useDebounce(keyword, 500);
 
-	// Lấy id sản phẩm
-	const [idProduct, setIdProduct] = useState<String>('');
-
 	const [data, setData] = useState<Array<TypeProduct>>([]);
 
-	// Lấy danh sách sản phẩm
 	useEffect(() => {
 		(async () => {
 			try {
 				setIsloading(true);
 				const res: any = await productService.getAllProduct({
 					token: String(token),
-					category: 2,
-					status: 0,
+					category: 0,
+					status: 1,
 					priceMin: 0,
 					priceMax: 1000000000,
 					keyword: debounceKeyword,
@@ -186,10 +182,11 @@ function TableProductJeans() {
 											</div>
 											<div
 												className={styles.edit}
-												onClick={() => {
-													// setOpenChangeRole(true);
-													// setIdany(data._id);
-												}}
+												onClick={() =>
+													router.push(
+														`/manage-product/edit-product/${data._id}`
+													)
+												}
 											>
 												<ImPencil size={20} />
 											</div>
@@ -225,4 +222,4 @@ function TableProductJeans() {
 	);
 }
 
-export default TableProductJeans;
+export default TableProductHot;

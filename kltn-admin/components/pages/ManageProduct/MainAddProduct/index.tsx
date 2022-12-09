@@ -45,6 +45,11 @@ function MainAddProduct() {
 	};
 
 	// Get value detail des
+	// const detailDes = JSON.stringify({
+	// 	content: quill?.getContents(),
+	// 	html: quillRef?.current?.children[0]?.innerHTML,
+	// });
+
 	const detailDes = JSON.stringify({
 		content: quill?.getContents(),
 		html: quillRef?.current?.children[0]?.innerHTML,
@@ -53,19 +58,6 @@ function MainAddProduct() {
 	// Submit form
 	const handleSubmit = async () => {
 		try {
-			// if (
-			// 	form.name &&
-			// 	form.price &&
-			// 	form.amount_size_S &&
-			// 	form.amount_size_M &&
-			// 	form.amount_size_L &&
-			// 	form.amount_size_XL &&
-			// 	form.category &&
-			// 	form.sale &&
-			// 	form.main_des && form
-			// ) {
-			// }
-
 			setIsloading(true);
 
 			const res: any = await productService.createProduct({

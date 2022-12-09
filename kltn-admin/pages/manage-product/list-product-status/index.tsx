@@ -1,7 +1,7 @@
 import {ReactElement} from 'react';
 import BaseLayout from '~/components/layout/BaseLayout';
 import Page from '~/components/layout/Page';
-import MainListProductStatus from '~/components/pages/ManageProduct/MainListProductStatus';
+import MainListProductStatus from '~/components/pages/ManageProduct/ProductStatus/MainListProductStatus';
 
 export default function ListProductStatus() {
 	return (

@@ -188,10 +188,11 @@ function TableAllProductStatus() {
 											</div>
 											<div
 												className={styles.edit}
-												onClick={() => {
-													// setOpenChangeRole(true);
-													// setIdany(data._id);
-												}}
+												onClick={() =>
+													router.push(
+														`/manage-product/edit-product/${data._id}`
+													)
+												}
 											>
 												<ImPencil size={20} />
 											</div>

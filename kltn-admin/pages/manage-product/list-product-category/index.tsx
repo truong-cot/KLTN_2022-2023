@@ -1,7 +1,7 @@
 import {ReactElement} from 'react';
 import BaseLayout from '~/components/layout/BaseLayout';
 import Page from '~/components/layout/Page';
-import MainListProductCategory from '~/components/pages/ManageProduct/MainListProductCategory';
+import MainListProductCategory from '~/components/pages/ManageProduct/ProductCategory/MainListProductCategory';
 
 export default function ListProduct() {
 	return (

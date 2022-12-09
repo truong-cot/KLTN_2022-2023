@@ -20,9 +20,9 @@ import RequireAuth from '~/components/protected/RequiredAuth';
 import {RootState} from '~/redux/store';
 import {TypeProduct} from './interfaces';
 
-import styles from './TableAllProductCategory.module.scss';
+import styles from './TableProductTshirt.module.scss';
 
-function TableAllProductCategory() {
+function TableProductTshirt() {
 	const router = useRouter();
 	const {token} = useSelector((state: RootState) => state.auth);
 
@@ -48,7 +48,7 @@ function TableAllProductCategory() {
 				setIsloading(true);
 				const res: any = await productService.getAllProduct({
 					token: String(token),
-					category: 0,
+					category: 3,
 					status: 0,
 					priceMin: 0,
 					priceMax: 1000000000,
@@ -186,10 +186,11 @@ function TableAllProductCategory() {
 											</div>
 											<div
 												className={styles.edit}
-												onClick={() => {
-													// setOpenChangeRole(true);
-													// setIdany(data._id);
-												}}
+												onClick={() =>
+													router.push(
+														`/manage-product/edit-product/${data._id}`
+													)
+												}
 											>
 												<ImPencil size={20} />
 											</div>
@@ -225,4 +226,4 @@ function TableAllProductCategory() {
 	);
 }
 
-export default TableAllProductCategory;
+export default TableProductTshirt;
