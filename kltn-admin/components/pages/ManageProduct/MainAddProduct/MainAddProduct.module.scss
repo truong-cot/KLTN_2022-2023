@@ -30,6 +30,19 @@
 		font-size: 14px;
 	}
 }
+.group_3 {
+	margin-top: 24px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 24px;
+
+	span {
+		font-weight: 500;
+		margin-bottom: 8px;
+		display: block;
+		font-size: 14px;
+	}
+}
 
 .content {
 	margin-top: 24px;

@@ -105,7 +105,6 @@ function MainEditProduct() {
 			if (res.status === 1) {
 				setIsloading(false);
 				toast.success(res.message);
-				router.replace(router.asPath, undefined, {scroll: false}); // reload page
 			} else {
 				setIsloading(false);
 				toast.warn(res.message);

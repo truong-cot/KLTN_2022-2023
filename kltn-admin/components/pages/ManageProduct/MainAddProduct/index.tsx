@@ -32,6 +32,8 @@ function MainAddProduct() {
 		amount_size_L: 0,
 		amount_size_XL: 0,
 		sale: 0,
+		isHot: '',
+		trending: '',
 		category: '',
 		main_des: '',
 		general_des: '',
@@ -67,6 +69,8 @@ function MainAddProduct() {
 					amount_size_L: 0,
 					amount_size_XL: 0,
 					sale: 0,
+					isHot: '',
+					trending: '',
 					category: '',
 					main_des: '',
 					general_des: '',
@@ -95,12 +99,22 @@ function MainAddProduct() {
 						name='name'
 						label='Tên sản phẩm'
 					/>
-					<Input
-						type='number'
-						placeholder='Giá sản phẩm'
-						name='price'
-						label='Giá sản phẩm'
-					/>
+					<div className={styles.group_2}>
+						<Input
+							type='number'
+							placeholder='Giá sản phẩm'
+							name='price'
+							label='Giá sản phẩm'
+						/>
+						<div>
+							<Input
+								type='number'
+								placeholder='Nhập số phần trăm muốn sale (%)'
+								name='sale'
+								label='Nhập số phần trăm muốn sale (%)'
+							/>
+						</div>
+					</div>
 					<div className={styles.group}>
 						<div>
 							<Input
@@ -135,23 +149,42 @@ function MainAddProduct() {
 							/>
 						</div>
 					</div>
-					<div className={styles.group_2}>
-						<Input
-							type='number'
-							placeholder='Nhập số phần trăm muốn sale (%)'
-							name='sale'
-							label='Nhập số phần trăm muốn sale (%)'
-						/>
+					<div className={styles.group_3}>
 						<div className={styles.select}>
 							<span>Thể loại sản phẩm: </span>
 							<Select
 								placeholder='Thể loại sản phẩm'
 								name='category'
 								onChange={handleChange}
+								value={form.category}
 							>
 								<Option title='Áo len' value='1' />
 								<Option title='Quần Jeans' value='2' />
 								<Option title='Áo Phông' value='3' />
+							</Select>
+						</div>
+						<div className={styles.select}>
+							<span>Đang hot: </span>
+							<Select
+								placeholder='Trạng thái Hot'
+								name='isHot'
+								onChange={handleChange}
+								value={form.isHot}
+							>
+								<Option title='Không Hot' value={'0'} />
+								<Option title='Hot' value={'1'} />
+							</Select>
+						</div>
+						<div className={styles.select}>
+							<span>Đang trending: </span>
+							<Select
+								placeholder='Trạng thái Trending'
+								name='trending'
+								onChange={handleChange}
+								value={form.trending}
+							>
+								<Option title='Không trending' value={'0'} />
+								<Option title='Trending' value={'1'} />
 							</Select>
 						</div>
 					</div>
@@ -162,6 +195,7 @@ function MainAddProduct() {
 							className={styles.input_area}
 							placeholder='Mô tả chính'
 							name='main_des'
+							value={String(form.main_des)}
 						></textarea>
 					</div>
 					<div className={styles.box_des}>
@@ -171,15 +205,11 @@ function MainAddProduct() {
 							className={styles.input_area}
 							placeholder='Mô tả chung'
 							name='general_des'
+							value={String(form.general_des)}
 						></textarea>
 					</div>
 					<div className={styles.content}>
 						<span className={styles.text}>Mô tả chi tiết</span>
-						{/* <div className={styles.texteare}>
-						<div style={{width: '100%', height: '89%'}}>
-							<div ref={quillRef} />
-						</div>
-					</div> */}
 						<div className={styles.texteare}>
 							<JoditEditor
 								value={content}

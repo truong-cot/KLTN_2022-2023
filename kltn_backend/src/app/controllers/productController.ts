@@ -21,6 +21,8 @@ const ProductController = {
 				main_des,
 				general_des,
 				detail_des,
+				isHot,
+				trending,
 			} = req.body;
 
 			// Check tên sản phẩm
@@ -37,7 +39,9 @@ const ProductController = {
 				amount_size_XL &&
 				main_des &&
 				general_des &&
-				detail_des
+				detail_des &&
+				isHot &&
+				trending
 			) {
 				if (checkName) {
 					return res.status(201).json(
@@ -49,30 +53,121 @@ const ProductController = {
 						})
 					);
 				} else {
-					const newProduct = new ProductModel({
-						name: name,
-						price: price,
-						category: Number(category),
-						sale: sale,
-						amount_size_S: amount_size_S,
-						amount_size_M: amount_size_M,
-						amount_size_L: amount_size_L,
-						amount_size_XL: amount_size_XL,
-						main_des: main_des,
-						general_des: general_des,
-						detail_des: detail_des,
-					});
+					// var newProduct;
+					// isHot = 0: false, isHot = 1: true
+					if (isHot === '0') {
+						if (trending === '0') {
+							const newProduct = new ProductModel({
+								name: name,
+								price: price,
+								category: Number(category),
+								sale: sale,
+								isHot: false,
+								trending: false,
+								amount_size_S: amount_size_S,
+								amount_size_M: amount_size_M,
+								amount_size_L: amount_size_L,
+								amount_size_XL: amount_size_XL,
+								main_des: main_des,
+								general_des: general_des,
+								detail_des: detail_des,
+							});
 
-					const saveProduct = await newProduct.save();
+							const saveProduct = await newProduct.save();
 
-					return res.status(200).json(
-						resultData({
-							code: 200,
-							status: 1,
-							message: `Thêm sản phẩm thành công!`,
-							data: saveProduct,
-						})
-					);
+							return res.status(200).json(
+								resultData({
+									code: 200,
+									status: 1,
+									message: `Thêm sản phẩm thành công!`,
+									data: saveProduct,
+								})
+							);
+						} else if (trending === '1') {
+							const newProduct = new ProductModel({
+								name: name,
+								price: price,
+								category: Number(category),
+								sale: sale,
+								isHot: false,
+								trending: true,
+								amount_size_S: amount_size_S,
+								amount_size_M: amount_size_M,
+								amount_size_L: amount_size_L,
+								amount_size_XL: amount_size_XL,
+								main_des: main_des,
+								general_des: general_des,
+								detail_des: detail_des,
+							});
+
+							const saveProduct = await newProduct.save();
+
+							return res.status(200).json(
+								resultData({
+									code: 200,
+									status: 1,
+									message: `Thêm sản phẩm thành công!`,
+									data: saveProduct,
+								})
+							);
+						}
+					} else if (isHot === '1') {
+						if (trending === '0') {
+							const newProduct = new ProductModel({
+								name: name,
+								price: price,
+								category: Number(category),
+								sale: sale,
+								isHot: true,
+								trending: false,
+								amount_size_S: amount_size_S,
+								amount_size_M: amount_size_M,
+								amount_size_L: amount_size_L,
+								amount_size_XL: amount_size_XL,
+								main_des: main_des,
+								general_des: general_des,
+								detail_des: detail_des,
+							});
+
+							const saveProduct = await newProduct.save();
+
+							return res.status(200).json(
+								resultData({
+									code: 200,
+									status: 1,
+									message: `Thêm sản phẩm thành công!`,
+									data: saveProduct,
+								})
+							);
+						} else if (trending === '1') {
+							const newProduct = new ProductModel({
+								name: name,
+								price: price,
+								category: Number(category),
+								sale: sale,
+								isHot: true,
+								trending: true,
+								amount_size_S: amount_size_S,
+								amount_size_M: amount_size_M,
+								amount_size_L: amount_size_L,
+								amount_size_XL: amount_size_XL,
+								main_des: main_des,
+								general_des: general_des,
+								detail_des: detail_des,
+							});
+
+							const saveProduct = await newProduct.save();
+
+							return res.status(200).json(
+								resultData({
+									code: 200,
+									status: 1,
+									message: `Thêm sản phẩm thành công!`,
+									data: saveProduct,
+								})
+							);
+						}
+					}
 				}
 			} else {
 				return res.status(201).json(
