@@ -69,7 +69,7 @@ const ProductController = {
 						resultData({
 							code: 200,
 							status: 1,
-							message: `Thêm sản phẩm ${name} thành công!`,
+							message: `Thêm sản phẩm thành công!`,
 							data: saveProduct,
 						})
 					);
@@ -158,102 +158,6 @@ const ProductController = {
 				})
 			);
 		}
-		// try {
-		// 	const idProduct = req.params.id;
-		// 	const images: any = req.files;
-		// 	const checkTypeImage = images.some(
-		// 		(image: any) =>
-		// 			image.mimetype !== 'image/jpeg' &&
-		// 			image.mimetype !== 'image/jpg' &&
-		// 			image.mimetype !== 'image/png'
-		// 	);
-		// 	if (Number(images?.length) > 0) {
-		// 		// Đúng định dạng ảnh
-		// 		if (checkTypeImage === false) {
-		// 			if (images?.length > 5) {
-		// 				return res.status(201).json(
-		// 					resultData({
-		// 						code: 201,
-		// 						status: 0,
-		// 						message: 'Không được thêm quá 5 ảnh!',
-		// 						data: {},
-		// 					})
-		// 				);
-		// 			} else {
-		// 				const checkProduct = await ProductModel.findById(
-		// 					idProduct
-		// 				);
-		// 				if (checkProduct) {
-		// 					// Danh sách ảnh của sản phẩm
-		// 					var urls: any = checkProduct.images;
-		// 					for (const image of images) {
-		// 						const newUrl: any = await uploader(
-		// 							image.path,
-		// 							'KLTN'
-		// 						);
-		// 						urls.push(newUrl);
-		// 					}
-		// 					// Thêm ảnh vào mảng images
-		// 					const product = await ProductModel.updateOne(
-		// 						{_id: idProduct},
-		// 						{
-		// 							$set: {
-		// 								images: urls,
-		// 							},
-		// 						}
-		// 					);
-		// 					if (product) {
-		// 						return res.status(200).json(
-		// 							resultData({
-		// 								code: 200,
-		// 								status: 1,
-		// 								message: 'Thêm ảnh thành công!',
-		// 								data: urls,
-		// 							})
-		// 						);
-		// 					}
-		// 				} else {
-		// 					return res.status(201).json(
-		// 						resultData({
-		// 							code: 201,
-		// 							status: 0,
-		// 							message: 'Sản phẩm không tồn tại!',
-		// 							data: {},
-		// 						})
-		// 					);
-		// 				}
-		// 			}
-		// 		} else {
-		// 			// Sai định dạng ảnh
-		// 			return res.status(201).json(
-		// 				resultData({
-		// 					code: 201,
-		// 					status: 0,
-		// 					message: 'Ảnh không đúng định dạng!',
-		// 					data: {},
-		// 				})
-		// 			);
-		// 		}
-		// 	} else {
-		// 		return res.status(201).json(
-		// 			resultData({
-		// 				code: 201,
-		// 				status: 0,
-		// 				message: 'Không có ảnh nào được thêm!',
-		// 				data: {},
-		// 			})
-		// 		);
-		// 	}
-		// } catch (error) {
-		// 	return res.status(500).json(
-		// 		resultData({
-		// 			code: 500,
-		// 			status: 0,
-		// 			message: 'Có lỗi xảy ra!',
-		// 			data: {},
-		// 		})
-		// 	);
-		// }
 	},
 	// [DELETE] ==> /product/delete-images/...id?idImage=1233
 	deleteImage: async (req: Request, res: Response) => {
@@ -453,22 +357,89 @@ const ProductController = {
 	updateProduct: async (req: Request, res: Response) => {
 		try {
 			const idProduct = req.query.idProduct;
-			const product = await ProductModel.findByIdAndUpdate(
-				idProduct,
-				req.body
-			);
+			const {
+				name,
+				price,
+				category,
+				sale,
+				isHot,
+				trending,
+				amount_size_S,
+				amount_size_M,
+				amount_size_L,
+				amount_size_XL,
+				main_des,
+				general_des,
+				detail_des,
+			} = req.body;
 
-			const newProduct = await ProductModel.findById(idProduct);
+			const product = await ProductModel.findById(idProduct);
 
 			if (product) {
-				return res.status(200).json(
-					resultData({
-						code: 200,
-						status: 1,
-						message: 'Sản phẩm tài khoản thành công!',
-						data: newProduct,
-					})
-				);
+				if (
+					name &&
+					price &&
+					category &&
+					sale &&
+					amount_size_S &&
+					amount_size_M &&
+					amount_size_L &&
+					amount_size_XL &&
+					main_des &&
+					general_des &&
+					detail_des &&
+					isHot &&
+					trending
+				) {
+					product.name = name;
+					product.price = price;
+					product.category = category;
+					product.sale = sale;
+					product.amount_size_S = amount_size_S;
+					product.amount_size_M = amount_size_M;
+					product.amount_size_L = amount_size_L;
+					product.amount_size_XL = amount_size_XL;
+					product.main_des = main_des;
+					product.general_des = general_des;
+					product.detail_des = detail_des;
+
+					// isHot = 0: false, isHot = 1: true
+					if (isHot === '0') {
+						product.isHot = false;
+					}
+
+					if (isHot === '1') {
+						product.isHot = true;
+					}
+
+					if (trending === '0') {
+						product.trending = false;
+					}
+
+					if (trending === '1') {
+						product.trending = true;
+					}
+
+					const saveProduct = await product.save();
+
+					return res.status(200).json(
+						resultData({
+							code: 200,
+							status: 1,
+							message: 'Cập nhật sản phẩm thành công!',
+							data: saveProduct,
+						})
+					);
+				} else {
+					return res.status(201).json(
+						resultData({
+							code: 201,
+							status: 0,
+							message: 'Vui lòng nhập đầy đủ thông tin!',
+							data: {},
+						})
+					);
+				}
 			} else {
 				return res.status(201).json(
 					resultData({
@@ -519,6 +490,18 @@ const ProductController = {
 					})
 						.skip(Number(page) * Number(limit) - Number(limit))
 						.limit(Number(limit));
+
+					// countProduct = ProductModel.countDocuments({
+					// 	$or: [
+					// 		{
+					// 			name: {$regex: keyword},
+					// 		},
+					// 	],
+					// 	price: {
+					// 		$gte: priceMin,
+					// 		$lte: priceMax,
+					// 	},
+					// });
 				}
 
 				if (status === '1') {
@@ -536,6 +519,19 @@ const ProductController = {
 					})
 						.skip(Number(page) * Number(limit) - Number(limit))
 						.limit(Number(limit));
+
+					// countProduct = ProductModel.countDocuments({
+					// 	$or: [
+					// 		{
+					// 			name: {$regex: keyword},
+					// 		},
+					// 	],
+					// 	price: {
+					// 		$gte: priceMin,
+					// 		$lte: priceMax,
+					// 	},
+					// 	isHot: true,
+					// });
 				}
 
 				if (status === '2') {
@@ -816,7 +812,7 @@ const ProductController = {
 				return res.status(201).json(
 					resultData({
 						code: 201,
-						status: 0,
+						status: 1,
 						message: 'Danh sách sản phẩm trống!',
 						data: listProduct,
 					})

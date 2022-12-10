@@ -133,8 +133,7 @@ function MainDetailProduct() {
 								{data?.detail_des && (
 									<div
 										dangerouslySetInnerHTML={{
-											__html: JSON?.parse(String(data?.detail_des) || '')
-												.html,
+											__html: String(data.detail_des),
 										}}
 										style={{
 											fontSize: '14px',

@@ -54,7 +54,7 @@ router.delete(
 );
 
 // Chỉnh sửa sản phẩm
-router.put(
+router.post(
 	'/update-product',
 	authMiddlewares.isAdmin,
 	ProductController.updateProduct
