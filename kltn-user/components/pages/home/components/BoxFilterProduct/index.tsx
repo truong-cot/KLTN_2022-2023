@@ -7,7 +7,7 @@ import styles from './BoxFilterProduct.module.scss';
 function BoxFilterProduct({listProduct}: any) {
 	return (
 		<GridColumn col_4>
-			{listProduct.map((product: any, index: any) => (
+			{listProduct?.map((product: any, index: any) => (
 				<InfoProduct key={product.id} product={product} />
 			))}
 		</GridColumn>

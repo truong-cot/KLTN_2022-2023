@@ -14,6 +14,19 @@ const authService = {
 			cancelToken: tokenAxios,
 		});
 	},
+	register: (
+		data: {
+			username: string;
+			password: string;
+			name: string;
+			email: string;
+		},
+		tokenAxios?: any
+	) => {
+		return axiosClient.post(`${routeName}/register`, data, {
+			cancelToken: tokenAxios,
+		});
+	},
 };
 
 export default authService;

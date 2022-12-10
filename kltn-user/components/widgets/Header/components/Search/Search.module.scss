@@ -1,4 +1,5 @@
 .search {
+	position: relative;
 	color: #fff;
 	border-bottom: 1px solid #fff;
 	align-items: center;
@@ -29,6 +30,26 @@
 		color: #fff;
 		font-size: 2rem;
 		cursor: pointer;
+	}
+
+	.icon_close {
+		position: absolute;
+		color: #fff;
+		font-size: 1.4rem;
+		cursor: pointer;
+		right: 28px;
+		width: 18px;
+		height: 18px;
+		background-color: rgb(170, 169, 169);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 50%;
+		transition: 0.3s;
+
+		&:active {
+			transform: scale(0.8);
+		}
 	}
 	// &.normal {
 	// 	border: none;

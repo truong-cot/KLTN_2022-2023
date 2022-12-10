@@ -220,7 +220,9 @@ function MainAddProduct() {
 					</div>
 
 					<div className={styles.btn}>
-						<Button>Thêm sản phẩm</Button>
+						<Button primary4 p_8_24 rounded_6>
+							Thêm sản phẩm
+						</Button>
 					</div>
 				</Form>
 			</div>

@@ -146,16 +146,16 @@ function MainProduct() {
 					<div className={styles.box_media}>
 						<p className={styles.text_media}>Chia sẻ:</p>
 						<div className={styles.list_media}>
-							<Link href={'#'} className={styles.media_item}>
+							<Link href={''} className={styles.media_item}>
 								<FaFacebookF />
 							</Link>
-							<Link href={'#'} className={styles.media_item}>
+							<Link href={''} className={styles.media_item}>
 								<AiOutlineInstagram size={16} />
 							</Link>
-							<Link href={'#'} className={styles.media_item}>
+							<Link href={''} className={styles.media_item}>
 								<BsTwitter />
 							</Link>
-							<Link href={'#'} className={styles.media_item}>
+							<Link href={''} className={styles.media_item}>
 								<AiFillYoutube size={16} />
 							</Link>
 						</div>

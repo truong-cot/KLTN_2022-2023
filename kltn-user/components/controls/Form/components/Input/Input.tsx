@@ -4,8 +4,8 @@ import {useContext, useEffect, useState} from 'react';
 
 import {FormContext} from '../../contexts';
 import clsx from 'clsx';
-import styles from './Input.module.scss';
 import isEmail from '~/common/func/isEmail';
+import styles from './Input.module.scss';
 
 function Input({
 	label,
@@ -233,10 +233,10 @@ function Input({
 				[styles.focus]: isFocus,
 			})}
 		>
-			<label className={styles.label}>{label}</label>
+			{label ? <label className={styles.label}>{label}</label> : null}
 			<div
 				className={clsx({
-					[styles.group]: props.txtBtn || props.icon,
+					[styles.group]: true,
 					[styles.iconGroup]: props.icon,
 					[styles.focus]: isFocus,
 					[styles.done]: showDone && data.isDone,

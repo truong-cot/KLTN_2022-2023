@@ -13,19 +13,40 @@
 		background-color: #fff;
 		padding: 32px 20px;
 		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-		max-width: 500px;
+		width: 600px;
 	}
 
 	.title {
-		font-size: 2rem;
-		font-weight: 500;
+		font-size: 2.4rem;
+		font-weight: 600;
 		text-align: center;
-		margin-bottom: 20px;
+		margin-bottom: 16px;
 	}
 
 	.text {
 		font-size: 1.6rem;
 		font-weight: 500;
-		margin-bottom: 20px;
+		text-align: center;
+		margin-bottom: 28px;
 	}
+}
+
+.btn {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 24px;
+}
+
+.link {
+	margin-top: 20px;
+	text-align: right;
+	font-size: 1.4rem;
+	font-weight: 500;
+	color: rgb(166, 165, 165);
+}
+
+.href {
+	color: rgb(86, 82, 82);
 }

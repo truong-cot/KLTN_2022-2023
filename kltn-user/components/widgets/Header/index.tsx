@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import Image from 'next/image';
 import React, {useEffect, useState} from 'react';
-import LayoutGrid from '~/components/layout/LayoutGrid';
+import HeadlessTippy from '@tippyjs/react/headless';
 
 import styles from './Header.module.scss';
 import backgrounds from '~/constants/images/backgrounds';
@@ -12,17 +12,18 @@ import {BsCartCheck, BsHeart} from 'react-icons/bs';
 import {IoGitCompareOutline} from 'react-icons/io5';
 import {FaRegUser} from 'react-icons/fa';
 import {useRouter} from 'next/router';
-import Popup from '~/components/common/Popup';
-import PopupLogin from '~/components/Popup/PopupLogin';
-import PopupResgister from '~/components/Popup/PopupResgister';
+import {useSelector} from 'react-redux';
+import {RootState} from '~/redux/store';
+import BoxProfile from './components/profile';
 
 function Header({isScroll}: any) {
-	const isLogin = false;
-
 	const [isShowHeader, setIsShowHeader] = useState<boolean>(false);
 
 	const router = useRouter();
-	const {auth} = router.query;
+
+	const {isLogged} = useSelector((state: RootState) => state.auth);
+
+	const [show, setShow] = useState<boolean>(false);
 
 	const listLink: Array<any> = [
 		{
@@ -74,7 +75,7 @@ function Header({isScroll}: any) {
 				<div className={styles.right}>
 					<Search />
 
-					{isLogin ? (
+					{isLogged ? (
 						<div className={styles.box_right}>
 							<Link href='/' className={styles.icon_heart}>
 								<BsHeart />
@@ -88,9 +89,17 @@ function Header({isScroll}: any) {
 								<BsCartCheck />
 								<span className={styles.qlt}>3</span>
 							</div>
-							<div className={styles.icon_profile}>
-								<FaRegUser />
-							</div>
+							<HeadlessTippy
+								interactive
+								visible={show}
+								placement='bottom-end'
+								render={(attrs: any) => <BoxProfile />}
+								onClickOutside={() => setShow(false)}
+							>
+								<div className={styles.icon_profile} onClick={() => setShow(!show)}>
+									<FaRegUser />
+								</div>
+							</HeadlessTippy>
 						</div>
 					) : (
 						<div className={styles.group_btn}>

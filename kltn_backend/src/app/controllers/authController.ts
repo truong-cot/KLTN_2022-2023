@@ -21,9 +21,9 @@ const AuthController = {
 
 			// Validate
 			if (!name || !username || !email || !password) {
-				return res.status(200).json(
+				return res.status(201).json(
 					resultData({
-						code: 200,
+						code: 201,
 						status: 0,
 						message: 'Vui lòng nhập đầy đủ thông tin',
 						data: {},
@@ -32,9 +32,9 @@ const AuthController = {
 			}
 
 			if (usernameCheck) {
-				return res.status(200).json(
+				return res.status(201).json(
 					resultData({
-						code: 200,
+						code: 201,
 						status: 0,
 						message: 'Tên đăng nhập đã tồn tại!!!',
 						data: {},
@@ -43,9 +43,9 @@ const AuthController = {
 			}
 
 			if (emailCheck) {
-				return res.status(200).json(
+				return res.status(201).json(
 					resultData({
-						code: 200,
+						code: 201,
 						status: 0,
 						message: 'Địa chỉ email đã tồn tại!!!',
 						data: {},
@@ -55,9 +55,9 @@ const AuthController = {
 
 			// Check isEmail
 			if (!isEmail(email)) {
-				return res.status(200).json(
+				return res.status(201).json(
 					resultData({
-						code: 200,
+						code: 201,
 						status: 0,
 						message: 'Địa chỉ email không hợp lệ!!!',
 						data: {},

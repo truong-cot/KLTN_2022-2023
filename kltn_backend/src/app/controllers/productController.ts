@@ -811,7 +811,7 @@ const ProductController = {
 							$lte: priceMax,
 						},
 						trending: true,
-						category: 1,
+						category: 2,
 					})
 						.skip(Number(page) * Number(limit) - Number(limit))
 						.limit(Number(limit));
@@ -887,7 +887,7 @@ const ProductController = {
 							$lte: priceMax,
 						},
 						trending: true,
-						category: 1,
+						category: 3,
 					})
 						.skip(Number(page) * Number(limit) - Number(limit))
 						.limit(Number(limit));

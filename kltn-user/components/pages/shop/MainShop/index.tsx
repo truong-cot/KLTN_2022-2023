@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import Image from 'next/image';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Select, {Option} from '~/components/controls/Select';
 import GridColumn from '~/components/layout/GridColumn';
 import LayoutGrid from '~/components/layout/LayoutGrid';
@@ -10,6 +10,11 @@ import InfoProduct from '../../home/components/InfoProduct';
 
 import styles from './MainShop.module.scss';
 import Pagination from '~/components/controls/Pagination';
+import productService from '~/api/product';
+import {useSelector} from 'react-redux';
+import {RootState} from '~/redux/store';
+import {toast} from 'react-toastify';
+import {useRouter} from 'next/router';
 
 function MainShop() {
 	const pageSize = 10;
@@ -17,71 +22,69 @@ function MainShop() {
 	const [total, setTotal] = useState<number>(200);
 	const [activeLayout, setActiveLayout] = useState<number>(1);
 
-	const listProduct: Array<any> = [
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-	];
+	const [data, setData] = useState<Array<any>>([]);
+	const [isLoading, setIsloading] = useState<boolean>(false);
+	const {token} = useSelector((state: RootState) => state.auth);
+
+	const [category, setCategory] = useState<Number>(0);
+	const [statusFilter, setStatusFilter] = useState<Number>(0);
+
+	const router = useRouter();
+
+	const {type, status, priceMin, priceMax} = router.query;
+
+	useEffect(() => {
+		if (type === 'all') {
+			setCategory(0);
+		} else if (type === 'ao-len') {
+			setCategory(1);
+		} else if (type === 'quan-jeans') {
+			setCategory(2);
+		} else if (type === 'ao-phong') {
+			setCategory(3);
+		}
+	}, [type]);
+
+	useEffect(() => {
+		if (status === 'all') {
+			setStatusFilter(0);
+		} else if (status === 'hot') {
+			setStatusFilter(1);
+		} else if (status === 'sale') {
+			setStatusFilter(2);
+		} else if (status === 'trending') {
+			setStatusFilter(3);
+		}
+	}, [status]);
+
+	useEffect(() => {
+		(async () => {
+			try {
+				setIsloading(true);
+				const res: any = await productService.getAllProduct({
+					token: String(token),
+					category: category,
+					status: statusFilter,
+					priceMin: priceMin ? Number(priceMin) : 0,
+					priceMax: priceMax ? Number(priceMax) : 10000000,
+					keyword: '',
+					limit: 10,
+					page: 1,
+				});
+
+				if (res.status === 1) {
+					setData(res.data);
+					setIsloading(false);
+				} else {
+					setIsloading(false);
+				}
+			} catch (error) {
+				setIsloading(false);
+				console.log(error);
+				toast.error('Có lỗi xảy ra!');
+			}
+		})();
+	}, [token, category, statusFilter, priceMin, priceMax]);
 
 	return (
 		<div className={styles.container}>
@@ -133,7 +136,7 @@ function MainShop() {
 				</div>
 				<ShopLayout>
 					<GridColumn col_3>
-						{listProduct.map((product: any, index: any) => (
+						{data?.map((product: any, index: any) => (
 							<InfoProduct key={product.id} product={product} />
 						))}
 					</GridColumn>

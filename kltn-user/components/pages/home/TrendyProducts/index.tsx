@@ -1,8 +1,12 @@
+import Link from 'next/link';
 import {useRouter} from 'next/router';
-import React, {useState} from 'react';
-import Pagination from '~/components/controls/Pagination';
+import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
+import {toast} from 'react-toastify';
+import productService from '~/api/product';
 import TabNavLink from '~/components/controls/TabNavLink';
 import LayoutGrid from '~/components/layout/LayoutGrid';
+import {RootState} from '~/redux/store';
 import BoxFilterProduct from '../components/BoxFilterProduct';
 
 import styles from './TrendyProducts.module.scss';
@@ -10,11 +14,13 @@ import styles from './TrendyProducts.module.scss';
 function TrendyProducts() {
 	const router = useRouter();
 
-	const pageSize = 10;
-	const [page, setPage] = useState<number>(1);
-	const [total, setTotal] = useState<number>(200);
-
 	const _type = router.query._type;
+	const [data, setData] = useState<Array<any>>([]);
+	const [data_1, setData_1] = useState<Array<any>>([]);
+	const [data_2, setData_2] = useState<Array<any>>([]);
+	const [data_3, setData_3] = useState<Array<any>>([]);
+
+	const {token} = useSelector((state: RootState) => state.auth);
 
 	const listHref: Array<any> = [
 		{
@@ -39,84 +45,124 @@ function TrendyProducts() {
 		},
 	];
 
-	const listProduct: Array<any> = [
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-	];
+	const [isloading, setIsloading] = useState<boolean>(false);
 
-	const listProduct_2: Array<any> = [
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
+	// call api
+	useEffect(() => {
+		(async () => {
+			try {
+				setIsloading(true);
+				const res: any = await productService.getAllProduct({
+					token: String(token),
+					category: 0,
+					status: 0,
+					priceMin: 0,
+					priceMax: 1000000000,
+					keyword: '',
+					limit: 8,
+					page: 1,
+				});
 
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-		{
-			id: 'product_1',
-			image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg',
-			type: 'type_1',
-			name: 'Áo khoác gió',
-			price_sale: 2000000,
-			price: 3000000,
-			star: 4.5,
-		},
-	];
+				if (res.status === 1) {
+					setData(res.data);
+					setIsloading(false);
+				} else {
+					setIsloading(false);
+				}
+			} catch (error) {
+				setIsloading(false);
+				console.log(error);
+				toast.error('Có lỗi xảy ra!');
+			}
+		})();
+	}, [token]);
+
+	useEffect(() => {
+		(async () => {
+			try {
+				setIsloading(true);
+				const res: any = await productService.getAllProduct({
+					token: String(token),
+					category: 1,
+					status: 0,
+					priceMin: 0,
+					priceMax: 1000000000,
+					keyword: '',
+					limit: 4,
+					page: 1,
+				});
+
+				if (res.status === 1) {
+					setData_1(res.data);
+					setIsloading(false);
+				} else {
+					setIsloading(false);
+				}
+			} catch (error) {
+				setIsloading(false);
+				console.log(error);
+				toast.error('Có lỗi xảy ra!');
+			}
+		})();
+	}, [token]);
+
+	useEffect(() => {
+		(async () => {
+			try {
+				setIsloading(true);
+				const res: any = await productService.getAllProduct({
+					token: String(token),
+					category: 2,
+					status: 0,
+					priceMin: 0,
+					priceMax: 1000000000,
+					keyword: '',
+					limit: 4,
+					page: 1,
+				});
+
+				if (res.status === 1) {
+					setData_2(res.data);
+					setIsloading(false);
+				} else {
+					setIsloading(false);
+				}
+			} catch (error) {
+				setIsloading(false);
+				console.log(error);
+				toast.error('Có lỗi xảy ra!');
+			}
+		})();
+	}, [token]);
+
+	useEffect(() => {
+		(async () => {
+			try {
+				setIsloading(true);
+				const res: any = await productService.getAllProduct({
+					token: String(token),
+					category: 3,
+					status: 0,
+					priceMin: 0,
+					priceMax: 1000000000,
+					keyword: '',
+					limit: 4,
+					page: 1,
+				});
+
+				if (res.status === 1) {
+					setData_3(res.data);
+					setIsloading(false);
+				} else {
+					setIsloading(false);
+				}
+			} catch (error) {
+				setIsloading(false);
+				console.log(error);
+				toast.error('Có lỗi xảy ra!');
+			}
+		})();
+	}, [token]);
 
 	return (
 		<LayoutGrid>
@@ -125,18 +171,14 @@ function TrendyProducts() {
 				<div className={styles.tab}>
 					<TabNavLink query='_type' listHref={listHref} />
 				</div>
+				{!_type && <BoxFilterProduct listProduct={data} />}
+				{_type === 'ao-len' && <BoxFilterProduct listProduct={data_1} />}
+				{_type === 'quan-jeans' && <BoxFilterProduct listProduct={data_2} />}
+				{_type === 'ao-phong' && <BoxFilterProduct listProduct={data_3} />}
 
-				{!_type && <BoxFilterProduct listProduct={listProduct} />}
-				{_type && <BoxFilterProduct listProduct={listProduct_2} />}
-
-				<div className={styles.pagination}>
-					<Pagination
-						total={total}
-						onSetPage={setPage}
-						pageSize={pageSize}
-						currentPage={page}
-					/>
-				</div>
+				<Link className={styles.href} href='/shop?type=all&status=all'>
+					Xem thêm ...
+				</Link>
 			</div>
 		</LayoutGrid>
 	);
