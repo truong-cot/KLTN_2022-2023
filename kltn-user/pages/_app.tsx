@@ -10,6 +10,7 @@ import {persistor, store} from '~/redux/store';
 import {Provider} from 'react-redux';
 import SplashScreen from '~/components/protected/SplashScreen';
 import {PersistGate} from 'redux-persist/integration/react';
+import UpdateRoute from '~/components/common/UpdateRoute';
 
 type NextPageWithLayout = NextPage & {
 	getLayout?: (page: ReactElement) => ReactNode;
@@ -26,8 +27,11 @@ export default function App({Component, pageProps}: AppPropsWithLayout) {
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
 				<ToastContainer autoClose={2000} />
-				<LoadingTopBar />
-				<SplashScreen>{getLayout(<Component {...pageProps} />)}</SplashScreen>
+				<UpdateRoute />
+				<SplashScreen>
+					<LoadingTopBar />
+					{getLayout(<Component {...pageProps} />)}
+				</SplashScreen>
 			</PersistGate>
 		</Provider>
 	);

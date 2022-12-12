@@ -4,9 +4,9 @@
 	"main": "index.ts",
 	"license": "MIT",
 	"scripts": {
-		"dev": "nodemon ./src/index.ts",
+		"dev": "nodemon ./src/index.ts -p 8000",
 		"build": "tsc -p .",
-		"start": "node ./build/index.ts",
+		"start": "node ./build/index.ts -p 8000",
 		"lint": "next lint"
 	},
 	"dependencies": {

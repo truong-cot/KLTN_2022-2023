@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {AiFillStar, AiFillYoutube, AiOutlineInstagram} from 'react-icons/ai';
 import {BsFillSuitHeartFill, BsTwitter} from 'react-icons/bs';
 import {FaCartPlus, FaFacebookF} from 'react-icons/fa';
@@ -16,19 +16,21 @@ import {RootState} from '~/redux/store';
 import DetailDes from '../DetailDes';
 import GeneralDes from '../GeneralDes';
 import Reviews from '../Reviews';
-import {TypeImage, TypeProduct} from './interfaces';
+import {TypeCart, TypeImage, TypeProduct} from './interfaces';
 import styles from './MainProduct.module.scss';
 
 function MainProduct() {
 	const router = useRouter();
 	const {token} = useSelector((state: RootState) => state.auth);
+	const {isLogged} = useSelector((state: RootState) => state.auth);
 	const idProduct = router.asPath.split('/')[2];
 
-	const [listImage, setListImage] = useState<Array<TypeImage>>([]);
-	const [size, setSize] = useState<number>();
+	const [size, setSize] = useState<String>('');
 	const [tab, setTab] = useState<number>(1);
-	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [data, setData] = useState<TypeProduct>();
+	const [listImage, setListImage] = useState<Array<TypeImage>>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [amount, setAmount] = useState<Number>(1);
 
 	const list_star: Array<any> = [
 		{
@@ -85,6 +87,48 @@ function MainProduct() {
 		})();
 	}, []);
 
+	// Tính giá sau khi sale
+	const lastPrice = useMemo(() => {
+		return Number(data?.price) - (Number(data?.price) * Number(data?.sale)) / 100;
+	}, [idProduct, data?.price, data?.sale, router]);
+
+	// Handle qlt
+	const reduceQlt = () => {
+		if (Number(amount) > 1) {
+			setAmount(Number(amount) - 1);
+		} else {
+			setAmount(1);
+		}
+	};
+
+	const moreQlt = () => {
+		if (Number(amount) < 10) {
+			setAmount(Number(amount) + 1);
+		}
+	};
+
+	const form: TypeCart = {
+		idProduct: idProduct,
+		nameProduct: String(data?.name),
+		image: String(listImage[0]?.url),
+		price: lastPrice,
+		amount: amount,
+		size: size,
+	};
+
+	// add to cart
+	const handleAddToCart = () => {
+		if (isLogged) {
+			if (size) {
+				console.log(form);
+			} else {
+				toast.warn('Vui lòng lựa chọn size cho sản phẩm!');
+			}
+		} else {
+			router.push('/auth/login');
+		}
+	};
+
 	return (
 		<LoadingData isLoading={isLoading}>
 			<div className={styles.container}>
@@ -100,43 +144,42 @@ function MainProduct() {
 							</div>
 						)}
 						<div className={styles.list_image_des}>
-						{listImage[1] && (
-							<div className={styles.item_image_des}>
-								<Image
-									src={String(listImage[1]?.url)}
-									alt='main image'
-									layout='fill'
-								/>
-							</div>
-						)}
-						{listImage[2] && (
-							<div className={styles.item_image_des}>
-								<Image
-									src={String(listImage[2]?.url)}
-									alt='main image'
-									layout='fill'
-								/>
-							</div>
-						)}
-						{listImage[3] && (
-							<div className={styles.item_image_des}>
-								<Image
-									src={String(listImage[3]?.url)}
-									alt='main image'
-									layout='fill'
-								/>
-							</div>
-						)}
-						{listImage[4] && (
-							<div className={styles.item_image_des}>
-								<Image
-									src={String(listImage[4]?.url)}
-									alt='main image'
-									layout='fill'
-								/>
-							</div>
-						)}
-							
+							{listImage[1] && (
+								<div className={styles.item_image_des}>
+									<Image
+										src={String(listImage[1]?.url)}
+										alt='main image'
+										layout='fill'
+									/>
+								</div>
+							)}
+							{listImage[2] && (
+								<div className={styles.item_image_des}>
+									<Image
+										src={String(listImage[2]?.url)}
+										alt='main image'
+										layout='fill'
+									/>
+								</div>
+							)}
+							{listImage[3] && (
+								<div className={styles.item_image_des}>
+									<Image
+										src={String(listImage[3]?.url)}
+										alt='main image'
+										layout='fill'
+									/>
+								</div>
+							)}
+							{listImage[4] && (
+								<div className={styles.item_image_des}>
+									<Image
+										src={String(listImage[4]?.url)}
+										alt='main image'
+										layout='fill'
+									/>
+								</div>
+							)}
 						</div>
 					</div>
 					<div className={styles.box_info}>
@@ -145,7 +188,9 @@ function MainProduct() {
 							{list_star.map((v, i) => (
 								<div
 									key={i}
-									className={clsx(styles.star, {[styles.active_star]: v.id <= Number(data?.star)})}
+									className={clsx(styles.star, {
+										[styles.active_star]: v.id <= Number(data?.star),
+									})}
 								>
 									{v.star}
 								</div>
@@ -175,10 +220,10 @@ function MainProduct() {
 								{list_size.map((v, i) => (
 									<div
 										key={i}
-										onClick={() => setSize(i)}
+										onClick={() => setSize(v.size)}
 										className={clsx(styles.size, {
 											[styles.unActive]: false,
-											[styles.active_size]: size === i,
+											[styles.active_size]: size === v.size,
 										})}
 									>
 										<p>{v.size}</p>
@@ -191,24 +236,26 @@ function MainProduct() {
 							<div className={styles.box_qlt}>
 								<div
 									className={clsx(styles.item_qlt, styles.handle, {
-										[styles.unActive_qlt]: false,
+										[styles.unActive_qlt]: amount <= 1,
 									})}
+									onClick={reduceQlt}
 								>
 									<p>-</p>
 								</div>
 								<div className={styles.item_qlt}>
-									<p>3</p>
+									<p>{Number(amount)}</p>
 								</div>
 								<div
 									className={clsx(styles.item_qlt, styles.handle, {
-										[styles.unActive_qlt]: false,
+										[styles.unActive_qlt]: amount >= 10,
 									})}
+									onClick={moreQlt}
 								>
 									<p>+</p>
 								</div>
 							</div>
 						</div>
-						<div className={styles.btn}>
+						<div className={styles.btn} onClick={handleAddToCart}>
 							<FaCartPlus size={16} />
 							<p>Thêm vào giỏ hàng</p>
 						</div>

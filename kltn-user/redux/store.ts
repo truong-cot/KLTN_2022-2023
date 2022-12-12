@@ -5,19 +5,21 @@ import {configureStore} from '@reduxjs/toolkit';
 import interfaceReducer from './reducers/interface';
 import authReducer from './reducers/authSlice';
 import userReducer from './reducers/userSlice';
+import cartReducer from './reducers/cartSlice';
 import storage from 'redux-persist/lib/storage/session';
 import thunk from 'redux-thunk';
 
 const persistConfig = {
 	key: 'auth',
 	storage,
-	whitelist: ['auth', 'user'],
+	whitelist: ['interface', 'auth', 'user', 'cart'],
 };
 
 const reducers = combineReducers({
 	interface: interfaceReducer,
 	auth: authReducer,
 	user: userReducer,
+	cart: cartReducer,
 });
 
 export const store = configureStore({

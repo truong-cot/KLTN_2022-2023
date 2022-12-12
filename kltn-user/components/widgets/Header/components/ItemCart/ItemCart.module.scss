@@ -1,0 +1,96 @@
+.container {
+	position: relative;
+	width: 100%;
+	display: block;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid rgb(187, 187, 187);
+	display: flex;
+	color: #000;
+
+	.box_image {
+		position: relative;
+		width: 72px;
+		height: 90px;
+
+		.image {
+			border-radius: 4px;
+		}
+	}
+
+	.info {
+		margin-left: 12px;
+
+		.name {
+			text-align: center;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			color: var(--text-color);
+			display: block;
+			display: -webkit-box;
+			font-size: 1.6rem;
+			font-weight: 400;
+			transition: 0.3s;
+
+			&:hover {
+				color: #1967d2;
+			}
+		}
+
+		.total_price {
+			font-size: 1.2rem;
+			color: #191919;
+			font-weight: 400;
+			padding-top: 8px;
+
+			.qlt {
+				color: #ed1c24;
+				font-weight: bold;
+				margin-right: 4px;
+			}
+
+			.x {
+				font-size: 1.4rem;
+			}
+
+			.price {
+				color: #ed1c24;
+				margin-left: 4px;
+				font-weight: bold;
+			}
+		}
+
+		.des {
+			display: flex;
+			align-items: flex-end;
+			font-size: 14px;
+			color: #777;
+			font-weight: 400;
+			padding-top: 8px;
+
+			.price {
+				margin-left: 4px;
+				color: #5cb85c;
+				font-weight: 500;
+			}
+		}
+	}
+
+	.delete {
+		cursor: pointer;
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		font-size: 2.4rem;
+		transition: all 0.8s linear;
+
+		&:active {
+			transform: scale(0.9);
+		}
+
+		&:hover {
+			color: #ed1c24;
+		}
+	}
+}

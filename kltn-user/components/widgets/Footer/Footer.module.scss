@@ -1,11 +1,7 @@
 .container {
 	width: 100%;
 	z-index: 10;
-	box-shadow: 0 0 8px 8px rgb(91 91 91 / 10%);
-	// position: fixed;
-	// left: 0;
-	// right: 0;
-	// bottom: 0;
+	box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
 
 	.top {
 		display: grid;

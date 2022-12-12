@@ -31,7 +31,7 @@ const userSchema = new Schema(
 			type: String,
 			default: null,
 		},
-		datebBirth: {
+		dateBirth: {
 			type: Number,
 			default: null,
 		},
@@ -49,13 +49,13 @@ const userSchema = new Schema(
 		},
 		address: {
 			type: String,
-			default: null
+			default: null,
 		},
 		// 1: Nam, 2: nữ, 0: Giới tính khác
 		sex: {
 			type: Number,
 			default: null,
-		}
+		},
 	},
 	{timestamps: true}
 );

@@ -14,7 +14,8 @@ import {FaRegUser} from 'react-icons/fa';
 import {useRouter} from 'next/router';
 import {useSelector} from 'react-redux';
 import {RootState} from '~/redux/store';
-import BoxProfile from './components/profile';
+import BoxProfile from './components/BoxProfile';
+import BoxCart from './components/BoxCart';
 
 function Header({isScroll}: any) {
 	const [isShowHeader, setIsShowHeader] = useState<boolean>(false);
@@ -24,6 +25,7 @@ function Header({isScroll}: any) {
 	const {isLogged} = useSelector((state: RootState) => state.auth);
 
 	const [show, setShow] = useState<boolean>(false);
+	const [showCart, setShowCart] = useState<boolean>(false);
 
 	const listLink: Array<any> = [
 		{
@@ -85,10 +87,23 @@ function Header({isScroll}: any) {
 								<IoGitCompareOutline />
 								<span className={styles.qlt}>3</span>
 							</Link>
-							<div className={styles.icon_cart}>
-								<BsCartCheck />
-								<span className={styles.qlt}>3</span>
-							</div>
+							<HeadlessTippy
+								interactive
+								visible={showCart}
+								placement='bottom-end'
+								render={(attrs: any) => (
+									<BoxCart onClose={() => setShowCart(false)} />
+								)}
+								onClickOutside={() => setShowCart(false)}
+							>
+								<div
+									className={styles.icon_cart}
+									onClick={() => setShowCart(!showCart)}
+								>
+									<BsCartCheck />
+									<span className={styles.qlt}>3</span>
+								</div>
+							</HeadlessTippy>
 							<HeadlessTippy
 								interactive
 								visible={show}

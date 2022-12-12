@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
 import Button from '~/components/controls/Button';
 import Form, {Input} from '~/components/controls/Form';
@@ -12,10 +12,15 @@ import authService from '~/api/auth';
 import {login} from '~/redux/reducers/authSlice';
 import Link from 'next/link';
 import LoadingData from '~/components/common/LoadingData';
+import {RootState} from '~/redux/store';
 
 function Register() {
 	const dispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+
+	const router = useRouter();
+
+	const {routerPrev} = useSelector((state: RootState) => state.interface);
 
 	const [form, setForm] = useState<any>({
 		username: '',
@@ -33,6 +38,7 @@ function Register() {
 				const dataUser = res.data;
 
 				if (res.status === 1) {
+					router.push(routerPrev);
 					dispatch(updateDataUser(dataUser));
 					dispatch(login({token: dataUser.token}));
 					toast.success(res.message || 'Đăng nhập thành công!');

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
 import authService from '~/api/auth';
 import Button from '~/components/controls/Button';
@@ -11,9 +11,14 @@ import {login} from '~/redux/reducers/authSlice';
 import RequiredLogout from '~/components/protected/RequiredLogout';
 import Link from 'next/link';
 import LoadingData from '~/components/common/LoadingData';
+import {useRouter} from 'next/router';
+import {RootState} from '~/redux/store';
 
 function MainLogin() {
 	const dispatch = useDispatch();
+	const router = useRouter();
+
+	const {routerPrev} = useSelector((state: RootState) => state.interface);
 
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [form, setForm] = useState<any>({
@@ -30,6 +35,7 @@ function MainLogin() {
 				const dataLogin = res.data.user;
 
 				if (res.status === 1) {
+					router.push(routerPrev);
 					dispatch(updateDataUser(dataLogin));
 					dispatch(login({token: dataLogin.token}));
 					toast.success(res.message || 'Đăng nhập thành công!');

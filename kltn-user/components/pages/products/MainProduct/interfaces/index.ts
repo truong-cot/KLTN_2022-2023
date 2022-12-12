@@ -23,3 +23,12 @@ export interface TypeImage {
 	id: String;
 	url: String;
 }
+
+export interface TypeCart {
+	idProduct: String;
+	nameProduct: String;
+	image: String;
+	size: String;
+	amount: Number;
+	price: Number;
+}
