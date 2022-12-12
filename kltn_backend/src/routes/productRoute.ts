@@ -63,14 +63,14 @@ router.post(
 // Lấy tất cả sản phẩm
 router.get(
 	'/get-all-product',
-	authMiddlewares.isAdmin,
+	// authMiddlewares.isAdmin,
 	ProductController.getAllProduct
 );
 
 // Lấy chi tiết sản phẩm
 router.get(
 	'/get-detail-product/:id',
-	authMiddlewares.authVerify,
+	// authMiddlewares.authVerify,
 	ProductController.getDetailProduct
 );
 

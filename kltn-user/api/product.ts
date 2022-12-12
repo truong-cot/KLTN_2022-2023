@@ -26,6 +26,20 @@ const productService = {
 			}
 		);
 	},
+	getDetailProduct: (
+		data: {
+			token: String;
+			idProduct: String;
+		},
+		tokenAxios?: any
+	) => {
+		return axiosClient.get(`${routeName}/get-detail-product/${data.idProduct}`, {
+			cancelToken: tokenAxios,
+			headers: {
+				token: 'Bearer ' + data.token,
+			},
+		});
+	},
 };
 
 export default productService;
