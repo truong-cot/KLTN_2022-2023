@@ -1,0 +1,37 @@
+.container {
+	.box_info {
+		display: flex;
+		align-items: flex-start;
+		gap: 16px;
+
+		.box_image {
+			position: relative;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			border: 2px solid rgb(194, 225, 255);
+
+			.image {
+				border-radius: 50%;
+				user-select: none;
+			}
+		}
+
+		.info {
+			.text {
+				font-size: 1.4rem;
+				font-weight: 400;
+				margin-bottom: 4px;
+			}
+
+			.name {
+				font-size: 1.6rem;
+				font-weight: 600;
+			}
+		}
+	}
+
+	.main {
+		margin-top: 24px;
+	}
+}

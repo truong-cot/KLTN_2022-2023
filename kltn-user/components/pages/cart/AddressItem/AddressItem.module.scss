@@ -1,0 +1,61 @@
+.item {
+	padding: 12px;
+	border: 1px solid #dadada;
+	border-radius: 4px;
+	margin-bottom: 12px;
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+
+	&.active {
+		border: 1px solid #f98080;
+	}
+
+	input {
+		width: 20px;
+		height: 20px;
+	}
+
+	.box_change {
+		.top {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			gap: 24px;
+			margin-bottom: 16px;
+
+			.name {
+				font-size: 1.6rem;
+				font-weight: 700;
+				color: #111;
+			}
+
+			.phone {
+				font-size: 1.4rem;
+				font-weight: 500;
+				color: #111;
+			}
+		}
+
+		.bottom {
+			.home {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: red;
+				max-height: 25px;
+				padding: 6px 20px;
+				border-radius: 12px;
+				color: #fff;
+				font-size: 1rem;
+				font-weight: 600;
+				margin-right: 24px;
+			}
+
+			.address {
+				font-size: 1.2rem;
+				font-weight: 500;
+			}
+		}
+	}
+}

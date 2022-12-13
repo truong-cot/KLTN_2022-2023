@@ -108,7 +108,9 @@ function Header({isScroll}: any) {
 								interactive
 								visible={show}
 								placement='bottom-end'
-								render={(attrs: any) => <BoxProfile />}
+								render={(attrs: any) => (
+									<BoxProfile closeBox={() => setShow(false)} />
+								)}
 								onClickOutside={() => setShow(false)}
 							>
 								<div className={styles.icon_profile} onClick={() => setShow(!show)}>

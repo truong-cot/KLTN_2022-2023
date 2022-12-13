@@ -1,0 +1,17 @@
+.container {
+	padding: 24px 0;
+	background-color: #fff;
+	min-height: 90vh;
+}
+
+.main {
+	display: grid;
+	grid-template-columns: 400px 1fr;
+	gap: 24px;
+}
+
+.bg {
+	border-radius: 8px;
+	background-color: rgb(235, 235, 240);
+	padding: 24px 40px;
+}

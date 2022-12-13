@@ -178,7 +178,7 @@
 				border-bottom: 1px solid hsla(0, 0%, 60%, 0.255);
 				display: flex;
 				justify-content: space-between;
-				margin-bottom: 10px;
+				// margin-bottom: 10px;
 				padding: 20px 0;
 
 				.text_sub {
@@ -195,8 +195,9 @@
 			}
 
 			.shipping {
-				margin-bottom: 20px;
-				padding: 10px 0;
+				// margin-bottom: 20px;
+				padding: 20px 0;
+				border-bottom: 1px solid hsla(0, 0%, 60%, 0.255);
 
 				.text_sub {
 					color: rgba(0, 0, 0, 0.85);
@@ -204,22 +205,78 @@
 					font-size: 16px;
 				}
 			}
+
+			.item_method {
+				margin-top: 16px;
+				margin-left: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				.input {
+					display: flex;
+					align-items: center;
+
+					input {
+						width: 16px;
+						height: 16px;
+						margin-right: 6px;
+					}
+
+					label {
+						cursor: pointer;
+						font-size: 16px;
+						font-weight: 500;
+						color: #666;
+					}
+				}
+
+				.text_method {
+					font-size: 16px;
+					font-weight: 400;
+					color: #777;
+					margin-left: 4px;
+				}
+			}
+
+			.total_payment {
+				padding: 20px 0;
+				border-bottom: 1px solid hsla(0, 0%, 60%, 0.255);
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				.text_sub {
+					color: rgba(0, 0, 0, 0.85);
+					font-weight: 500;
+					font-size: 16px;
+				}
+
+				.price_payment {
+					color: rgba(254, 126, 126, 0.85);
+					font-weight: 600;
+					font-size: 18px;
+				}
+			}
+
+			.btn_1 {
+				background-color: #ed1c24;
+			}
 		}
 	}
 
 	.group_btn {
 		width: 100%;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-top: 32px;
 
 		.btn_1 {
+			width: 100%;
 			background-color: #ed1c24;
 		}
 
 		.btn_2 {
+			width: 100%;
 			background-color: #5cb85c;
+			margin-bottom: 12px;
 		}
 	}
 }

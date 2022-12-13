@@ -94,6 +94,18 @@ h6 {
 	overflow-wrap: break-word;
 }
 
+.overlay {
+	position: fixed;
+	top: 0px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(6, 7, 40, 0.4);
+	z-index: 100;
+	-webkit-animation: show 0.4s linear;
+	animation: show 0.4s linear;
+}
+
 //progress Page
 /* Make clicks pass-through */
 #nprogress {

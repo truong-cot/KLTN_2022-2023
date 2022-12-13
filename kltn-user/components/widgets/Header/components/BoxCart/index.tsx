@@ -12,6 +12,7 @@ function BoxCart({onClose}: TypeBoxCart) {
 
 	const handleBuy = () => {
 		onClose();
+		router.push('/payment');
 	};
 	const handleShowCart = () => {
 		onClose();

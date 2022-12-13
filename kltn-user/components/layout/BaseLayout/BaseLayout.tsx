@@ -7,7 +7,6 @@ import {PropsBaseLayout} from './interfaces';
 import clsx from 'clsx';
 import styles from './BaseLayout.module.scss';
 import Footer from '~/components/widgets/Footer';
-import HeaderContact from '~/components/widgets/HeaderContact';
 import Header from '~/components/widgets/Header';
 
 function BaseLayout({children, hiddenSidebar, hiddenHeader}: PropsBaseLayout) {
@@ -46,7 +45,6 @@ function BaseLayout({children, hiddenSidebar, hiddenHeader}: PropsBaseLayout) {
 					[styles.scroll]: scroll,
 				})}
 			>
-				{/* <HeaderContact /> */}
 				<Header isScroll={scroll} />
 			</div>
 			<main>

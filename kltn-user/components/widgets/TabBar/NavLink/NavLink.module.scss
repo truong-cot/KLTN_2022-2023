@@ -1,0 +1,30 @@
+.container {
+	.main {
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 12px;
+		transition: all 0.3s linear;
+
+		&.active {
+			background-color: rgb(235, 235, 240);
+		}
+
+		&:hover {
+			background-color: rgb(235, 235, 240);
+		}
+
+		.box_icon {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 2.4rem;
+		}
+
+		.text {
+			font-size: 1.5rem;
+			font-weight: 500;
+		}
+	}
+}

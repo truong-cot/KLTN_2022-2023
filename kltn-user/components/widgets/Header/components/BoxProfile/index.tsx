@@ -13,7 +13,7 @@ interface TypeBox {
 	closeBox: () => void;
 }
 
-function BoxProfile() {
+function BoxProfile({closeBox}: TypeBox) {
 	const dispatch = useDispatch();
 	const listMenu: Array<any> = [
 		{
@@ -31,7 +31,7 @@ function BoxProfile() {
 	return (
 		<div className={styles.container}>
 			{listMenu.map((item, index) => (
-				<Link key={index} href={item.href} className={styles.block}>
+				<Link onClick={closeBox} key={index} href={item.href} className={styles.block}>
 					<div className={styles.icon}>{item.icon}</div>
 					<p className={styles.text}>{item.text}</p>
 				</Link>
