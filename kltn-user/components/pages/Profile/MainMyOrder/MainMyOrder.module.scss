@@ -1,0 +1,19 @@
+.container {
+	font-size: 1.4rem;
+	font-weight: 500;
+
+	.main {
+		border-radius: 8px;
+		background-color: rgb(235, 235, 240);
+
+		.title {
+			margin-bottom: 12px;
+		}
+
+		.wrapper {
+			background-color: #fff;
+			padding: 20px;
+			margin-top: 20px;
+		}
+	}
+}

@@ -15,6 +15,7 @@ import {MdAddchart} from 'react-icons/md';
 import {TbListCheck} from 'react-icons/tb';
 import {RiUserSettingsLine} from 'react-icons/ri';
 import {BiCategoryAlt} from 'react-icons/bi';
+import {TiShoppingCart} from 'react-icons/ti';
 
 function TabBar(props: PropsTabBar) {
 	const dispatch = useDispatch();
@@ -52,8 +53,12 @@ function TabBar(props: PropsTabBar) {
 					title: 'Quản lý loại sản phẩm',
 					href: '/manage-product/list-product-category',
 				},
-				
 			],
+		},
+		{
+			icon: <TiShoppingCart size='20' />,
+			title: 'Quản lý đơn hàng',
+			href: '/manage-order',
 		},
 		{
 			icon: <RiUserSettingsLine size='20' />,

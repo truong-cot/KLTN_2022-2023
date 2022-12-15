@@ -10,11 +10,12 @@ interface TypeItemAddress {
 		phone: String;
 		address: String;
 	};
+	active?: boolean;
 }
 
-function AddressItem({data}: TypeItemAddress) {
+function AddressItem({data, active}: TypeItemAddress) {
 	return (
-		<div className={clsx(styles.item, {[styles.active]: true})}>
+		<div className={clsx(styles.item, {[styles.active]: active})}>
 			<div className={styles.box_change}>
 				<div className={styles.top}>
 					<p className={styles.name}>{data.name}</p>

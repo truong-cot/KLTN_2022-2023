@@ -1,0 +1,39 @@
+.container {
+	font-size: 1.4rem;
+	font-weight: 500;
+
+	.main {
+		border-radius: 8px;
+		background-color: rgb(235, 235, 240);
+
+		.title {
+			margin-bottom: 12px;
+		}
+
+		.top {
+			width: 100%;
+			cursor: pointer;
+			border: 1px dashed rgb(216, 216, 216);
+			background-color: #fff;
+			border-radius: 12px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 16px 0;
+			transition: all 0.3s linear;
+
+			&:hover .text {
+				color: rgb(108, 87, 87);
+			}
+
+			.icon {
+				margin-right: 20px;
+				font-size: 18px;
+			}
+		}
+
+		.list_address {
+			margin-top: 24px;
+		}
+	}
+}

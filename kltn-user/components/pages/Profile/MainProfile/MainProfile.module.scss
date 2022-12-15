@@ -1,0 +1,126 @@
+.container {
+	.main {
+		border-radius: 8px;
+		background-color: rgb(235, 235, 240);
+
+		.text {
+			font-size: 1.4rem;
+			font-weight: 500;
+			margin-bottom: 20px;
+		}
+
+		.box_top {
+			display: flex;
+			align-items: center;
+			gap: 40px;
+
+			.box_change_avatar {
+				cursor: pointer;
+				position: relative;
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				border: 4px solid rgb(194, 225, 255);
+
+				.image {
+					border-radius: 50%;
+				}
+
+				.box_icon {
+					position: absolute;
+					bottom: 0;
+					right: -4px;
+					width: 24px;
+					height: 24px;
+					background-color: #fff;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					border-radius: 50%;
+
+					.icon {
+						transform: rotate(-90deg);
+						font-size: 1.2rem;
+					}
+				}
+			}
+
+			.box_info {
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+
+				.box_name,
+				.box_user_acc {
+					display: flex;
+					align-items: center;
+
+					.text_info {
+						font-size: 1.4rem;
+						font-weight: 500;
+						width: 100px;
+					}
+
+					input {
+						transition: border-color 0.15s ease-in-out 0s,
+							box-shadow 0.15s ease-in-out 0s, -webkit-box-shadow 0.15s ease-in-out 0s;
+						border: 1px solid rgb(196, 196, 207);
+						border-radius: 4px;
+						min-width: 400px;
+						outline: none;
+						padding: 10px 12px;
+						font-size: 1.4rem;
+						font-weight: 500;
+					}
+				}
+			}
+		}
+
+		.box_date {
+			margin-top: 20px;
+			display: flex;
+			align-items: center;
+
+			.text_info {
+				font-size: 1.4rem;
+				font-weight: 500;
+				width: 100px;
+			}
+
+			input {
+				transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s,
+					-webkit-box-shadow 0.15s ease-in-out 0s;
+				border: 1px solid rgb(196, 196, 207);
+				border-radius: 4px;
+				min-width: 400px;
+				outline: none;
+				padding: 10px 12px;
+				font-size: 1.4rem;
+				font-weight: 500;
+			}
+
+			.text_date {
+				font-size: 1.4rem;
+				font-weight: 500;
+				width: 100px;
+			}
+
+			.box_select {
+				display: flex;
+				align-items: center;
+				gap: 20px;
+
+				.select {
+					width: 160px;
+					height: 40px;
+					font-size: 14px;
+					font-weight: 600;
+				}
+			}
+		}
+
+		.box_btn {
+			margin-top: 24px;
+		}
+	}
+}

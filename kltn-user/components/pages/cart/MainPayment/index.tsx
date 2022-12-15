@@ -54,7 +54,7 @@ function MainPayment() {
 						</p>
 					</div>
 					{data.map((item, index) => (
-						<AddressItem key={index} data={item} />
+						<AddressItem key={index} data={item} active={index === 1} />
 					))}
 
 					<div className={styles.group_btn}>
@@ -66,8 +66,8 @@ function MainPayment() {
 				<div className={styles.wapper}>
 					{/* Kiểm tra trường hợp chưa cập nhật thông tin cá nhân */}
 					{/* <div className={styles.box_1}>
-					<FormChangeAddress />
-				</div> */}
+						<FormChangeAddress />
+					</div> */}
 					<div className={styles.box_des}>
 						<InformationReceiver show={() => setShow(true)} />
 						<div className={styles.box_specific}>

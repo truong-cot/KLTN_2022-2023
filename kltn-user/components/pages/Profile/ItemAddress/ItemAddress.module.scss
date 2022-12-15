@@ -1,0 +1,58 @@
+.container {
+	width: 100%;
+	background-color: #fff;
+	padding: 12px 20px;
+	border-radius: 8px;
+	font-size: 1.4rem;
+	font-weight: 500;
+
+	+ .container {
+		margin-top: 16px;
+	}
+
+	.top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.box_1 {
+			display: flex;
+			align-items: baseline;
+
+			.right {
+				display: flex;
+				align-items: center;
+				margin-left: 12px;
+				font-size: 1.2rem;
+				color: rgb(38, 188, 78);
+
+				.icon {
+					margin-right: 6px;
+				}
+			}
+		}
+
+		.box_2 {
+			font-size: 1.4rem;
+
+			.btn_delete {
+				margin-right: 8px;
+				color: rgb(255, 66, 78);
+			}
+		}
+	}
+
+	.bottom {
+		display: flex;
+		align-items: center;
+		margin-top: 10px;
+
+		.text_1 {
+			margin-right: 8px;
+		}
+
+		.text_2 {
+			font-size: 1.3rem;
+		}
+	}
+}

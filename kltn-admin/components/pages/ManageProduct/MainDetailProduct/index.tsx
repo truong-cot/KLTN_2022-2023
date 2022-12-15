@@ -10,9 +10,6 @@ import LoadingData from '~/components/common/LoadingData';
 import {toast} from 'react-toastify';
 import productService from '~/api/product';
 import {convertCoin} from '~/common/func/convertCoin';
-import {FaTimes} from 'react-icons/fa';
-import {IoMdClose} from 'react-icons/io';
-import clsx from 'clsx';
 import Button from '~/components/controls/Button';
 import FormChangeImage from '~/components/controls/FormChangeImage';
 

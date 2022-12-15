@@ -1,25 +1,31 @@
-import React, {ReactElement} from 'react';
+import {ReactElement} from 'react';
 import TagPage from '~/components/controls/TagPage';
 import BaseLayout from '~/components/layout/BaseLayout';
 import LayoutGrid from '~/components/layout/LayoutGrid';
 import Page from '~/components/layout/Page';
 import ProfileLayout from '~/components/layout/ProfileLayout';
-import MainProfile from '../../components/pages/Profile/MainProfile';
+import MainAddress from '~/components/pages/Profile/MainAddress';
 
-import styles from './Profile.module.scss';
+import styles from './Address.module.scss';
 
-function Profile() {
+function Address() {
 	return (
-		<Page title='Trang cá nhân'>
+		<Page title='Sổ địa chỉ'>
 			<div className={styles.header}>
 				<h4 className={styles.title_header}>Chào mừng bạn đến với MOLLA</h4>
-				<p className={styles.text_header}>Trang cá nhân</p>
+				<p className={styles.text_header}>Sổ địa chỉ</p>
 			</div>
 			<LayoutGrid>
 				<div className={styles.container}>
-					<TagPage text_1='Home' href_1='/' text_2='Trang cá nhân' />
+					<TagPage
+						text_1='Home'
+						href_1='/'
+						text_2='Trang cá nhân'
+						text_3='Sổ địa chỉ'
+						href_2='/profile'
+					/>
 					<ProfileLayout>
-						<MainProfile />
+						<MainAddress />
 					</ProfileLayout>
 				</div>
 			</LayoutGrid>
@@ -27,8 +33,8 @@ function Profile() {
 	);
 }
 
-export default Profile;
+export default Address;
 
-Profile.getLayout = function (page: ReactElement) {
+Address.getLayout = function (page: ReactElement) {
 	return <BaseLayout>{page}</BaseLayout>;
 };
