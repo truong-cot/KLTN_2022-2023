@@ -1,5 +1,5 @@
 import {useRouter} from 'next/router';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {HiOutlineDotsCircleHorizontal} from 'react-icons/hi';
 import {convertCoin} from '~/common/func/convertCoin';
 import convertDate from '~/common/func/convertDate';
@@ -12,9 +12,15 @@ import Search from '~/components/controls/Search';
 import RequireAuth from '~/components/protected/RequiredAuth';
 
 import styles from './TablePending.module.scss';
+import orderService from '~/api/order';
+import {useSelector} from 'react-redux';
+import {RootState} from '~/redux/store';
+import {toast} from 'react-toastify';
+import {TypeOrder} from './interfaces';
 
 function TablePending() {
 	const router = useRouter();
+	const {token} = useSelector((state: RootState) => state.auth);
 
 	const [keyword, setKeyword] = useState<string>('');
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -23,32 +29,35 @@ function TablePending() {
 	const [page, setPage] = useState<number>(1);
 	const debounceKeyword = useDebounce(keyword, 500);
 
-	const [data, setData] = useState<Array<any>>([
-		{
-			_id: '12345',
-			name: 'Đặng Bá Trường',
-			phone: '0229940200',
-			products: [1],
-			totalPrice: 1250000,
-			date: '21:15, 05/12/2022',
-		},
-		{
-			_id: '12345',
-			name: 'Đặng Bá Trường',
-			phone: '0229940200',
-			products: [1, 2, 3],
-			totalPrice: 1250000,
-			date: '21:15, 05/12/2022',
-		},
-		{
-			_id: '12345',
-			name: 'Đặng Bá Trường',
-			products: [1, 2, 3, 4],
-			phone: '0229940200',
-			totalPrice: 1250000,
-			date: '21:15, 05/12/2022',
-		},
-	]);
+	const [data, setData] = useState<Array<TypeOrder>>([]);
+
+	// Lấy danh sách đơn hàng
+	useEffect(() => {
+		(async () => {
+			try {
+				setIsLoading(true);
+				const res: any = await orderService.getAllOrder({
+					token: String(token),
+					keyword: debounceKeyword,
+					limit: Number(limit),
+					page: Number(page),
+					statusOrder: 0,
+				});
+
+				if (res.status === 1) {
+					setData(res.data);
+					setIsLoading(false);
+				} else {
+					setIsLoading(false);
+				}
+			} catch (error) {
+				setIsLoading(false);
+				console.log(error);
+				toast.error('Có lỗi xảy ra!');
+			}
+		})();
+	}, [debounceKeyword, limit, page, token]);
+
 	return (
 		<RequireAuth>
 			<div className={styles.container}>
@@ -68,16 +77,26 @@ function TablePending() {
 							data={data}
 							columns={[
 								{
+									title: 'Tên người dùng',
+									template: (data: TypeOrder) => (
+										<p>{data.nameUser || 'Chưa cập nhật'}</p>
+									),
+								},
+								{
 									title: 'Tên người nhận',
-									template: (data: any) => <p>{data.name || 'Chưa cập nhật'}</p>,
+									template: (data: TypeOrder) => (
+										<p>{data.nameReceiver || 'Chưa cập nhật'}</p>
+									),
 								},
 								{
 									title: 'Số điện thoại',
-									template: (data: any) => <p>{data.phone || 'Chưa cập nhật'}</p>,
+									template: (data: TypeOrder) => (
+										<p>{Number(data.phone) || 'Chưa cập nhật'}</p>
+									),
 								},
 								{
 									title: 'Số lượng đơn hàng',
-									template: (data: any) => (
+									template: (data: TypeOrder) => (
 										<p style={{textAlign: 'center', width: '60%'}}>
 											{data.products.length}
 										</p>
@@ -85,20 +104,29 @@ function TablePending() {
 								},
 								{
 									title: 'Tổng tiền đơn hàng',
-									template: (data: any) => <p>{convertCoin(data.totalPrice)}đ</p>,
+									template: (data: TypeOrder) => (
+										<p>{convertCoin(Number(data.totalPrice))}đ</p>
+									),
 								},
 								{
 									title: 'Ngày đặt hàng',
-									template: (data: any) => (
+									template: (data: TypeOrder) => (
 										<p>
-											{/* {convertDate(String(data.createdAt)).getFullDateTime()} */}
-											{data.date}
+											{convertDate(String(data.createdAt)).getFullDateTime()}
+										</p>
+									),
+								},
+								{
+									title: 'Ngày cập nhật',
+									template: (data: TypeOrder) => (
+										<p>
+											{convertDate(String(data.updatedAt)).getFullDateTime()}
 										</p>
 									),
 								},
 								{
 									title: 'Xem chi tiết',
-									template: (data: any) => (
+									template: (data: TypeOrder) => (
 										<div className={styles.control}>
 											<div
 												className={styles.detail}
