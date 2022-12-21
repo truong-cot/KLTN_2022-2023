@@ -221,12 +221,7 @@ function MainDetailOrder() {
 												<p>{data.nameProduct || 'Chưa cập nhật'}</p>
 											),
 										},
-										{
-											title: 'Số lượng',
-											template: (data: TypeProductOrder) => (
-												<p>{Number(data.amount) || 'Chưa cập nhật'}</p>
-											),
-										},
+
 										{
 											title: 'Đơn giá',
 											template: (data: TypeProductOrder) => (
@@ -234,9 +229,30 @@ function MainDetailOrder() {
 											),
 										},
 										{
+											title: 'Giảm giá',
+											template: (data: TypeProductOrder) => (
+												<p>{convertCoin(Number(data.sale))}%</p>
+											),
+										},
+										{
+											title: 'Số lượng',
+											template: (data: TypeProductOrder) => (
+												<p>{Number(data.amount) || 'Chưa cập nhật'}</p>
+											),
+										},
+										{
 											title: 'Thành tiền',
 											template: (data: TypeProductOrder) => (
-												<p>{convertCoin(Number(data.orderPrice))}đ</p>
+												<p>
+													{convertCoin(
+														(Number(data.price) -
+															(Number(data.price) *
+																Number(data.sale)) /
+																100) *
+															Number(data.amount)
+													)}
+													đ
+												</p>
 											),
 										},
 									]}

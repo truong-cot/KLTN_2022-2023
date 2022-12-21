@@ -18,12 +18,14 @@ import GeneralDes from '../GeneralDes';
 import Reviews from '../Reviews';
 import {TypeCart, TypeImage, TypeProduct} from './interfaces';
 import styles from './MainProduct.module.scss';
+import cartService from '~/api/cart';
 
 function MainProduct() {
 	const router = useRouter();
 	const {token} = useSelector((state: RootState) => state.auth);
 	const {isLogged} = useSelector((state: RootState) => state.auth);
-	const idProduct = router.asPath.split('/')[2];
+	const {userData} = useSelector((state: RootState) => state.user);
+	const idProduct = router.query.id;
 
 	const [size, setSize] = useState<String>('');
 	const [tab, setTab] = useState<number>(1);
@@ -63,34 +65,31 @@ function MainProduct() {
 	];
 
 	useEffect(() => {
-		(async () => {
-			setIsLoading(true);
-			try {
-				const res: any = await productService.getDetailProduct({
-					token: String(token),
-					idProduct: idProduct,
-				});
+		if (idProduct) {
+			(async () => {
+				setIsLoading(true);
+				try {
+					const res: any = await productService.getDetailProduct({
+						token: String(token),
+						idProduct: idProduct as string,
+					});
 
-				if (res.status === 1) {
+					if (res.status === 1) {
+						setIsLoading(false);
+						setData(res.data);
+						setListImage(res?.data?.images);
+					} else {
+						setIsLoading(false);
+						toast.warning(res.message);
+					}
+				} catch (error) {
+					console.log(error);
 					setIsLoading(false);
-					setData(res.data);
-					setListImage(res?.data?.images);
-				} else {
-					setIsLoading(false);
-					toast.warning(res.message);
+					toast.error('Có lỗi xảy ra!');
 				}
-			} catch (error) {
-				console.log(error);
-				setIsLoading(false);
-				toast.error('Có lỗi xảy ra!');
-			}
-		})();
-	}, []);
-
-	// Tính giá sau khi sale
-	const lastPrice = useMemo(() => {
-		return Number(data?.price) - (Number(data?.price) * Number(data?.sale)) / 100;
-	}, [idProduct, data?.price, data?.sale, router]);
+			})();
+		}
+	}, [idProduct]);
 
 	// Handle qlt
 	const reduceQlt = () => {
@@ -107,25 +106,44 @@ function MainProduct() {
 		}
 	};
 
-	const form: TypeCart = {
-		idProduct: idProduct,
-		nameProduct: String(data?.name),
-		image: String(listImage[0]?.url),
-		price: lastPrice,
-		amount: amount,
-		size: size,
-	};
-
 	// add to cart
-	const handleAddToCart = () => {
-		if (isLogged) {
-			if (size) {
-				console.log(form);
+	const handleAddToCart = async () => {
+		try {
+			if (isLogged && idProduct) {
+				if (size) {
+					setIsLoading(true);
+
+					const res: any = await cartService.addToCart({
+						token: String(token),
+						idUser: userData._id,
+						idProduct: idProduct as string,
+						size: size,
+						amount: Number(amount),
+						price: Number(data?.price),
+						sale: Number(data?.sale),
+					});
+
+					if (res.status === 1) {
+						setIsLoading(false);
+						toast.success(res.message || 'Thêm sản phẩm vào giỏ hàng thành công!');
+						setAmount(1);
+						setSize('');
+						// router.replace(router.asPath, undefined, {scroll: false}); // reload page
+						router.reload();
+					} else if (res.status === 0) {
+						setIsLoading(false);
+						toast.warn(res.message || 'Thêm sản phẩm vào giỏ hàng không thành công!');
+					}
+				} else {
+					toast.warn('Vui lòng lựa chọn size cho sản phẩm!');
+				}
 			} else {
-				toast.warn('Vui lòng lựa chọn size cho sản phẩm!');
+				router.push('/auth/login');
 			}
-		} else {
-			router.push('/auth/login');
+		} catch (error) {
+			console.log(error);
+			toast.error('Có lỗi xảy ra!');
+			setIsLoading(false);
 		}
 	};
 

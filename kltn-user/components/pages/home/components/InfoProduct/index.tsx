@@ -21,6 +21,15 @@ function InfoProduct({product}: any) {
 				<Link href={`product/${product._id}`} className={styles.text_2}>
 					{product.name}
 				</Link>
+				{/* <Link
+					href={{
+						pathname: `/product/[id]`,
+						query: {id: `${product._id}`},
+					}}
+					className={styles.text_2}
+				>
+					{product.name}
+				</Link> */}
 				<div className={styles.price}>
 					<p className={styles.price_1}>
 						{convertCoin(

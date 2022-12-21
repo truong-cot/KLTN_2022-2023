@@ -1,17 +1,26 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-const initialState: any = {};
+export interface TypeCart {
+	carts: Array<any>;
+}
+
+const initialState: TypeCart = {
+	carts: [],
+};
 
 const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
-		addtoCart: (state, action: PayloadAction<{data: any}>) => {
-			state.userData = action.payload;
+		updateCart: (state: any, action: PayloadAction<{data: any}>) => {
+			state.carts = action.payload;
+		},
+		deleteCart: (state: any) => {
+			state.carts = [];
 		},
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const {addtoCart} = cartSlice.actions;
+export const {updateCart, deleteCart} = cartSlice.actions;
 export default cartSlice.reducer;

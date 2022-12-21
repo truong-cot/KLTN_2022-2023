@@ -1,0 +1,15 @@
+.main {
+	border: 1px solid #e3edf6;
+	border-radius: 6px;
+	padding: 8px 16px;
+
+	& + .main {
+		margin-top: 12px;
+	}
+
+	.btn {
+		margin-top: 10px;
+		display: flex;
+		justify-content: flex-end;
+	}
+}

@@ -3,6 +3,10 @@ import React from 'react';
 import TabNavLinkActive from '~/components/controls/TabNavLinkActive';
 
 import styles from './MainMyOrder.module.scss';
+import MainOrderPendding from '../MainOrderPendding';
+import MainOrderDelivering from '../MainOrderDelivering';
+import MainOrderAccomplished from '../MainOrderAccomplished';
+import MainOrderCancelled from '../MainOrderCancelled';
 
 function MainMyOrder() {
 	const router = useRouter();
@@ -37,10 +41,10 @@ function MainMyOrder() {
 				<TabNavLinkActive listHref={listTab} query='_type' />
 
 				<div className={styles.wrapper}>
-					{!_type && <p>Đang xử lý</p>}
-					{_type === 'delivering' && <p>Đang giao</p>}
-					{_type === 'accomplished' && <p>Đã hoàn thành</p>}
-					{_type === 'cancelled' && <p>Đã hủy</p>}
+					{!_type && <MainOrderPendding />}
+					{_type === 'delivering' && <MainOrderDelivering />}
+					{_type === 'accomplished' && <MainOrderAccomplished />}
+					{_type === 'cancelled' && <MainOrderCancelled />}
 				</div>
 			</div>
 		</div>

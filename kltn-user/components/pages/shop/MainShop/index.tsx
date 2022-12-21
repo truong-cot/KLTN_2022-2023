@@ -15,6 +15,7 @@ import {useSelector} from 'react-redux';
 import {RootState} from '~/redux/store';
 import {toast} from 'react-toastify';
 import {useRouter} from 'next/router';
+import LoadingData from '~/components/common/LoadingData';
 
 function MainShop() {
 	const pageSize = 10;
@@ -87,70 +88,76 @@ function MainShop() {
 	}, [token, category, statusFilter, priceMin, priceMax]);
 
 	return (
-		<div className={styles.container}>
-			<LayoutGrid>
-				<div className={styles.top}>
-					<div className={styles.left}>
-						<p className={styles.text_1}>Bộ lọc:</p>
-						<p className={styles.delete}>Xóa bộ lọc</p>
-					</div>
-					<div className={styles.right}>
-						{/* <p className={styles.text_right}>
+		<LoadingData isLoading={isLoading}>
+			<div className={styles.container}>
+				<LayoutGrid>
+					<div className={styles.top}>
+						<div className={styles.left}>
+							<p className={styles.text_1}>Bộ lọc:</p>
+							<p className={styles.delete}>Xóa bộ lọc</p>
+						</div>
+						<div className={styles.right}>
+							{/* <p className={styles.text_right}>
 							<span>Tổng</span> 10 <span>sản phẩm trên</span> 100{' '}
 							<span>sản phẩm</span>
 						</p> */}
-						<div></div>
-						<div className={styles.filter_right}>
-							<span>Sắp xếp theo: </span>
-							<Select placeholder='Sắp xếp theo'>
-								<Option title='Sắp xếp theo tên' value='1' />
-								<Option title='Sắp xếp theo ngày' value='2' />
-								<Option title='Sắp xếp theo giá' value='3' />
-							</Select>
-							<span
-								onClick={() => setActiveLayout(1)}
-								className={clsx(styles.icon, {[styles.active]: activeLayout === 1})}
-							>
-								<svg width='16' height='10'>
-									<rect x='0' y='0' width='4' height='4'></rect>
-									<rect x='6' y='0' width='10' height='4'></rect>
-									<rect x='0' y='6' width='4' height='4'></rect>
-									<rect x='6' y='6' width='10' height='4'></rect>
-								</svg>
-							</span>
-							<span
-								onClick={() => setActiveLayout(2)}
-								className={clsx(styles.icon, {[styles.active]: activeLayout === 2})}
-							>
-								<svg width='16' height='10'>
-									<rect x='0' y='0' width='4' height='4'></rect>
-									<rect x='6' y='0' width='4' height='4'></rect>
-									<rect x='12' y='0' width='4' height='4'></rect>
-									<rect x='0' y='6' width='4' height='4'></rect>
-									<rect x='6' y='6' width='4' height='4'></rect>
-									<rect x='12' y='6' width='4' height='4'></rect>
-								</svg>
-							</span>
+							<div></div>
+							<div className={styles.filter_right}>
+								<span>Sắp xếp theo: </span>
+								<Select placeholder='Sắp xếp theo'>
+									<Option title='Sắp xếp theo tên' value='1' />
+									<Option title='Sắp xếp theo ngày' value='2' />
+									<Option title='Sắp xếp theo giá' value='3' />
+								</Select>
+								<span
+									onClick={() => setActiveLayout(1)}
+									className={clsx(styles.icon, {
+										[styles.active]: activeLayout === 1,
+									})}
+								>
+									<svg width='16' height='10'>
+										<rect x='0' y='0' width='4' height='4'></rect>
+										<rect x='6' y='0' width='10' height='4'></rect>
+										<rect x='0' y='6' width='4' height='4'></rect>
+										<rect x='6' y='6' width='10' height='4'></rect>
+									</svg>
+								</span>
+								<span
+									onClick={() => setActiveLayout(2)}
+									className={clsx(styles.icon, {
+										[styles.active]: activeLayout === 2,
+									})}
+								>
+									<svg width='16' height='10'>
+										<rect x='0' y='0' width='4' height='4'></rect>
+										<rect x='6' y='0' width='4' height='4'></rect>
+										<rect x='12' y='0' width='4' height='4'></rect>
+										<rect x='0' y='6' width='4' height='4'></rect>
+										<rect x='6' y='6' width='4' height='4'></rect>
+										<rect x='12' y='6' width='4' height='4'></rect>
+									</svg>
+								</span>
+							</div>
 						</div>
 					</div>
-				</div>
-				<ShopLayout>
-					<GridColumn col_3>
-						{data?.map((product: any, index: any) => (
-							<InfoProduct key={product.id} product={product} />
-						))}
-					</GridColumn>
-				</ShopLayout>
-				<div className={styles.pagination}>
-					<Pagination
-						total={total}
-						onSetPage={setPage}
-						pageSize={pageSize}
-						currentPage={page}
-					/>
-				</div>
-			</LayoutGrid>
-		</div>
+					<ShopLayout>
+						<GridColumn col_3>
+							{data?.map((product: any, index: any) => (
+								<InfoProduct key={product.id} product={product} />
+							))}
+						</GridColumn>
+					</ShopLayout>
+					<div className={styles.pagination}>
+						<Pagination
+							total={total}
+							onSetPage={setPage}
+							pageSize={pageSize}
+							currentPage={page}
+						/>
+					</div>
+				</LayoutGrid>
+			</div>
+		</LoadingData>
 	);
 }
 

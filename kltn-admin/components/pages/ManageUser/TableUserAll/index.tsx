@@ -107,7 +107,7 @@ function TableUserAll() {
 				setOpenChangeRole(false);
 				setIsloading(false);
 				toast.success(res.message || 'Thay đổi quyền thành công!');
-				router.replace(router.asPath, router.asPath, {scroll: false}); // reload page
+				router.replace(router.asPath, undefined, {scroll: false}); // reload page
 			}
 		} catch (error) {
 			setIsloading(false);

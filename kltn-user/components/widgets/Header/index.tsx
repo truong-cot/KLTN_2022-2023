@@ -12,20 +12,27 @@ import {BsCartCheck, BsHeart} from 'react-icons/bs';
 import {IoGitCompareOutline} from 'react-icons/io5';
 import {FaRegUser} from 'react-icons/fa';
 import {useRouter} from 'next/router';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '~/redux/store';
 import BoxProfile from './components/BoxProfile';
 import BoxCart from './components/BoxCart';
+import cartService from '~/api/cart';
+import {TypeCart} from './interfaces';
+import {toast} from 'react-toastify';
+import {updateCart} from '~/redux/reducers/cartSlice';
 
 function Header({isScroll}: any) {
-	const [isShowHeader, setIsShowHeader] = useState<boolean>(false);
-
 	const router = useRouter();
 
+	const dispatch = useDispatch();
+	const {carts} = useSelector((state: RootState) => state.cart);
+	const {token} = useSelector((state: RootState) => state.auth);
 	const {isLogged} = useSelector((state: RootState) => state.auth);
+	const {userData} = useSelector((state: RootState) => state.user);
 
 	const [show, setShow] = useState<boolean>(false);
 	const [showCart, setShowCart] = useState<boolean>(false);
+	const [isShowHeader, setIsShowHeader] = useState<boolean>(false);
 
 	const listLink: Array<any> = [
 		{
@@ -48,6 +55,25 @@ function Header({isScroll}: any) {
 			window.removeEventListener('scroll', handleEvent);
 		};
 	}, []);
+
+	useEffect(() => {
+		if (isLogged) {
+			// Lấy ra giỏ hàng
+			(async () => {
+				const res: any = await cartService.getCart({
+					token: String(token),
+					idUser: String(userData._id),
+				});
+
+				if (res.status === 1) {
+					// set carts to rudux
+					dispatch(updateCart(res.data));
+				} else if (res.status === 0) {
+					toast.warn(res.message || 'Lấy giỏ hàng không thành công!');
+				}
+			})();
+		}
+	}, [token, userData]);
 
 	return (
 		<div
@@ -92,7 +118,7 @@ function Header({isScroll}: any) {
 								visible={showCart}
 								placement='bottom-end'
 								render={(attrs: any) => (
-									<BoxCart onClose={() => setShowCart(false)} />
+									<BoxCart carts={carts} onClose={() => setShowCart(false)} />
 								)}
 								onClickOutside={() => setShowCart(false)}
 							>
@@ -101,7 +127,7 @@ function Header({isScroll}: any) {
 									onClick={() => setShowCart(!showCart)}
 								>
 									<BsCartCheck />
-									<span className={styles.qlt}>3</span>
+									<span className={styles.qlt}>{carts?.length}</span>
 								</div>
 							</HeadlessTippy>
 							<HeadlessTippy

@@ -82,7 +82,7 @@ function TableProductTrending() {
 			} else if (res.status === 1) {
 				setIsloading(false);
 				toast.success(res.message || 'Xóa sản phẩm thành công!');
-				router.replace(router.asPath, router.asPath, {scroll: false}); // reload page
+				router.replace(router.asPath, undefined, {scroll: false}); // reload page
 				setOpen(false);
 			}
 		} catch (error) {

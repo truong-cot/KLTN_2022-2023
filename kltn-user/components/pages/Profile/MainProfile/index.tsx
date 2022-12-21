@@ -7,8 +7,11 @@ import Button from '~/components/controls/Button';
 import {dateBirths, monthBirths, sexs, yearBirths} from '~/constants/mock/variable';
 import {ImPencil} from 'react-icons/im';
 import backgrounds from '~/constants/images/backgrounds';
+import {useSelector} from 'react-redux';
+import {RootState} from '~/redux/store';
 
 function MainProfile() {
+	const {userData} = useSelector((state: RootState) => state.user);
 	// Style react-select
 	const customStyles = {
 		control: (base: any) => ({
@@ -34,10 +37,11 @@ function MainProfile() {
 	const [yearBirth, setYearBirth] = useState<string>('');
 	const [sex, setSex] = useState<string>('');
 
+	console.log(userData);
+
 	const [form, setForm] = useState<any>({
-		name: '',
-		account: '',
-		dateBirth: '',
+		name: userData.name,
+		dateBirth: userData.dateBirth,
 		monthBirth: '',
 		yearBirth: '',
 		sex: '',
@@ -92,9 +96,7 @@ function MainProfile() {
 							<input
 								type='text'
 								placeholder='Tên tài khoản'
-								value={form.account}
-								name='account'
-								onChange={handleChange}
+								value={userData.username}
 							/>
 						</div>
 					</div>
@@ -103,13 +105,16 @@ function MainProfile() {
 				<div className={styles.box_date}>
 					<p className={styles.text_date}>Ngày sinh:</p>
 					<div className={styles.box_select}>
-						<Select
+						<select>
+							<option value={dateBirth} label='Ngày sinh'></option>
+						</select>
+						{/* <Select
 							styles={customStyles}
 							className={styles.select}
 							placeholder='Ngày sinh'
 							options={dateBirths}
 							onChange={(option: any) => setDateBirth(option.value)}
-						/>
+						/> */}
 						<Select
 							styles={customStyles}
 							className={styles.select}
@@ -164,7 +169,7 @@ function MainProfile() {
 
 				<div className={styles.box_btn}>
 					<Button primary3 p_8_24 onClick={handleSubmit}>
-						Lưu thay đổi
+						Thay đổi thông tin cá nhân
 					</Button>
 				</div>
 			</div>

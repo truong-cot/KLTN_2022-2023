@@ -23,10 +23,37 @@ const productSchema = new Schema(
 			require: true,
 		},
 		images: {
-			type: Array<String>,
+			type: Array,
 			require: true,
 			default: [],
 		},
+		// // Danh sách size
+		// sizes: {
+		// 	type: Array,
+		// 	require: true,
+		// 	default: [
+		// 		{
+		// 			id: 1,
+		// 			value: 'S',
+		// 			amount: 0,
+		// 		},
+		// 		{
+		// 			id: 2,
+		// 			value: 'M',
+		// 			amount: 0,
+		// 		},
+		// 		{
+		// 			id: 3,
+		// 			value: 'L',
+		// 			amount: 0,
+		// 		},
+		// 		{
+		// 			id: 1,
+		// 			value: 'XL',
+		// 			amount: 0,
+		// 		},
+		// 	],
+		// },
 		amount_size_S: {
 			type: Number,
 			require: true,
