@@ -1,0 +1,175 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.title {
+	font-size: 20px;
+	color: #29303c;
+}
+
+.btn {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+}
+
+.avatar {
+	display: flex;
+	align-items: center;
+	margin: 32px 0;
+}
+
+.text {
+	margin-left: 16px;
+	p {
+		&:nth-child(1) {
+			font-size: 15px;
+		}
+		&:nth-child(2) {
+			font-size: 15px;
+			color: #777e90;
+		}
+	}
+}
+
+.label {
+	display: block;
+	font-weight: 600;
+	font-size: 14px;
+	color: #29303c;
+	margin-bottom: 8px;
+}
+
+.groupElements {
+	margin-top: 32px;
+}
+
+.col_3 {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 26px;
+}
+
+.col_2 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 26px;
+}
+
+.col_1 {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 26px;
+}
+
+.groupInputRadio {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	align-items: center;
+	height: 50%;
+
+	input[type='radio'] {
+		border: 0px;
+		width: 20px;
+		height: 20px;
+		cursor: pointer;
+	}
+
+	.groupRadio {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		cursor: pointer;
+		user-select: none;
+		font-size: 16px;
+	}
+}
+
+.box_change_avatar {
+	cursor: pointer;
+	position: relative;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	border: 4px solid rgb(194, 225, 255);
+
+	.image {
+		border-radius: 50%;
+	}
+
+	.box_icon {
+		position: absolute;
+		bottom: 0;
+		right: -4px;
+		width: 24px;
+		height: 24px;
+		background-color: #fff;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 50%;
+
+		.icon {
+			transform: rotate(-90deg);
+			font-size: 1.2rem;
+		}
+	}
+}
+
+.titleGroup {
+	font-weight: 700;
+	font-size: 20px;
+	margin-bottom: 24px;
+}
+
+.line {
+	border-bottom: 1px dashed #99a2b3;
+	margin-top: 24px;
+	margin-bottom: 24px;
+}
+
+@media (max-width: 764px) {
+	.col_3 {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 26px;
+	}
+
+	.col_2 {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 26px;
+	}
+
+	.col_1 {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 26px;
+	}
+
+	.title {
+		font-size: 18px;
+		color: #29303c;
+		font-weight: 600;
+	}
+
+	.titleGroup {
+		color: #29303c;
+		font-size: 18px;
+		font-weight: 600;
+		margin-bottom: 16px;
+	}
+
+	.line {
+		margin: 12px 0;
+	}
+
+	.text {
+		margin-left: 12px;
+		p {
+			font-size: 14px;
+		}
+	}
+}

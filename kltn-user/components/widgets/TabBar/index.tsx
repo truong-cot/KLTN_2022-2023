@@ -4,8 +4,12 @@ import backgrounds from '~/constants/images/backgrounds';
 import NavLink from './NavLink';
 
 import styles from './TabBar.module.scss';
+import {useSelector} from 'react-redux';
+import {RootState} from '~/redux/store';
 
 function TabBar() {
+	const {userData} = useSelector((state: RootState) => state.user);
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.box_info}>
@@ -13,14 +17,18 @@ function TabBar() {
 					<Image
 						className={styles.image}
 						objectFit='cover'
-						src={backgrounds.image_product}
+						src={
+							userData.avatar
+								? userData.avatar
+								: 'https://futbolita.com/wp-content/uploads/2008/11/avatar-1577909_960_720.png'
+						}
 						alt='avatar'
 						layout='fill'
 					/>
 				</div>
 				<div className={styles.info}>
 					<p className={styles.text}>Tài khoản của</p>
-					<p className={styles.name}>Đặng Bá Trường</p>
+					<p className={styles.name}>{userData.name}</p>
 				</div>
 			</div>
 

@@ -51,10 +51,9 @@ const userSchema = new Schema(
 			type: String,
 			default: null,
 		},
-		// 1: Nam, 2: nữ, 0: Giới tính khác
+		// 1: Nam, 2: nữ, 3: Giới tính khác
 		sex: {
 			type: Number,
-			default: null,
 		},
 	},
 	{timestamps: true}

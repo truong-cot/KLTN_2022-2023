@@ -2,17 +2,6 @@ import axiosClient from '.';
 
 const routeName = '/order';
 
-interface TypeProduct {
-	idProduct: String;
-	nameProduct: String;
-	size: String;
-	price: Number;
-	sale: Number;
-	amount: Number;
-	orderPrice: Number;
-	image: String;
-}
-
 const orderService = {
 	createOrder: (
 		data: {

@@ -3,7 +3,7 @@ import Button from '~/components/controls/Button';
 import {PropsCheckDataEmpty} from './interface';
 import style from './CheckDataEmpty.module.scss';
 import {Fragment} from 'react';
-import {images} from '~/constants/images';
+// import {images} from '~/constants/images';
 
 function CheckDataEmpty({
 	isEmpty,

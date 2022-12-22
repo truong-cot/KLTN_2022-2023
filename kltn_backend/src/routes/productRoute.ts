@@ -6,12 +6,6 @@ import {authMiddlewares} from '../middlewares/auth';
 const router = express.Router();
 
 import multer from 'multer';
-// const storage = multer.diskStorage({
-// 	filename: function (req: any, file: any, cb: any) {
-// 		cb(null, file.fieldname + '-' + Date.now());
-// 	},
-// });
-// const upload = multer({storage});
 
 const storage = multer.diskStorage({
 	filename: function (req, file, cb) {
@@ -28,7 +22,6 @@ router.post(
 	'/add-images',
 	authMiddlewares.isAdmin,
 	upload.single('file'),
-	// upload.array('files', 10),
 	ProductController.addImage
 );
 

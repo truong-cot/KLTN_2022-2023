@@ -7,23 +7,26 @@ import ProfileLayout from '~/components/layout/ProfileLayout';
 import MainProfile from '../../components/pages/Profile/MainProfile';
 
 import styles from './Profile.module.scss';
+import RequireAuth from '~/components/protected/RequiredAuth';
 
 function Profile() {
 	return (
-		<Page title='Trang cá nhân'>
-			<div className={styles.header}>
-				<h4 className={styles.title_header}>Chào mừng bạn đến với MOLLA</h4>
-				<p className={styles.text_header}>Trang cá nhân</p>
-			</div>
-			<LayoutGrid>
-				<div className={styles.container}>
-					<TagPage text_1='Home' href_1='/' text_2='Trang cá nhân' />
-					<ProfileLayout>
-						<MainProfile />
-					</ProfileLayout>
+		<RequireAuth>
+			<Page title='Trang cá nhân'>
+				<div className={styles.header}>
+					<h4 className={styles.title_header}>Chào mừng bạn đến với MOLLA</h4>
+					<p className={styles.text_header}>Trang cá nhân</p>
 				</div>
-			</LayoutGrid>
-		</Page>
+				<LayoutGrid>
+					<div className={styles.container}>
+						<TagPage text_1='Home' href_1='/' text_2='Trang cá nhân' />
+						<ProfileLayout>
+							<MainProfile />
+						</ProfileLayout>
+					</div>
+				</LayoutGrid>
+			</Page>
+		</RequireAuth>
 	);
 }
 

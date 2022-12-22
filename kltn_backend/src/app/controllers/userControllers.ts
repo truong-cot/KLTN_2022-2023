@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
 import resultData from '../../common/resultData';
 import UserModel from '../models/user';
+import cloudinary from '../../config/cloudinary';
 
 const UserController = {
 	// [GET] ==> /user/all-user?keyword=truong&limit=10&page=1&type=2
@@ -255,6 +256,63 @@ const UserController = {
 						data: {},
 					})
 				);
+			}
+		} catch (error) {
+			return res.status(500).json(
+				resultData({
+					code: 500,
+					status: 0,
+					message: 'Có lỗi xảy ra!',
+					data: {},
+				})
+			);
+		}
+	},
+
+	// [POST] ==> /user/change-avatar
+	changeAvatar: async (req: Request, res: Response) => {
+		try {
+			const idUser = req.body.idUser;
+			const fileImage: any = req.file;
+
+			const checkUser = await UserModel.findById(idUser);
+
+			if (checkUser) {
+				const saveImg = await cloudinary.uploader.upload(
+					fileImage.path
+				);
+
+				// Thay avatar
+				const user = await UserModel.updateOne(
+					{_id: String(idUser)},
+					{
+						$set: {
+							avatar: saveImg.secure_url,
+						},
+					}
+				);
+
+				const showUser = await UserModel.findById(idUser);
+
+				if (user) {
+					return res.status(200).json(
+						resultData({
+							code: 200,
+							status: 1,
+							message: 'Thay avatar thành công!',
+							data: showUser,
+						})
+					);
+				} else {
+					return res.status(201).json(
+						resultData({
+							code: 201,
+							status: 0,
+							message: 'Người dùng không tồn tại!',
+							data: {},
+						})
+					);
+				}
 			}
 		} catch (error) {
 			return res.status(500).json(

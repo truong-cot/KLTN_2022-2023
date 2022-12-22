@@ -5,6 +5,15 @@ import {authMiddlewares} from '../middlewares/auth';
 
 const router = express.Router();
 
+import multer from 'multer';
+
+const storage = multer.diskStorage({
+	filename: function (req, file, cb) {
+		cb(null, file.fieldname + '-' + Date.now());
+	},
+});
+const upload = multer({storage});
+
 // Lấy tất cả user
 router.get('/all-user', authMiddlewares.isAdmin, UserController.getAllUser);
 
@@ -30,6 +39,14 @@ router.get(
 	'/current-user/:id',
 	authMiddlewares.authVerify,
 	UserController.getCurrentUser
+);
+
+// Change Avatar
+router.post(
+	'/change-avatar',
+	authMiddlewares.authVerify,
+	upload.single('file'),
+	UserController.changeAvatar
 );
 
 export default router;

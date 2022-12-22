@@ -42,12 +42,14 @@ async function fetchLocationOptions(fetchType: string, locationId: string | '') 
 		}
 	}
 
-	const locations = (await axios.get(url)).data['data'];
-	return locations.map(({id, name}: TypeLocation) => ({value: id, label: name}));
+	const a: any = await axios.get(url);
+	const locations = a.data['data'];
+	// const locations: any = (await axios.get(url)).data['data'];
+	return locations?.map(({id, name}: TypeLocation) => ({value: id, label: name}));
 }
 
 async function fetchInitialData() {
-	const {cityId, districtId, wardId} = (await axios.get(PATHS.LOCATION)).data;
+	const {cityId, districtId, wardId}: any = (await axios.get(PATHS.LOCATION)).data;
 
 	const [cities, districts, wards] = await Promise.all([
 		fetchLocationOptions(FETCH_TYPES.CITIES, ''),
