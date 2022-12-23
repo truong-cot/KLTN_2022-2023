@@ -9,7 +9,7 @@ export interface InterfaceState {
 const initialState: InterfaceState = {
 	isLoading: true,
 	showTabBar: true,
-	routerPrev: '/',
+	routerPrev: '',
 };
 
 export const interfaceSlice = createSlice({

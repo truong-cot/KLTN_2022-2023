@@ -22,6 +22,10 @@
 			padding: 16px 0;
 			transition: all 0.3s linear;
 
+			&:active {
+				transform: scale(0.9);
+			}
+
 			&:hover .text {
 				color: rgb(108, 87, 87);
 			}

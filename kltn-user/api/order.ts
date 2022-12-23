@@ -36,6 +36,36 @@ const orderService = {
 			},
 		});
 	},
+
+	cancelOrder: (
+		data: {
+			token: String;
+			idOrder: String;
+		},
+		tokenAxios?: any
+	) => {
+		return axiosClient.post(`${routeName}/cancel-order`, data, {
+			cancelToken: tokenAxios,
+			headers: {
+				token: 'Bearer ' + data.token,
+			},
+		});
+	},
+
+	confirmationDelivery: (
+		data: {
+			token: String;
+			idOrder: String;
+		},
+		tokenAxios?: any
+	) => {
+		return axiosClient.post(`${routeName}/confirmation-delivery`, data, {
+			cancelToken: tokenAxios,
+			headers: {
+				token: 'Bearer ' + data.token,
+			},
+		});
+	},
 };
 
 export default orderService;

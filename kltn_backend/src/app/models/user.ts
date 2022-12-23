@@ -48,8 +48,8 @@ const userSchema = new Schema(
 			default: null,
 		},
 		address: {
-			type: String,
-			default: null,
+			type: Array,
+			default: [],
 		},
 		// 1: Nam, 2: nữ, 3: Giới tính khác
 		sex: {

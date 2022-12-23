@@ -1,0 +1,61 @@
+.container {
+	width: 100%;
+	padding: 28px 48px;
+
+	.box_title {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 24px;
+
+		.title {
+			font-size: 2rem;
+		}
+	}
+
+	.selection {
+		margin-top: 16px;
+
+		.text {
+			p {
+				display: block;
+				font-size: 1.4rem;
+				line-height: 20px;
+				margin-bottom: 8px;
+				color: #444444;
+				font-weight: 500;
+			}
+		}
+
+		.select {
+			font-weight: 500;
+			font-size: 1.4rem;
+		}
+	}
+
+	.box_specific {
+		margin-top: 16px;
+		margin-bottom: 24px;
+	}
+
+	.group_btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 24px;
+		margin-top: 32px;
+
+		button {
+			font-size: 1.4rem;
+			min-width: 168px;
+			height: 40px;
+			color: #757575;
+			background-color: #eff0f5;
+		}
+
+		.save {
+			background: #1a9cb7;
+			color: #fff;
+		}
+	}
+}

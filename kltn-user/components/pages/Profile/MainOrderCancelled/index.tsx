@@ -60,11 +60,11 @@ function MainOrderCancelled() {
 							{v.products.map((v, i) => (
 								<ItemOrder data={v} key={i} />
 							))}
-							<div className={styles.btn}>
+							{/* <div className={styles.btn}>
 								<Button bg_red p_4_24 rounded_6>
 									Hủy đơn hàng
 								</Button>
-							</div>
+							</div> */}
 						</div>
 					))}
 				</CheckDataEmpty>

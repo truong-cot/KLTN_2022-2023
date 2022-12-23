@@ -26,7 +26,7 @@ function CheckDataEmpty({
 						/> */}
 						<p>Bạn chưa có dữ liệu</p>
 					</div>
-					<p className={style.msg}>{msg}</p>
+					{/* <p className={style.msg}>{msg}</p> */}
 					{!!onClick && (
 						<div className={style.groupBtn}>
 							<Button primary1RG rounded_8 bold onClick={onClick}>

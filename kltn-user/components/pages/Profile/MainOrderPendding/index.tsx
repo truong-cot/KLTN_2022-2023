@@ -11,12 +11,18 @@ import CheckDataEmpty from '~/components/common/CheckDataEmpty';
 import ItemOrder from '../ItemOrder';
 import styles from './MainOrderPendding.module.scss';
 import Button from '~/components/controls/Button';
+import Popup from '~/components/common/Popup';
+import PopupCancelOrder from '~/components/Popup/PopupCancelOrder';
+import {useRouter} from 'next/router';
 
 function MainOrderPendding() {
 	const {token} = useSelector((state: RootState) => state.auth);
 	const {userData} = useSelector((state: RootState) => state.user);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [data, setData] = useState<Array<TypeOrder>>([]);
+	const [showPopupCancel, setShowPopupCancel] = useState<boolean>(false);
+
+	const [idOrder, setIdOrder] = useState<String>('');
 
 	var listData: Array<TypeOrder> = [];
 
@@ -44,7 +50,7 @@ function MainOrderPendding() {
 		})();
 	}, [token]);
 
-	//
+	// Lấy những đơn hàng có trạng thái bằng 0 (đang chờ được xác nhận)
 	for (var item of data) {
 		if (item.statusOrder === 0) {
 			listData.push(item);
@@ -61,7 +67,15 @@ function MainOrderPendding() {
 								<ItemOrder data={v} key={i} />
 							))}
 							<div className={styles.btn}>
-								<Button bg_red p_4_24 rounded_6>
+								<Button
+									bg_red
+									p_4_24
+									rounded_6
+									onClick={() => {
+										setShowPopupCancel(true);
+										setIdOrder(v._id);
+									}}
+								>
 									Hủy đơn hàng
 								</Button>
 							</div>
@@ -69,6 +83,10 @@ function MainOrderPendding() {
 					))}
 				</CheckDataEmpty>
 			</LoadingData>
+			{/* Popup */}
+			<Popup open={showPopupCancel} onClose={() => setShowPopupCancel(false)}>
+				<PopupCancelOrder idOrder={idOrder} onClose={() => setShowPopupCancel(false)} />
+			</Popup>
 		</RequireAuth>
 	);
 }

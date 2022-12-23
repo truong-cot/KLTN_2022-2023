@@ -285,7 +285,7 @@ const ProductController = {
 							resultData({
 								code: 201,
 								status: 0,
-								message: 'Sản phẩm chưa có ảnh nảo!',
+								message: 'Sản phẩm chưa có ảnh nào!',
 								data: {},
 							})
 						);

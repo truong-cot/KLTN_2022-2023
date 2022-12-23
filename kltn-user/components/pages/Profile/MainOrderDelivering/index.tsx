@@ -11,12 +11,17 @@ import CheckDataEmpty from '~/components/common/CheckDataEmpty';
 import ItemOrder from '../ItemOrder';
 import styles from './MainOrderDelivering.module.scss';
 import Button from '~/components/controls/Button';
+import Popup from '~/components/common/Popup';
+import PopupConfirmationDelivery from '~/components/Popup/PopupConfirmationDelivery';
 
 function MainOrderDelivering() {
 	const {token} = useSelector((state: RootState) => state.auth);
 	const {userData} = useSelector((state: RootState) => state.user);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [data, setData] = useState<Array<TypeOrder>>([]);
+
+	const [showPopup, setShowPopup] = useState<boolean>(false);
+	const [idOrder, setIdOrder] = useState<String>('');
 
 	var listData: Array<TypeOrder> = [];
 
@@ -61,14 +66,26 @@ function MainOrderDelivering() {
 								<ItemOrder data={v} key={i} />
 							))}
 							<div className={styles.btn}>
-								<Button bg_red p_4_24 rounded_6>
-									Hủy đơn hàng
+								<Button
+									bg_green
+									p_4_24
+									rounded_6
+									onClick={() => {
+										setIdOrder(v._id);
+										setShowPopup(true);
+									}}
+								>
+									Xác nhận đã nhận hàng
 								</Button>
 							</div>
 						</div>
 					))}
 				</CheckDataEmpty>
 			</LoadingData>
+			{/* Popup */}
+			<Popup open={showPopup} onClose={() => setShowPopup(false)}>
+				<PopupConfirmationDelivery idOrder={idOrder} onClose={() => setShowPopup(false)} />
+			</Popup>
 		</RequireAuth>
 	);
 }

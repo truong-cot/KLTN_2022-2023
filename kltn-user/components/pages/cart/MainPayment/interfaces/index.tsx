@@ -23,3 +23,14 @@ export interface TypeFrom {
 	specific: string;
 	note: string;
 }
+
+export interface TypeItemAddress {
+	id: String;
+	name: String;
+	phone: Number;
+	city: String;
+	district: String;
+	ward: String;
+	specifically: String;
+	isDefault: boolean;
+}

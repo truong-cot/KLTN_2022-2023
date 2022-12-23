@@ -32,6 +32,61 @@ const userService = {
 			},
 		});
 	},
+	addAddress: (
+		data: {
+			token: String;
+			idUser: String;
+			name: String;
+			phone: Number;
+			city: String;
+			district: String;
+			ward: String;
+			specifically: String;
+		},
+		tokenAxios?: any
+	) => {
+		return axiosClient.post(`${routeName}/add-address`, data, {
+			cancelToken: tokenAxios,
+			headers: {
+				token: 'Bearer ' + data.token,
+			},
+		});
+	},
+
+	changeDefaultAddress: (
+		data: {
+			token: String;
+			idUser: String;
+			idAddress: String;
+		},
+		tokenAxios?: any
+	) => {
+		return axiosClient.post(`${routeName}/default-address`, data, {
+			cancelToken: tokenAxios,
+			headers: {
+				token: 'Bearer ' + data.token,
+			},
+		});
+	},
+
+	deleteAddress: (
+		data: {
+			token: String;
+			idUser: String;
+			idAddress: String;
+		},
+		tokenAxios?: any
+	) => {
+		return axiosClient.delete(
+			`${routeName}/delete-address/${data.idUser}?idAddress=${data.idAddress}`,
+			{
+				cancelToken: tokenAxios,
+				headers: {
+					token: 'Bearer ' + data.token,
+				},
+			}
+		);
+	},
 };
 
 export default userService;

@@ -49,4 +49,32 @@ router.post(
 	UserController.changeAvatar
 );
 
+// Thêm địa chỉ mới
+router.post(
+	'/add-address',
+	authMiddlewares.authVerify,
+	UserController.addAddress
+);
+
+// Xóa địa chỉ
+router.delete(
+	'/delete-address/:id',
+	authMiddlewares.authVerify,
+	UserController.deleteAddress
+);
+
+// Thêm địa chỉ mặc định
+router.post(
+	'/default-address',
+	authMiddlewares.authVerify,
+	UserController.defaultAddress
+);
+
+// Chỉnh sửa địa chỉ
+router.post(
+	'/change-address',
+	authMiddlewares.authVerify,
+	UserController.changeAddress
+);
+
 export default router;

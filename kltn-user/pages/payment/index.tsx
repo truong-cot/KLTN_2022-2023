@@ -6,21 +6,24 @@ import Page from '~/components/layout/Page';
 import MainPayment from '~/components/pages/cart/MainPayment';
 
 import styles from './Payment.module.scss';
+import RequireAuth from '~/components/protected/RequiredAuth';
 
 function Payment() {
 	return (
-		<Page title='Giỏ hàng'>
-			<div className={styles.header}>
-				<h4 className={styles.title_header}>Chào mừng bạn đến với MOLLA</h4>
-				<p className={styles.text_header}>Thanh toán đơn hàng</p>
-			</div>
-			<LayoutGrid>
-				<div className={styles.container}>
-					<TagPage text_1='Home' href_1='/' text_2='Thanh toán đơn hàng' />
-					<MainPayment />
+		<RequireAuth>
+			<Page title='Thanh toán'>
+				<div className={styles.header}>
+					<h4 className={styles.title_header}>Chào mừng bạn đến với MOLLA</h4>
+					<p className={styles.text_header}>Thanh toán đơn hàng</p>
 				</div>
-			</LayoutGrid>
-		</Page>
+				<LayoutGrid>
+					<div className={styles.container}>
+						<TagPage text_1='Home' href_1='/' text_2='Thanh toán đơn hàng' />
+						<MainPayment />
+					</div>
+				</LayoutGrid>
+			</Page>
+		</RequireAuth>
 	);
 }
 

@@ -1,12 +1,9 @@
 import React from 'react';
 
 import styles from './InformationReceiver.module.scss';
+import {TypeInformationReceiver} from './interfaces';
 
-interface Type {
-	show: () => void;
-}
-
-function InformationReceiver({show}: Type) {
+function InformationReceiver({show, data}: TypeInformationReceiver) {
 	return (
 		<div className={styles.container}>
 			<div className={styles.change}>
@@ -14,13 +11,13 @@ function InformationReceiver({show}: Type) {
 				<p onClick={show}>Chỉnh sửa</p>
 			</div>
 			<div className={styles.top}>
-				<p className={styles.name}>Đặng Bá Trường</p>
-				<p className={styles.phone}>0339940200</p>
+				<p className={styles.name}>{data?.name}</p>
+				<p className={styles.phone}>0{data?.phone}</p>
 			</div>
 			<div className={styles.bottom}>
 				<p className={styles.address}>
-					Thôn Khánh Sơn, Xã <span>Sơn Lộc</span>, Huyện <span>Can Lộc</span>, Tỉnh{' '}
-					<span>Hà Tĩnh</span>
+					{data?.specifically}, Xã <span>{data?.ward}</span>, Huyện{' '}
+					<span>{data?.district}</span>, Tỉnh <span>{data?.city}</span>
 				</p>
 			</div>
 		</div>
