@@ -128,7 +128,7 @@ function MainProduct() {
 						toast.success(res.message || 'Thêm sản phẩm vào giỏ hàng thành công!');
 						setAmount(1);
 						setSize('');
-						toast.warn(res.message || 'Thêm sản phẩm vào giỏ hàng thành công!');
+						// router.replace(router.asPath, undefined, {scroll: false}); // reload page
 						router.reload();
 					} else if (res.status === 0) {
 						setIsLoading(false);
