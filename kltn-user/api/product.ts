@@ -40,6 +40,24 @@ const productService = {
 			},
 		});
 	},
+
+	createReview: (
+		data: {
+			token: String;
+			idUser: string;
+			idProduct: string;
+			numberStart: Number;
+			content: string;
+		},
+		tokenAxios?: any
+	) => {
+		return axiosClient.post(`${routeName}/create-review`, data, {
+			cancelToken: tokenAxios,
+			headers: {
+				token: 'Bearer ' + data.token,
+			},
+		});
+	},
 };
 
 export default productService;

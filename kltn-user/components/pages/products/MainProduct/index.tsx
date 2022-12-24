@@ -13,12 +13,11 @@ import {convertCoin} from '~/common/func/convertCoin';
 import LoadingData from '~/components/common/LoadingData';
 import GridColumn from '~/components/layout/GridColumn';
 import {RootState} from '~/redux/store';
-import DetailDes from '../DetailDes';
-import GeneralDes from '../GeneralDes';
-import Reviews from '../Reviews';
 import {TypeCart, TypeImage, TypeProduct} from './interfaces';
 import styles from './MainProduct.module.scss';
 import cartService from '~/api/cart';
+import ItemReview from '../ItemReview';
+import icons from '~/constants/images/icons';
 
 function MainProduct() {
 	const router = useRouter();
@@ -145,6 +144,10 @@ function MainProduct() {
 			toast.error('Có lỗi xảy ra!');
 			setIsLoading(false);
 		}
+	};
+
+	const handleBack = () => {
+		router.push('/shop?type=all&status=all');
 	};
 
 	return (
@@ -305,6 +308,22 @@ function MainProduct() {
 									: 'Đang hot'}
 							</span>
 						</p>
+						<p className={styles.category}>
+							Mô tả chung: <span>{String(data?.general_des)}</span>
+						</p>
+						{/* <p className={styles.category}>
+							Chi tiết sản phẩm:{' '}
+							<div
+								dangerouslySetInnerHTML={{
+									__html: String(data?.detail_des),
+								}}
+								style={{
+									fontSize: '14px',
+									color: '#323448',
+									fontWeight: '400',
+								}}
+							></div>
+						</p> */}
 						<div className={styles.box_media}>
 							<p className={styles.text_media}>Chia sẻ:</p>
 							<div className={styles.list_media}>
@@ -326,30 +345,35 @@ function MainProduct() {
 				</GridColumn>
 				{/* <div className={styles.line}></div> */}
 				<div className={styles.bottom}>
-					<div className={styles.list_tab}>
+					<div className={styles.category}>
+						<p className={styles.title_detail}>Chi tiết sản phẩm:</p>
 						<div
-							className={clsx(styles.tab_item, {[styles.tab_active]: tab === 1})}
-							onClick={() => setTab(1)}
-						>
-							<p>Mô tả chung</p>
-						</div>
-						<div
-							className={clsx(styles.tab_item, {[styles.tab_active]: tab === 2})}
-							onClick={() => setTab(2)}
-						>
-							<p>Chi tiết mô tả</p>
-						</div>
-						<div
-							className={clsx(styles.tab_item, {[styles.tab_active]: tab === 3})}
-							onClick={() => setTab(3)}
-						>
-							<p>Đánh giá (10 đánh giá)</p>
-						</div>
+							dangerouslySetInnerHTML={{
+								__html: String(data?.detail_des),
+							}}
+							className={styles.text_detail}
+						></div>
 					</div>
-					<div className={styles.content}>
-						{tab === 1 && <GeneralDes data={String(data?.general_des)} />}
-						{tab === 2 && <DetailDes data={String(data?.detail_des)} />}
-						{tab === 3 && <Reviews />}
+
+					<div className={styles.category}>
+						<p className={styles.title_detail}>
+							Đánh giá về sản phẩm: ({data?.reviews.length} đánh giá)
+						</p>
+						{Number(data?.reviews.length) <= 0 ? (
+							<div className={styles.main_empty}>
+								<Image src={icons.emptyCart} alt='cart empty' />
+								<p className={styles.text_empty}>Sản phẩm chưa có đánh giá nào!</p>
+								<div className={styles.btn_empty} onClick={handleBack}>
+									<p>Mua hàng</p>
+								</div>
+							</div>
+						) : (
+							<div className={styles.list_review}>
+								{data?.reviews.map((v, i) => (
+									<ItemReview data={v} key={v.id} />
+								))}
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

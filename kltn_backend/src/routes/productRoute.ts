@@ -67,4 +67,11 @@ router.get(
 	ProductController.getDetailProduct
 );
 
+// Đánh giá sản phẩm
+router.post(
+	'/create-review',
+	authMiddlewares.authVerify,
+	ProductController.createReview
+);
+
 export default router;

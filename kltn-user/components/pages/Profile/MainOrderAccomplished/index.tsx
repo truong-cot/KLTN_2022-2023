@@ -77,13 +77,8 @@ function MainOrderAccomplished() {
 						{listData.map((v, i) => (
 							<div key={i} className={styles.main}>
 								{v.products.map((v, i) => (
-									<ItemOrder data={v} key={i} />
+									<ItemOrder check={true} data={v} key={i} />
 								))}
-								{/* <div className={styles.btn}>
-								<Button bg_red p_4_24 rounded_6>
-									Hủy đơn hàng
-								</Button>
-							</div> */}
 							</div>
 						))}
 					</Fragment>

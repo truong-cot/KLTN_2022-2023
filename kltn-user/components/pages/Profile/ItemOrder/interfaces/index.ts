@@ -26,4 +26,5 @@ export interface TypeProductOrder {
 		sale: Number;
 		size: String;
 	};
+	check?: boolean;
 }

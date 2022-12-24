@@ -2,7 +2,9 @@ import {Request, Response} from 'express';
 import resultData from '../../common/resultData';
 
 import ProductModel from '../models/product';
-// import uploader from '../../config/cloudinary';
+import UserModel from '../models/user';
+import {v4 as uuidv4} from 'uuid';
+
 import cloudinary from '../../config/cloudinary';
 
 const ProductController = {
@@ -892,6 +894,129 @@ const ProductController = {
 						code: 201,
 						status: 0,
 						message: 'Sản phẩm không tồn tại!',
+						data: {},
+					})
+				);
+			}
+		} catch (error) {
+			return res.status(500).json(
+				resultData({
+					code: 500,
+					status: 0,
+					message: 'Có lỗi xảy ra!',
+					data: {},
+				})
+			);
+		}
+	},
+
+	// [POST] ==> /product/create-review
+	createReview: async (req: Request, res: Response) => {
+		try {
+			const {idUser, idProduct, numberStart, content} = req.body;
+
+			if (idUser && idProduct && numberStart && content) {
+				// Check user
+				const checkUser = await UserModel.findById(idUser);
+
+				if (checkUser) {
+					const checkProduct = await ProductModel.findById(idProduct);
+
+					if (checkProduct) {
+						// Lấy danh sách đánh giá cũ
+						const listReview = checkProduct.reviews;
+
+						// Tạo đánh giá mời
+						const newReview = {
+							id: uuidv4(),
+							idUser: idUser,
+							nameUser: checkUser.name,
+							numberStar: Number(numberStart),
+							content: content,
+						};
+
+						// Thêm vào danh sách
+						listReview.push(newReview);
+
+						// Lưu đánh giá vào db
+						const saveReview = await ProductModel.updateOne(
+							{
+								_id: idProduct,
+							},
+							{
+								$set: {
+									reviews: listReview,
+								},
+							}
+						);
+
+						if (saveReview) {
+							const product = await ProductModel.findById(
+								idProduct
+							);
+
+							// Tinh trung binh sao
+							const starTB =
+								product?.reviews.reduce(
+									(a, v: any) =>
+										Number(a) + Number(v.numberStar),
+									0
+								) / Number(product?.reviews.length);
+
+							// Lưu đánh giá vào db
+							const updateStarTB = await ProductModel.updateOne(
+								{
+									_id: idProduct,
+								},
+								{
+									$set: {
+										star: starTB,
+									},
+								}
+							);
+
+							const viewProduct = await ProductModel.findById(
+								idProduct
+							);
+
+							if (updateStarTB) {
+								return res.status(200).json(
+									resultData({
+										code: 200,
+										status: 1,
+										message:
+											'Đánh giá sản phẩm thành công!',
+										data: viewProduct,
+									})
+								);
+							}
+						}
+					} else {
+						return res.status(201).json(
+							resultData({
+								code: 201,
+								status: 0,
+								message: 'Sản phẩm không tồn tại!',
+								data: {},
+							})
+						);
+					}
+				} else {
+					return res.status(201).json(
+						resultData({
+							code: 201,
+							status: 0,
+							message: 'Người dùng không tồn tại!',
+							data: {},
+						})
+					);
+				}
+			} else {
+				return res.status(201).json(
+					resultData({
+						code: 201,
+						status: 0,
+						message: 'Nhập đầy đủ thông tin!',
 						data: {},
 					})
 				);
