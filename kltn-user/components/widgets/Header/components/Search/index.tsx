@@ -3,6 +3,7 @@ import {IoCloseOutline, IoSearchOutline} from 'react-icons/io5';
 import HeadlessTippy from '@tippyjs/react/headless';
 
 import styles from './Search.module.scss';
+import BoxSearch from '../BoxSearch';
 
 function Search() {
 	const [value, setValue] = useState<String>('');
@@ -10,12 +11,18 @@ function Search() {
 	const [show, setShow] = useState<boolean>(false);
 
 	useEffect(() => {
-		if (value) {
+		if (value && value.trim() !== '') {
 			setShow(true);
 		} else {
 			setShow(false);
 		}
 	}, [value]);
+
+	useEffect(() => {
+		if (!show) {
+			setValue('');
+		}
+	}, [show]);
 
 	return (
 		<HeadlessTippy
@@ -23,7 +30,7 @@ function Search() {
 			visible={show}
 			placement='bottom-end'
 			onClickOutside={() => setShow(false)}
-			render={(attrs: any) => <div>search</div>}
+			render={(attrs: any) => <BoxSearch hide={() => setShow(false)} value={value} />}
 		>
 			<div className={styles.search}>
 				<input
@@ -35,7 +42,7 @@ function Search() {
 				<span className={styles.search_icon}>
 					<IoSearchOutline />
 				</span>
-				{value && (
+				{value.trim() !== '' && (
 					<div className={styles.icon_close} onClick={() => setValue('')}>
 						<IoCloseOutline />
 					</div>
