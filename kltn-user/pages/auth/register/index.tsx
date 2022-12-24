@@ -20,7 +20,7 @@ function Register() {
 
 	const router = useRouter();
 
-	const {routerPrev} = useSelector((state: RootState) => state.interface);
+	const {routerPrev} = useSelector((state: RootState) => state.site);
 
 	const [form, setForm] = useState<any>({
 		username: '',

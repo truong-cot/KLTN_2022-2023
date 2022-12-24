@@ -13,20 +13,6 @@ interface TypeProduct {
 	amount: Number;
 	image: String;
 	totalPrice: Number;
-
-	// amount: 1;
-	// createdAt: '2022-12-19T07:34:15.307Z';
-	// idProduct: '6393f80d0dc71b36fa47b98a';
-	// idUser: '638dfd0f86b583a655be404d';
-	// image: 'https://res.cloudinary.com/dwdpobmqg/image/upload/v1670641710/tbyjlwsejv5ldhnmycos.jpg';
-	// nameProduct: 'Quần jean nam TMJ08';
-	// nameUser: 'đang ba truong 2';
-	// price: 125000;
-	// sale: 10;
-	// size: 'L';
-	// updatedAt: '2022-12-19T07:34:15.307Z';
-	// __v: 0;
-	// _id: '63a013f778ed475dadad6f0a';
 }
 
 const orderController = {
@@ -541,10 +527,10 @@ const orderController = {
 				.find({
 					$or: [
 						{
-							nameUser: {$regex: keyword},
+							nameUser: {$regex: keyword, $options: '$i'},
 						},
 						{
-							nameReceiver: {$regex: keyword},
+							nameReceiver: {$regex: keyword, $options: '$i'},
 						},
 					],
 					statusOrder: Number(statusOrder),
@@ -552,13 +538,17 @@ const orderController = {
 				.skip(Number(page) * Number(limit) - Number(limit))
 				.limit(Number(limit));
 
+			const countOrder = await orderSchema.countDocuments({
+				statusOrder: Number(statusOrder),
+			});
+
 			if (listOrder) {
 				return res.status(200).json(
 					resultData({
 						code: 200,
 						status: 1,
 						message: 'Tất cả đơn hàng!',
-						data: listOrder,
+						data: {listOrder, countOrder},
 					})
 				);
 			}

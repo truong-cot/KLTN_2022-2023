@@ -58,8 +58,9 @@ function TableProductTshirt() {
 				});
 
 				if (res.status === 1) {
-					setData(res.data);
+					setData(res.data.listProduct);
 					setIsloading(false);
+					setTotalItem(res.data.countProduct);
 				} else {
 					setIsloading(false);
 				}

@@ -58,7 +58,8 @@ function TableProductSweater() {
 				});
 
 				if (res.status === 1) {
-					setData(res.data);
+					setTotalItem(res?.data.countProduct);
+					setData(res.data.listProduct);
 					setIsloading(false);
 				} else {
 					setIsloading(false);

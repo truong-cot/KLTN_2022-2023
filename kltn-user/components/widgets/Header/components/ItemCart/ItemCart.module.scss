@@ -22,9 +22,9 @@
 		margin-left: 12px;
 
 		.name {
-			text-align: center;
+			overflow: hidden;
 			-webkit-box-orient: vertical;
-			-webkit-line-clamp: 2;
+			-webkit-line-clamp: 1;
 			color: var(--text-color);
 			display: block;
 			display: -webkit-box;
@@ -90,6 +90,7 @@
 		justify-content: flex-end;
 		font-size: 2.4rem;
 		transition: all 0.8s linear;
+		min-width: 32px;
 
 		&:active {
 			transform: scale(0.9);

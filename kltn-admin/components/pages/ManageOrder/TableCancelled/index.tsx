@@ -45,7 +45,8 @@ function TableCancelled() {
 				});
 
 				if (res.status === 1) {
-					setData(res.data);
+					setData(res.data.listOrder);
+					setTotalItem(res.data.countOrder);
 					setIsLoading(false);
 				} else {
 					setIsLoading(false);
@@ -68,7 +69,7 @@ function TableCancelled() {
 				/>
 				<div className={styles.main}>
 					<p className={styles.count}>
-						TẤT CẢ ĐƠN HÀNG: <span>{3}</span>
+						TẤT CẢ ĐƠN HÀNG: <span>{totalItem}</span>
 					</p>
 				</div>
 				<LoadingData isLoading={isLoading}>

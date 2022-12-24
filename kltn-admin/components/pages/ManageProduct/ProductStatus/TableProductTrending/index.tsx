@@ -54,7 +54,8 @@ function TableProductTrending() {
 				});
 
 				if (res.status === 1) {
-					setData(res.data);
+					setData(res.data.listProduct);
+					setTotalItem(res?.data.countProduct);
 					setIsloading(false);
 				} else {
 					setIsloading(false);

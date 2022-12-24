@@ -10,6 +10,7 @@ import {RootState} from '~/redux/store';
 import BoxFilterProduct from '../components/BoxFilterProduct';
 
 import styles from './TrendyProducts.module.scss';
+import LoadingData from '~/components/common/LoadingData';
 
 function TrendyProducts() {
 	const router = useRouter();
@@ -55,7 +56,7 @@ function TrendyProducts() {
 				const res: any = await productService.getAllProduct({
 					token: String(token),
 					category: 0,
-					status: 0,
+					status: 3,
 					priceMin: 0,
 					priceMax: 1000000000,
 					keyword: '',
@@ -64,7 +65,7 @@ function TrendyProducts() {
 				});
 
 				if (res.status === 1) {
-					setData(res.data);
+					setData(res.data.listProduct);
 					setIsloading(false);
 				} else {
 					setIsloading(false);
@@ -84,7 +85,7 @@ function TrendyProducts() {
 				const res: any = await productService.getAllProduct({
 					token: String(token),
 					category: 1,
-					status: 0,
+					status: 3,
 					priceMin: 0,
 					priceMax: 1000000000,
 					keyword: '',
@@ -93,7 +94,7 @@ function TrendyProducts() {
 				});
 
 				if (res.status === 1) {
-					setData_1(res.data);
+					setData_1(res.data.listProduct);
 					setIsloading(false);
 				} else {
 					setIsloading(false);
@@ -113,7 +114,7 @@ function TrendyProducts() {
 				const res: any = await productService.getAllProduct({
 					token: String(token),
 					category: 2,
-					status: 0,
+					status: 3,
 					priceMin: 0,
 					priceMax: 1000000000,
 					keyword: '',
@@ -122,7 +123,7 @@ function TrendyProducts() {
 				});
 
 				if (res.status === 1) {
-					setData_2(res.data);
+					setData_2(res.data.listProduct);
 					setIsloading(false);
 				} else {
 					setIsloading(false);
@@ -142,7 +143,7 @@ function TrendyProducts() {
 				const res: any = await productService.getAllProduct({
 					token: String(token),
 					category: 3,
-					status: 0,
+					status: 3,
 					priceMin: 0,
 					priceMax: 1000000000,
 					keyword: '',
@@ -151,7 +152,7 @@ function TrendyProducts() {
 				});
 
 				if (res.status === 1) {
-					setData_3(res.data);
+					setData_3(res.data.listProduct);
 					setIsloading(false);
 				} else {
 					setIsloading(false);
@@ -165,22 +166,24 @@ function TrendyProducts() {
 	}, [token]);
 
 	return (
-		<LayoutGrid>
-			<div className={styles.container}>
-				<h4 className={styles.title}>Trendy products</h4>
-				<div className={styles.tab}>
-					<TabNavLink query='_type' listHref={listHref} />
-				</div>
-				{!_type && <BoxFilterProduct listProduct={data} />}
-				{_type === 'ao-len' && <BoxFilterProduct listProduct={data_1} />}
-				{_type === 'quan-jeans' && <BoxFilterProduct listProduct={data_2} />}
-				{_type === 'ao-phong' && <BoxFilterProduct listProduct={data_3} />}
+		<LoadingData isLoading={isloading}>
+			<LayoutGrid>
+				<div className={styles.container}>
+					<h4 className={styles.title}>Một số sản phẩm đang trong xu hướng của MOLLA</h4>
+					<div className={styles.tab}>
+						<TabNavLink query='_type' listHref={listHref} />
+					</div>
+					{!_type && <BoxFilterProduct listProduct={data} />}
+					{_type === 'ao-len' && <BoxFilterProduct listProduct={data_1} />}
+					{_type === 'quan-jeans' && <BoxFilterProduct listProduct={data_2} />}
+					{_type === 'ao-phong' && <BoxFilterProduct listProduct={data_3} />}
 
-				<Link className={styles.href} href='/shop?type=all&status=all'>
-					Xem thêm ...
-				</Link>
-			</div>
-		</LayoutGrid>
+					<Link className={styles.href} href='/shop?type=all&status=all'>
+						Xem tất cả sản phẩm ...
+					</Link>
+				</div>
+			</LayoutGrid>
+		</LoadingData>
 	);
 }
 

@@ -50,6 +50,7 @@ function SideBarShop() {
 						onClick={() =>
 							router.replace(
 								{
+									...router.query,
 									pathname: router.pathname,
 									query: {...router.query, type: 'all'},
 								},
@@ -68,6 +69,7 @@ function SideBarShop() {
 						onClick={() =>
 							router.replace(
 								{
+									...router.query,
 									pathname: router.pathname,
 									query: {...router.query, type: 'ao-len'},
 								},
@@ -86,6 +88,7 @@ function SideBarShop() {
 						onClick={() =>
 							router.replace(
 								{
+									...router.query,
 									pathname: router.pathname,
 									query: {...router.query, type: 'quan-jeans'},
 								},
@@ -104,6 +107,7 @@ function SideBarShop() {
 						onClick={() =>
 							router.replace(
 								{
+									...router.query,
 									pathname: router.pathname,
 									query: {...router.query, type: 'ao-phong'},
 								},
@@ -143,6 +147,7 @@ function SideBarShop() {
 						onClick={() =>
 							router.replace(
 								{
+									...router.query,
 									pathname: router.pathname,
 									query: {...router.query, status: 'all'},
 								},
@@ -161,6 +166,7 @@ function SideBarShop() {
 						onClick={() =>
 							router.replace(
 								{
+									...router.query,
 									pathname: router.pathname,
 									query: {...router.query, status: 'hot'},
 								},
@@ -179,6 +185,7 @@ function SideBarShop() {
 						onClick={() =>
 							router.replace(
 								{
+									...router.query,
 									pathname: router.pathname,
 									query: {...router.query, status: 'sale'},
 								},
@@ -197,6 +204,7 @@ function SideBarShop() {
 						onClick={() =>
 							router.replace(
 								{
+									...router.query,
 									pathname: router.pathname,
 									query: {...router.query, status: 'trending'},
 								},
@@ -250,7 +258,6 @@ function SideBarShop() {
 											priceMax: `${value[1]}`,
 										},
 									},
-
 									undefined,
 									{shallow: true, scroll: false}
 								);

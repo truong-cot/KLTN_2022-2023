@@ -570,327 +570,273 @@ const ProductController = {
 			const {category, status, priceMin, priceMax, keyword, limit, page} =
 				req.query;
 
-			if (category === '0') {
-				if (status === '0') {
-					listProduct = await ProductModel.find({
-						$or: [
-							{
-								name: {$regex: keyword},
-							},
-						],
-						price: {
-							$gte: priceMin,
-							$lte: priceMax,
+			if (category === '0' && status === '0') {
+				// Lấy danh sách tất cả sản phẩm
+				listProduct = await ProductModel.find({
+					$or: [
+						{
+							name: {$regex: keyword, $options: '$i'},
 						},
-					})
-						.skip(Number(page) * Number(limit) - Number(limit))
-						.limit(Number(limit));
+					],
+					price: {
+						$gte: priceMin,
+						$lte: priceMax,
+					},
+				})
+					.skip(Number(page) * Number(limit) - Number(limit))
+					.limit(Number(limit));
 
-					// countProduct = ProductModel.countDocuments({
-					// 	$or: [
-					// 		{
-					// 			name: {$regex: keyword},
-					// 		},
-					// 	],
-					// 	price: {
-					// 		$gte: priceMin,
-					// 		$lte: priceMax,
+				// Lấy số lượng
+				countProduct = await ProductModel.countDocuments({
+					// $or: [
+					// 	{
+					// 		name: {$regex: keyword, $options: '$i'},
 					// 	},
-					// });
-				}
-
-				if (status === '1') {
-					listProduct = await ProductModel.find({
-						$or: [
-							{
-								name: {$regex: keyword},
-							},
-						],
-						price: {
-							$gte: priceMin,
-							$lte: priceMax,
+					// ],
+					price: {
+						$gte: priceMin,
+						$lte: priceMax,
+					},
+				});
+			} else if (category === '0' && status === '1') {
+				// Lấy danh sách tất cả sản phẩm
+				listProduct = await ProductModel.find({
+					$or: [
+						{
+							name: {$regex: keyword, $options: '$i'},
 						},
-						isHot: true,
-					})
-						.skip(Number(page) * Number(limit) - Number(limit))
-						.limit(Number(limit));
+					],
+					price: {
+						$gte: priceMin,
+						$lte: priceMax,
+					},
+					isHot: true,
+				})
+					.skip(Number(page) * Number(limit) - Number(limit))
+					.limit(Number(limit));
 
-					// countProduct = ProductModel.countDocuments({
-					// 	$or: [
-					// 		{
-					// 			name: {$regex: keyword},
-					// 		},
-					// 	],
-					// 	price: {
-					// 		$gte: priceMin,
-					// 		$lte: priceMax,
+				// Lấy số lượng
+				countProduct = await ProductModel.countDocuments({
+					// $or: [
+					// 	{
+					// 		name: {$regex: keyword, $options: '$i'},
 					// 	},
-					// 	isHot: true,
-					// });
-				}
-
-				if (status === '2') {
-					listProduct = await ProductModel.find({
-						$or: [
-							{
-								name: {$regex: keyword},
-							},
-						],
-						price: {
-							$gte: priceMin,
-							$lte: priceMax,
+					// ],
+					price: {
+						$gte: priceMin,
+						$lte: priceMax,
+					},
+					isHot: true,
+				});
+			} else if (category === '0' && status === '2') {
+				// Lấy danh sách tất cả sản phẩm
+				listProduct = await ProductModel.find({
+					$or: [
+						{
+							name: {$regex: keyword, $options: '$i'},
 						},
-						sale: {
-							$gte: 1,
-							$lte: 100,
-						},
-					})
-						.skip(Number(page) * Number(limit) - Number(limit))
-						.limit(Number(limit));
-				}
+					],
+					price: {
+						$gte: priceMin,
+						$lte: priceMax,
+					},
+					sale: {
+						$gte: 1,
+						$lte: 100,
+					},
+				})
+					.skip(Number(page) * Number(limit) - Number(limit))
+					.limit(Number(limit));
 
-				if (status === '3') {
-					listProduct = await ProductModel.find({
-						$or: [
-							{
-								name: {$regex: keyword},
-							},
-						],
-						price: {
-							$gte: priceMin,
-							$lte: priceMax,
+				// Lấy số lượng
+				countProduct = await ProductModel.countDocuments({
+					// $or: [
+					// 	{
+					// 		name: {$regex: keyword, $options: '$i'},
+					// 	},
+					// ],
+					price: {
+						$gte: priceMin,
+						$lte: priceMax,
+					},
+					sale: {
+						$gte: 1,
+						$lte: 100,
+					},
+				});
+			} else if (category === '0' && status === '3') {
+				// Lấy danh sách tất cả sản phẩm
+				listProduct = await ProductModel.find({
+					$or: [
+						{
+							name: {$regex: keyword, $options: '$i'},
 						},
-						trending: true,
-					})
-						.skip(Number(page) * Number(limit) - Number(limit))
-						.limit(Number(limit));
-				}
-			}
+					],
+					price: {
+						$gte: priceMin,
+						$lte: priceMax,
+					},
+					trending: true,
+				})
+					.skip(Number(page) * Number(limit) - Number(limit))
+					.limit(Number(limit));
 
-			if (category === '1') {
+				// Lấy số lượng
+				countProduct = await ProductModel.countDocuments({
+					// $or: [
+					// 	{
+					// 		name: {$regex: keyword, $options: '$i'},
+					// 	},
+					// ],
+					price: {
+						$gte: priceMin,
+						$lte: priceMax,
+					},
+					trending: true,
+				});
+			} else {
+				// Lấy tất cả sản phẩm theo thể loại
 				if (status === '0') {
+					// Lấy danh sách tất cả sản phẩm
 					listProduct = await ProductModel.find({
 						$or: [
 							{
-								name: {$regex: keyword},
+								name: {$regex: keyword, $options: '$i'},
 							},
 						],
 						price: {
 							$gte: priceMin,
 							$lte: priceMax,
 						},
-						category: 1,
+						category: Number(category),
 					})
 						.skip(Number(page) * Number(limit) - Number(limit))
 						.limit(Number(limit));
+
+					// Lấy số lượng
+					countProduct = await ProductModel.countDocuments({
+						// $or: [
+						// 	{
+						// 		name: {$regex: keyword, $options: '$i'},
+						// 	},
+						// ],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						category: Number(category),
+					});
 				}
 
+				// Lấy sản phẩm đang hot
 				if (status === '1') {
+					// Lấy danh sách tất cả sản phẩm
 					listProduct = await ProductModel.find({
 						$or: [
 							{
-								name: {$regex: keyword},
+								name: {$regex: keyword, $options: '$i'},
 							},
 						],
 						price: {
 							$gte: priceMin,
 							$lte: priceMax,
 						},
+						category: Number(category),
 						isHot: true,
-						category: 1,
 					})
 						.skip(Number(page) * Number(limit) - Number(limit))
 						.limit(Number(limit));
+
+					// Lấy số lượng
+					countProduct = await ProductModel.countDocuments({
+						// $or: [
+						// 	{
+						// 		name: {$regex: keyword, $options: '$i'},
+						// 	},
+						// ],
+						price: {
+							$gte: priceMin,
+							$lte: priceMax,
+						},
+						category: Number(category),
+						isHot: true,
+					});
 				}
 
+				// Lấy sản phẩm đang sale
 				if (status === '2') {
+					// Lấy danh sách tất cả sản phẩm
 					listProduct = await ProductModel.find({
 						$or: [
 							{
-								name: {$regex: keyword},
+								name: {$regex: keyword, $options: '$i'},
 							},
 						],
 						price: {
 							$gte: priceMin,
 							$lte: priceMax,
 						},
+						category: Number(category),
 						sale: {
 							$gte: 1,
 							$lte: 100,
 						},
-						category: 1,
 					})
 						.skip(Number(page) * Number(limit) - Number(limit))
 						.limit(Number(limit));
-				}
 
-				if (status === '3') {
-					listProduct = await ProductModel.find({
-						$or: [
-							{
-								name: {$regex: keyword},
-							},
-						],
+					// Lấy số lượng
+					countProduct = await ProductModel.countDocuments({
+						// $or: [
+						// 	{
+						// 		name: {$regex: keyword, $options: '$i'},
+						// 	},
+						// ],
 						price: {
 							$gte: priceMin,
 							$lte: priceMax,
 						},
-						trending: true,
-						category: 1,
-					})
-						.skip(Number(page) * Number(limit) - Number(limit))
-						.limit(Number(limit));
-				}
-			}
-			if (category === '2') {
-				if (status === '0') {
-					listProduct = await ProductModel.find({
-						$or: [
-							{
-								name: {$regex: keyword},
-							},
-						],
-						price: {
-							$gte: priceMin,
-							$lte: priceMax,
-						},
-						category: 2,
-					})
-						.skip(Number(page) * Number(limit) - Number(limit))
-						.limit(Number(limit));
-				}
-
-				if (status === '1') {
-					listProduct = await ProductModel.find({
-						$or: [
-							{
-								name: {$regex: keyword},
-							},
-						],
-						price: {
-							$gte: priceMin,
-							$lte: priceMax,
-						},
-						isHot: true,
-						category: 2,
-					})
-						.skip(Number(page) * Number(limit) - Number(limit))
-						.limit(Number(limit));
-				}
-
-				if (status === '2') {
-					listProduct = await ProductModel.find({
-						$or: [
-							{
-								name: {$regex: keyword},
-							},
-						],
-						price: {
-							$gte: priceMin,
-							$lte: priceMax,
-						},
+						category: Number(category),
 						sale: {
 							$gte: 1,
 							$lte: 100,
 						},
-						category: 2,
-					})
-						.skip(Number(page) * Number(limit) - Number(limit))
-						.limit(Number(limit));
+					});
 				}
 
+				// Lấy sản phẩm đang treding
 				if (status === '3') {
+					// Lấy danh sách tất cả sản phẩm
 					listProduct = await ProductModel.find({
 						$or: [
 							{
-								name: {$regex: keyword},
+								name: {$regex: keyword, $options: '$i'},
 							},
 						],
 						price: {
 							$gte: priceMin,
 							$lte: priceMax,
 						},
+						category: Number(category),
 						trending: true,
-						category: 2,
 					})
 						.skip(Number(page) * Number(limit) - Number(limit))
 						.limit(Number(limit));
-				}
-			}
 
-			if (category === '3') {
-				if (status === '0') {
-					listProduct = await ProductModel.find({
-						$or: [
-							{
-								name: {$regex: keyword},
-							},
-						],
+					// Lấy số lượng
+					countProduct = await ProductModel.countDocuments({
+						// $or: [
+						// 	{
+						// 		name: {$regex: keyword, $options: '$i'},
+						// 	},
+						// ],
 						price: {
 							$gte: priceMin,
 							$lte: priceMax,
 						},
-						category: 3,
-					})
-						.skip(Number(page) * Number(limit) - Number(limit))
-						.limit(Number(limit));
-				}
-
-				if (status === '1') {
-					listProduct = await ProductModel.find({
-						$or: [
-							{
-								name: {$regex: keyword},
-							},
-						],
-						price: {
-							$gte: priceMin,
-							$lte: priceMax,
-						},
-						isHot: true,
-						category: 3,
-					})
-						.skip(Number(page) * Number(limit) - Number(limit))
-						.limit(Number(limit));
-				}
-
-				if (status === '2') {
-					listProduct = await ProductModel.find({
-						$or: [
-							{
-								name: {$regex: keyword},
-							},
-						],
-						price: {
-							$gte: priceMin,
-							$lte: priceMax,
-						},
-						sale: {
-							$gte: 1,
-							$lte: 100,
-						},
-						category: 3,
-					})
-						.skip(Number(page) * Number(limit) - Number(limit))
-						.limit(Number(limit));
-				}
-
-				if (status === '3') {
-					listProduct = await ProductModel.find({
-						$or: [
-							{
-								name: {$regex: keyword},
-							},
-						],
-						price: {
-							$gte: priceMin,
-							$lte: priceMax,
-						},
+						category: Number(category),
 						trending: true,
-						category: 3,
-					})
-						.skip(Number(page) * Number(limit) - Number(limit))
-						.limit(Number(limit));
+					});
 				}
 			}
 
@@ -900,7 +846,7 @@ const ProductController = {
 						code: 200,
 						status: 1,
 						message: 'Lấy sản phẩm thành công!',
-						data: listProduct,
+						data: {listProduct, countProduct},
 					})
 				);
 			} else {
@@ -909,7 +855,7 @@ const ProductController = {
 						code: 201,
 						status: 1,
 						message: 'Danh sách sản phẩm trống!',
-						data: listProduct,
+						data: {listProduct, countProduct},
 					})
 				);
 			}

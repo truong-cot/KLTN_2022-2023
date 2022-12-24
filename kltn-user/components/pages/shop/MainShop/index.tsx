@@ -1,12 +1,12 @@
 import clsx from 'clsx';
-import Image from 'next/image';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import Select, {Option} from '~/components/controls/Select';
 import GridColumn from '~/components/layout/GridColumn';
 import LayoutGrid from '~/components/layout/LayoutGrid';
 import ShopLayout from '~/components/layout/ShopLayout';
-import icons from '~/constants/images/icons';
 import InfoProduct from '../../home/components/InfoProduct';
+
+import Image from 'next/image';
 
 import styles from './MainShop.module.scss';
 import Pagination from '~/components/controls/Pagination';
@@ -16,6 +16,8 @@ import {RootState} from '~/redux/store';
 import {toast} from 'react-toastify';
 import {useRouter} from 'next/router';
 import LoadingData from '~/components/common/LoadingData';
+import icons from '~/constants/images/icons';
+import useDebounce from '~/common/hooks/useDebounce';
 
 function MainShop() {
 	const pageSize = 10;
@@ -74,7 +76,7 @@ function MainShop() {
 				});
 
 				if (res.status === 1) {
-					setData(res.data);
+					setData(res.data.listProduct);
 					setIsloading(false);
 				} else {
 					setIsloading(false);
@@ -85,7 +87,12 @@ function MainShop() {
 				toast.error('Có lỗi xảy ra!');
 			}
 		})();
-	}, [token, category, statusFilter, priceMin, priceMax]);
+	}, [category, statusFilter]);
+
+	//
+	const handleBack = () => {
+		router.push('/shop?type=all&status=all');
+	};
 
 	return (
 		<LoadingData isLoading={isLoading}>
@@ -94,7 +101,9 @@ function MainShop() {
 					<div className={styles.top}>
 						<div className={styles.left}>
 							<p className={styles.text_1}>Bộ lọc:</p>
-							<p className={styles.delete}>Xóa bộ lọc</p>
+							<p className={styles.delete} onClick={handleBack}>
+								Xóa bộ lọc
+							</p>
 						</div>
 						<div className={styles.right}>
 							{/* <p className={styles.text_right}>
@@ -141,11 +150,21 @@ function MainShop() {
 						</div>
 					</div>
 					<ShopLayout>
-						<GridColumn col_3>
-							{data?.map((product: any, index: any) => (
-								<InfoProduct key={product.id} product={product} />
-							))}
-						</GridColumn>
+						{data?.length <= 0 ? (
+							<div className={styles.main_empty}>
+								<Image src={icons.emptyCart} alt='cart empty' />
+								<p className={styles.text_empty}>Danh sách sản phẩm đang trống!</p>
+								<div className={styles.btn_empty} onClick={handleBack}>
+									<p>Xem tất cả sản phẩm</p>
+								</div>
+							</div>
+						) : (
+							<GridColumn col_3>
+								{data?.map((product: any, index: any) => (
+									<InfoProduct key={product.id} product={product} />
+								))}
+							</GridColumn>
+						)}
 					</ShopLayout>
 					<div className={styles.pagination}>
 						<Pagination

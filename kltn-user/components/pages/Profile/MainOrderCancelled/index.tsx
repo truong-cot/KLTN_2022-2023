@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 
 import orderService from '~/api/order';
 import {useSelector} from 'react-redux';
@@ -7,12 +7,16 @@ import {TypeOrder} from './interfaces';
 import {toast} from 'react-toastify';
 import RequireAuth from '~/components/protected/RequiredAuth';
 import LoadingData from '~/components/common/LoadingData';
-import CheckDataEmpty from '~/components/common/CheckDataEmpty';
 import ItemOrder from '../ItemOrder';
 import styles from './MainOrderCancelled.module.scss';
-import Button from '~/components/controls/Button';
+
+import Image from 'next/image';
+import icons from '~/constants/images/icons';
+import {useRouter} from 'next/router';
 
 function MainOrderCancelled() {
+	const router = useRouter();
+
 	const {token} = useSelector((state: RootState) => state.auth);
 	const {userData} = useSelector((state: RootState) => state.user);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -51,23 +55,39 @@ function MainOrderCancelled() {
 		}
 	}
 
+	const handleBack = () => {
+		router.push('/shop?type=all&status=all');
+	};
+
 	return (
 		<RequireAuth>
 			<LoadingData isLoading={isLoading}>
-				<CheckDataEmpty isEmpty={listData?.length <= 0}>
-					{listData.map((v, i) => (
-						<div key={i} className={styles.main}>
-							{v.products.map((v, i) => (
-								<ItemOrder data={v} key={i} />
-							))}
-							{/* <div className={styles.btn}>
+				{listData.length <= 0 ? (
+					<div className={styles.main_empty}>
+						<Image src={icons.emptyCart} alt='cart empty' />
+						<p className={styles.text_empty}>
+							Bạn chưa thêm sản phẩm nào vào giỏ hàng!
+						</p>
+						<div className={styles.btn_empty} onClick={handleBack}>
+							<p>Mua hàng</p>
+						</div>
+					</div>
+				) : (
+					<Fragment>
+						{listData.map((v, i) => (
+							<div key={i} className={styles.main}>
+								{v.products.map((v, i) => (
+									<ItemOrder data={v} key={i} />
+								))}
+								{/* <div className={styles.btn}>
 								<Button bg_red p_4_24 rounded_6>
 									Hủy đơn hàng
 								</Button>
 							</div> */}
-						</div>
-					))}
-				</CheckDataEmpty>
+							</div>
+						))}
+					</Fragment>
+				)}
 			</LoadingData>
 		</RequireAuth>
 	);

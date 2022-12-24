@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {Fragment, useMemo, useState} from 'react';
 import Image from 'next/image';
 
 import styles from './MainCart.module.scss';
@@ -7,41 +7,23 @@ import {IoMdClose} from 'react-icons/io';
 import Button from '~/components/controls/Button';
 import {RootState} from '~/redux/store';
 import {useSelector} from 'react-redux';
-import cartService from '~/api/cart';
-import {toast} from 'react-toastify';
 import {useRouter} from 'next/router';
 import RequireAuth from '~/components/protected/RequiredAuth';
 import {setItemStorage} from '~/common/func/localStorage';
-import LoadingData from '~/components/common/LoadingData';
+import Link from 'next/link';
+import Popup from '~/components/common/Popup';
+import PopupDeleteCart from '~/components/Popup/PopupDeleteCart';
+import icons from '~/constants/images/icons';
 
 function MainCart() {
 	const router = useRouter();
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-
-	const {token} = useSelector((state: RootState) => state.auth);
+	const [show, setShow] = useState<boolean>(false);
+	const [idCart, setIdCart] = useState<String>('');
 
 	const [shippingMethod, setShippingMethod] = useState<Number>(1);
 	const [priceShipping, setpriceShipping] = useState<Number>(30000);
 
 	const {carts} = useSelector((state: RootState) => state.cart);
-
-	const deleteCart = async (id: String) => {
-		setIsLoading(true);
-
-		const res: any = await cartService.deleteCart({
-			token: String(token),
-			idCart: String(id),
-		});
-
-		if (res.status === 1) {
-			setIsLoading(false);
-			toast.success('Xóa giỏ hàng thành công!');
-			router.reload(); // reload page
-		} else {
-			toast.warn('Có lỗi xảy ra!');
-			setIsLoading(false);
-		}
-	};
 
 	// Tính tổng tiền giỏ hàng
 	const totalPriceCart = useMemo(() => {
@@ -72,16 +54,24 @@ function MainCart() {
 		router.push('/payment');
 	};
 
-	useEffect(() => {
-		if (carts.length <= 0) {
-			router.push('/shop?type=all&status=all');
-		}
-	}, [router, carts]);
+	const handleBack = () => {
+		router.push('/shop?type=all&status=all');
+	};
 
 	return (
 		<RequireAuth>
-			<LoadingData isLoading={isLoading}>
-				<div className={styles.container}>
+			<div className={styles.container}>
+				{carts.length <= 0 ? (
+					<div className={styles.main_empty}>
+						<Image src={icons.emptyCart} alt='cart empty' />
+						<p className={styles.text_empty}>
+							Bạn chưa thêm sản phẩm nào vào giỏ hàng!
+						</p>
+						<div className={styles.btn_empty} onClick={handleBack}>
+							<p>Mua hàng</p>
+						</div>
+					</div>
+				) : (
 					<div className={styles.box_table}>
 						<div>
 							<table>
@@ -110,7 +100,12 @@ function MainCart() {
 													/>
 												</div>
 												<div className={styles.info}>
-													<h4>{v.nameProduct}</h4>
+													<Link
+														className={styles.name}
+														href={`/product/${v.idProduct}`}
+													>
+														{v.nameProduct}
+													</Link>
 												</div>
 											</td>
 											<td>{v.size}</td>
@@ -119,22 +114,22 @@ function MainCart() {
 												<div className={styles.box_quantity}>
 													<div className={styles.box}>
 														{/* <span
-															onClick={() => reduceQuantily(v._id)}
-															className={styles.text_ff}
-														>
-															-
-														</span> */}
+											onClick={() => reduceQuantily(v._id)}
+											className={styles.text_ff}
+										>
+											-
+										</span> */}
 														<span className={styles.text_qlt}>
 															{v.amount}
 														</span>
 														{/* <span
-															onClick={() =>
-																increasingQuantily(v._id)
-															}
-															className={styles.text_ff}
-														>
-															+
-														</span> */}
+											onClick={() =>
+												increasingQuantily(v._id)
+											}
+											className={styles.text_ff}
+										>
+											+
+										</span> */}
 													</div>
 												</div>
 											</td>
@@ -142,7 +137,10 @@ function MainCart() {
 											<td>
 												<div
 													className={styles.box_icon}
-													onClick={() => deleteCart(String(v._id))}
+													onClick={() => {
+														setShow(true);
+														setIdCart(String(v._id));
+													}}
 												>
 													<div className={styles.box}>
 														<IoMdClose className={styles.icon} />
@@ -243,8 +241,12 @@ function MainCart() {
 							</div>
 						</div>
 					</div>
-				</div>
-			</LoadingData>
+				)}
+			</div>
+			{/* Popup */}
+			<Popup open={show} onClose={() => setShow(false)}>
+				<PopupDeleteCart idCart={idCart} onClose={() => setShow(false)} />
+			</Popup>
 		</RequireAuth>
 	);
 }

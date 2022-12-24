@@ -43,8 +43,6 @@ function TableAllProductStatus() {
 
 	// Lấy danh sách sản phẩm
 	useEffect(() => {
-		console.log('log');
-
 		(async () => {
 			try {
 				setIsloading(true);
@@ -60,7 +58,8 @@ function TableAllProductStatus() {
 				});
 
 				if (res.status === 1) {
-					setData(res.data);
+					setTotalItem(res?.data.countProduct);
+					setData(res.data.listProduct);
 					setIsloading(false);
 				} else {
 					setIsloading(false);
@@ -97,6 +96,8 @@ function TableAllProductStatus() {
 			toast.error('Có lỗi xảy ra!');
 		}
 	};
+
+	console.log(totalItem);
 
 	return (
 		<RequireAuth>

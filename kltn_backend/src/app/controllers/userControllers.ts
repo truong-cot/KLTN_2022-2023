@@ -18,10 +18,10 @@ const UserController = {
 				users = await UserModel.find({
 					$or: [
 						{
-							username: {$regex: keyword},
+							username: {$regex: keyword, $options: '$i'},
 						},
 						{
-							name: {$regex: keyword},
+							name: {$regex: keyword, $options: '$i'},
 						},
 					],
 				})
@@ -35,10 +35,10 @@ const UserController = {
 					isAdmin: true,
 					$or: [
 						{
-							username: {$regex: keyword},
+							username: {$regex: keyword, $options: '$i'},
 						},
 						{
-							name: {$regex: keyword},
+							name: {$regex: keyword, $options: '$i'},
 						},
 					],
 				})
@@ -52,10 +52,10 @@ const UserController = {
 					isAdmin: false,
 					$or: [
 						{
-							username: {$regex: keyword},
+							username: {$regex: keyword, $options: '$i'},
 						},
 						{
-							name: {$regex: keyword},
+							name: {$regex: keyword, $options: '$i'},
 						},
 					],
 				})

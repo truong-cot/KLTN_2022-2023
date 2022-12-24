@@ -18,7 +18,7 @@ function MainLogin() {
 	const dispatch = useDispatch();
 	const router = useRouter();
 
-	const {routerPrev} = useSelector((state: RootState) => state.interface);
+	const {routerPrev} = useSelector((state: RootState) => state.site);
 
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [form, setForm] = useState<any>({

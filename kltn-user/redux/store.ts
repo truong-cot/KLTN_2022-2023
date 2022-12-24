@@ -6,6 +6,7 @@ import interfaceReducer from './reducers/interface';
 import authReducer from './reducers/authSlice';
 import userReducer from './reducers/userSlice';
 import cartReducer from './reducers/cartSlice';
+import siteReducer from './reducers/siteSlice';
 import storage from 'redux-persist/lib/storage/session';
 import thunk from 'redux-thunk';
 
@@ -20,6 +21,7 @@ const reducers = combineReducers({
 	auth: authReducer,
 	user: userReducer,
 	cart: cartReducer,
+	site: siteReducer,
 });
 
 export const store = configureStore({

@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import {FaTimes} from 'react-icons/fa';
 import {useDispatch, useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
-import productService from '~/api/product';
 import Button from '~/components/controls/Button';
 import {RootState} from '~/redux/store';
 import Image from 'next/image';

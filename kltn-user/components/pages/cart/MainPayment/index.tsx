@@ -19,6 +19,8 @@ import orderService from '~/api/order';
 import InformationReceiver from '../InformationReceiver';
 import PopupAddAddress from '~/components/controls/PopupAddAddress';
 import ChangeAddress from '../ChangeAddress';
+import Image from 'next/image';
+import icons from '~/constants/images/icons';
 
 function MainPayment() {
 	const router = useRouter();
@@ -236,173 +238,204 @@ function MainPayment() {
 		}
 	};
 
+	const handleBack = () => {
+		router.push('/shop?type=all&status=all');
+	};
+
 	return (
 		<Fragment>
 			<div className={styles.container}>
-				{show && <div onClick={() => setShow(false)} className='overlay'></div>}
-				<div className={clsx(styles.box_position, {[styles.active]: show})}>
-					<ChangeAddress
-						addressDefault={addressDefault}
-						onSetDefaultAddress={(v) => callbackSetAddress(v)}
-						setShow={() => setShow(false)}
-						setShowPopup={() => setShowPopup(true)}
-					/>
-				</div>
-
-				<div className={styles.wapper}>
-					{/* Kiểm tra trường hợp chưa cập nhật thông tin cá nhân */}
-					{userData?.address.length > 0 ? (
-						<div className={styles.box_des}>
-							<InformationReceiver data={addressDefault} show={() => setShow(true)} />
-							<div className={styles.box_specific}>
-								<InputLight
-									name='attention'
-									onChange={(e: any) => setAttention(e.target.value)}
-									type='text'
-									placeholder='Nhập chú ý về giao hàng (nếu có)...'
-									label='Ghi chú:'
-								/>
-							</div>
-						</div>
-					) : (
-						<div className={styles.box_1}>
-							<Fragment>
-								<h4 className={styles.title}>THÔNG TIN NGƯỜI NHẬN</h4>
-								<div className={styles.form_1}>
-									<InputLight
-										value={valueForm.name}
-										name='name'
-										onChange={handleChangeInput}
-										type='text'
-										placeholder='Nhập vào họ tên...'
-										label='Họ tên người nhân:'
-									/>
-									<InputLight
-										value={valueForm.phone}
-										name='phone'
-										onChange={handleChangeInput}
-										type='number'
-										placeholder='Nhập vào số điện thoại...'
-										label='Số điện thoại người nhân:'
-									/>
-								</div>
-
-								<div className={styles.selection}>
-									<div className={styles.text}>
-										<p>Tỉnh/ Thành phố:</p>
-									</div>
-									<Select
-										styles={customStyles}
-										className={styles.select}
-										name='cityId'
-										isDisabled={cityOptions.length === 0}
-										options={cityOptions}
-										onChange={getCity}
-										placeholder='Tỉnh/Thành'
-										defaultValue={selectedCity}
-									/>
-								</div>
-
-								<div className={styles.selection}>
-									<div className={styles.text}>
-										<p>Quận/ Huyện:</p>
-									</div>
-									<Select
-										styles={customStyles}
-										className={styles.select}
-										name='districtId'
-										isDisabled={districtOptions.length === 0}
-										options={districtOptions}
-										onChange={getDistrict}
-										placeholder='Quận/Huyện'
-										defaultValue={selectedDistrict}
-									/>
-								</div>
-
-								<div className={styles.selection}>
-									<div className={styles.text}>
-										<p>Xã/ Phường:</p>
-									</div>
-									<Select
-										styles={customStyles}
-										className={styles.select}
-										name='wardId'
-										isDisabled={wardOptions.length === 0}
-										options={wardOptions}
-										placeholder='Phường/Xã'
-										onChange={getWard}
-										defaultValue={selectedWard}
-									/>
-								</div>
-
-								<div className={styles.box_specific}>
-									<InputLight
-										name='specific'
-										onChange={handleChangeInput}
-										type='text'
-										placeholder='Nhập vào địa chỉ cụ thể...'
-										label='Địa chỉ cụ thể:'
-										value={valueForm.specific}
-									/>
-								</div>
-
-								<div className={styles.box_specific}>
-									<InputLight
-										name='note'
-										onChange={handleChangeInput}
-										type='text'
-										placeholder='Nhập chú ý về giao hàng (nếu có)...'
-										label='Ghi chú:'
-										value={valueForm.note}
-									/>
-								</div>
-							</Fragment>
-						</div>
-					)}
-
-					<div className={styles.box_2}>
-						<div className={styles.main}>
-							<h3 className={styles.title}>Đơn hàng của bạn</h3>
-							<div className={styles.shipping}>
-								<p className={styles.text_sub}>Danh sách đơn hàng:</p>
-								<div className={styles.item_method}>
-									<p className={styles.text_method}>Đơn hàng:</p>
-									<p className={styles.text_method}>Giá tiền</p>
-								</div>
-								<div className={styles.list_order}>
-									{carts.map((v, i) => (
-										<div key={String(v._id)} className={styles.item_method}>
-											<p className={styles.text_method}>
-												{i + 1}. {v.nameProduct}
-											</p>
-											<p className={styles.text_method}>
-												<span>x{Number(v.amount)}</span>{' '}
-												{convertCoin(Number(v.totalPrice))}đ
-											</p>
-										</div>
-									))}
-								</div>
-							</div>
-							<div className={styles.total_payment}>
-								<p className={styles.text_sub}>Phí vận chuyển:</p>
-								<p className={styles.price_payment}>
-									{convertCoin(Number(moneyShipping))}đ
-								</p>
-							</div>
-							<div className={styles.total_payment}>
-								<p className={styles.text_sub}>Tổng thanh toán:</p>
-								<p className={styles.price_payment}>
-									{convertCoin(Number(totalPriceCart + Number(moneyShipping)))}đ
-								</p>
-							</div>
-							<div className={styles.group_btn}>
-								<Button className={styles.btn_1} p_10_32 onClick={handlePayment}>
-									Thanh toán giỏ hàng
-								</Button>
-							</div>
+				{carts.length <= 0 ? (
+					<div className={styles.main_empty}>
+						<Image src={icons.emptyCart} alt='cart empty' />
+						<p className={styles.text_empty}>
+							Bạn chưa thêm sản phẩm nào vào giỏ hàng!
+						</p>
+						<div className={styles.btn_empty} onClick={handleBack}>
+							<p>Mua hàng</p>
 						</div>
 					</div>
-				</div>
+				) : (
+					<Fragment>
+						{show && <div onClick={() => setShow(false)} className='overlay'></div>}
+						<div className={clsx(styles.box_position, {[styles.active]: show})}>
+							<ChangeAddress
+								addressDefault={addressDefault}
+								onSetDefaultAddress={(v) => callbackSetAddress(v)}
+								setShow={() => setShow(false)}
+								setShowPopup={() => setShowPopup(true)}
+							/>
+						</div>
+
+						<div className={styles.wapper}>
+							{/* Kiểm tra trường hợp chưa cập nhật thông tin cá nhân */}
+							{userData?.address.length > 0 ? (
+								<div className={styles.box_des}>
+									<InformationReceiver
+										data={addressDefault}
+										show={() => setShow(true)}
+									/>
+									<div className={styles.box_specific}>
+										<InputLight
+											name='attention'
+											onChange={(e: any) => setAttention(e.target.value)}
+											type='text'
+											placeholder='Nhập chú ý về giao hàng (nếu có)...'
+											label='Ghi chú:'
+										/>
+									</div>
+								</div>
+							) : (
+								<div className={styles.box_1}>
+									<Fragment>
+										<h4 className={styles.title}>THÔNG TIN NGƯỜI NHẬN</h4>
+										<div className={styles.form_1}>
+											<InputLight
+												value={valueForm.name}
+												name='name'
+												onChange={handleChangeInput}
+												type='text'
+												placeholder='Nhập vào họ tên...'
+												label='Họ tên người nhân:'
+											/>
+											<InputLight
+												value={valueForm.phone}
+												name='phone'
+												onChange={handleChangeInput}
+												type='number'
+												placeholder='Nhập vào số điện thoại...'
+												label='Số điện thoại người nhân:'
+											/>
+										</div>
+
+										<div className={styles.selection}>
+											<div className={styles.text}>
+												<p>Tỉnh/ Thành phố:</p>
+											</div>
+											<Select
+												styles={customStyles}
+												className={styles.select}
+												name='cityId'
+												isDisabled={cityOptions.length === 0}
+												options={cityOptions}
+												onChange={getCity}
+												placeholder='Tỉnh/Thành'
+												defaultValue={selectedCity}
+											/>
+										</div>
+
+										<div className={styles.selection}>
+											<div className={styles.text}>
+												<p>Quận/ Huyện:</p>
+											</div>
+											<Select
+												styles={customStyles}
+												className={styles.select}
+												name='districtId'
+												isDisabled={districtOptions.length === 0}
+												options={districtOptions}
+												onChange={getDistrict}
+												placeholder='Quận/Huyện'
+												defaultValue={selectedDistrict}
+											/>
+										</div>
+
+										<div className={styles.selection}>
+											<div className={styles.text}>
+												<p>Xã/ Phường:</p>
+											</div>
+											<Select
+												styles={customStyles}
+												className={styles.select}
+												name='wardId'
+												isDisabled={wardOptions.length === 0}
+												options={wardOptions}
+												placeholder='Phường/Xã'
+												onChange={getWard}
+												defaultValue={selectedWard}
+											/>
+										</div>
+
+										<div className={styles.box_specific}>
+											<InputLight
+												name='specific'
+												onChange={handleChangeInput}
+												type='text'
+												placeholder='Nhập vào địa chỉ cụ thể...'
+												label='Địa chỉ cụ thể:'
+												value={valueForm.specific}
+											/>
+										</div>
+
+										<div className={styles.box_specific}>
+											<InputLight
+												name='note'
+												onChange={handleChangeInput}
+												type='text'
+												placeholder='Nhập chú ý về giao hàng (nếu có)...'
+												label='Ghi chú:'
+												value={valueForm.note}
+											/>
+										</div>
+									</Fragment>
+								</div>
+							)}
+
+							<div className={styles.box_2}>
+								<div className={styles.main}>
+									<h3 className={styles.title}>Đơn hàng của bạn</h3>
+									<div className={styles.shipping}>
+										<p className={styles.text_sub}>Danh sách đơn hàng:</p>
+										<div className={styles.item_method}>
+											<p className={styles.text_method}>Đơn hàng:</p>
+											<p className={styles.text_method}>Giá tiền</p>
+										</div>
+										<div className={styles.list_order}>
+											{carts.map((v, i) => (
+												<div
+													key={String(v._id)}
+													className={styles.item_method}
+												>
+													<p className={styles.text_method}>
+														{i + 1}. {v.nameProduct}
+													</p>
+													<p className={styles.text_method}>
+														<span>x{Number(v.amount)}</span>{' '}
+														{convertCoin(Number(v.totalPrice))}đ
+													</p>
+												</div>
+											))}
+										</div>
+									</div>
+									<div className={styles.total_payment}>
+										<p className={styles.text_sub}>Phí vận chuyển:</p>
+										<p className={styles.price_payment}>
+											{convertCoin(Number(moneyShipping))}đ
+										</p>
+									</div>
+									<div className={styles.total_payment}>
+										<p className={styles.text_sub}>Tổng thanh toán:</p>
+										<p className={styles.price_payment}>
+											{convertCoin(
+												Number(totalPriceCart + Number(moneyShipping))
+											)}
+											đ
+										</p>
+									</div>
+									<div className={styles.group_btn}>
+										<Button
+											className={styles.btn_1}
+											p_10_32
+											onClick={handlePayment}
+										>
+											Thanh toán giỏ hàng
+										</Button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</Fragment>
+				)}
 			</div>
 			{/* Popup */}
 			<Popup open={showPopup} onClose={() => setShowPopup(false)}>
