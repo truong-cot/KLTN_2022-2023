@@ -1,8 +1,5 @@
 import express from 'express';
 
-import {authMiddlewares} from '../middlewares/auth';
-import UploadController from '../app/controllers/uploadController';
-
 const router = express.Router();
 
 import multer from 'multer';

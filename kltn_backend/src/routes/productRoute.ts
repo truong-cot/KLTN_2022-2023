@@ -74,4 +74,11 @@ router.post(
 	ProductController.createReview
 );
 
+// Thêm số lượng cho sản phẩm
+router.post(
+	'/add-amount',
+	authMiddlewares.isAdmin,
+	ProductController.addAmount
+);
+
 export default router;

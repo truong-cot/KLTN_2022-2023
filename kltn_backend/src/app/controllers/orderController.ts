@@ -1,4 +1,4 @@
-import e, {Request, Response} from 'express';
+import {Request, Response} from 'express';
 import resultData from '../../common/resultData';
 
 import orderSchema from '../../app/models/order';

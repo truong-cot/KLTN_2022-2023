@@ -56,7 +56,11 @@ function MainLogin() {
 					<Form form={form} setForm={setForm} onSubmit={handleSubmit}>
 						<Input type='text' placeholder='Username' name='acc' />
 						<Input type='password' placeholder='Password' name='password' />
-						<Button>Đăng nhập</Button>
+						<div className={styles.btn}>
+							<Button primary4 p_8_24 rounded_6>
+								Đăng nhập
+							</Button>
+						</div>
 					</Form>
 				</div>
 			</div>

@@ -124,6 +124,25 @@ const productService = {
 			},
 		});
 	},
+
+	addAmountProduct: (
+		data: {
+			token: String;
+			idProduct: String;
+			amount_size_S: Number;
+			amount_size_M: Number;
+			amount_size_L: Number;
+			amount_size_XL: Number;
+		},
+		tokenAxios?: any
+	) => {
+		return axiosClient.post(`${routeName}/add-amount`, data, {
+			cancelToken: tokenAxios,
+			headers: {
+				token: 'Bearer ' + data.token,
+			},
+		});
+	},
 };
 
 export default productService;

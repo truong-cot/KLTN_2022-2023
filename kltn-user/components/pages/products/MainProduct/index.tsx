@@ -127,10 +127,11 @@ function MainProduct() {
 						toast.success(res.message || 'Thêm sản phẩm vào giỏ hàng thành công!');
 						setAmount(1);
 						setSize('');
-						// router.replace(router.asPath, undefined, {scroll: false}); // reload page
 						router.reload();
+						// router.replace(router.asPath, undefined, {scroll: false}); // reload page
 					} else if (res.status === 0) {
 						setIsLoading(false);
+						router.reload();
 						toast.warn(res.message || 'Thêm sản phẩm vào giỏ hàng không thành công!');
 					}
 				} else {

@@ -9,7 +9,43 @@
 		margin-bottom: 20px;
 	}
 
+	.item {
+		display: flex;
+		align-items: flex-end;
+		gap: 6px;
+		margin-bottom: 20px;
+
+		.text_1 {
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 16px;
+			color: #7f8ea9;
+		}
+
+		.text_2 {
+			font-weight: 500;
+			font-size: 14px;
+			line-height: 16px;
+			color: #151d34;
+		}
+	}
+
+	.address_item {
+		padding-left: 24px;
+
+		.text_2 {
+			font-weight: 500;
+			font-size: 14px;
+			line-height: 16px;
+			color: #151d34;
+			margin-bottom: 4px;
+		}
+	}
+
 	.main {
-		margin-top: 12px;
+		margin-top: 32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 }

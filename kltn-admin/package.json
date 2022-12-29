@@ -31,6 +31,7 @@
 		"react-redux": "^8.0.5",
 		"react-select": "^5.7.0",
 		"react-toastify": "^9.1.1",
+		"recharts": "^2.2.0",
 		"redux-persist": "^6.0.0",
 		"sass": "^1.56.1",
 		"tippy.js": "^6.3.7",
@@ -40,6 +41,8 @@
 		"@types/nprogress": "^0.2.0",
 		"@types/quill": "^2.0.9",
 		"@types/react-lottie": "^1.2.6",
+		"chart.js": "^4.1.1",
+		"react-chartjs-2": "^5.1.0",
 		"react-quill": "^2.0.0"
 	}
 }

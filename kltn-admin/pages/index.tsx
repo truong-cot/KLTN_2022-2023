@@ -3,7 +3,6 @@ import BaseLayout from '~/components/layout/BaseLayout';
 import Page from '~/components/layout/Page';
 import MainHome from '~/components/pages/Home/MainHome';
 import RequireAuth from '~/components/protected/RequiredAuth';
-import RequiredLogout from '~/components/protected/RequiredLogout';
 
 export default function Home() {
 	return (

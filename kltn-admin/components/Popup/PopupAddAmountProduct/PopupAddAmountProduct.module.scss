@@ -1,0 +1,25 @@
+.container {
+	background-color: #fff;
+	padding: 24px 20px;
+	border-radius: 8px;
+
+	.title {
+		font-size: 2rem;
+		font-weight: 600;
+	}
+
+	.group {
+		margin-top: 24px;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 24px;
+	}
+
+	.btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 12px;
+		margin-top: 24px;
+	}
+}

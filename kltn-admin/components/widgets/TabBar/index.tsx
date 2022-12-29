@@ -11,7 +11,7 @@ import {RootState} from '~/redux/store';
 import Logo from '~/components/common/Logo';
 
 import {BsShop} from 'react-icons/bs';
-import {MdAddchart} from 'react-icons/md';
+import {MdAddchart, MdProductionQuantityLimits} from 'react-icons/md';
 import {TbListCheck} from 'react-icons/tb';
 import {RiUserSettingsLine} from 'react-icons/ri';
 import {BiCategoryAlt} from 'react-icons/bi';
@@ -53,10 +53,15 @@ function TabBar(props: PropsTabBar) {
 					title: 'Quản lý loại sản phẩm',
 					href: '/manage-product/list-product-category',
 				},
+				{
+					icon: <MdProductionQuantityLimits size='20' />,
+					title: 'Quản lý số lượng sản phẩm',
+					href: '/manage-product/product-amount',
+				},
 			],
 		},
 		{
-			icon: <TiShoppingCart size='20' />,
+			icon: <TiShoppingCart size='22' />,
 			title: 'Quản lý đơn hàng',
 			href: '/manage-order',
 		},

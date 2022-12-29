@@ -24,7 +24,7 @@ router.delete(
 	UserController.deleteUser
 );
 
-// // Chỉnh sửa quyền
+// Chỉnh sửa quyền
 router.post('/change-role', authMiddlewares.isAdmin, UserController.changeRole);
 
 // Chỉnh sửa tài khoản

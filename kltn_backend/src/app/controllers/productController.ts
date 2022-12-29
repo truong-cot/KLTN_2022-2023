@@ -1032,6 +1032,82 @@ const ProductController = {
 			);
 		}
 	},
+
+	// [POST] ==> /product/create-review
+	addAmount: async (req: Request, res: Response) => {
+		try {
+			const {
+				idProduct,
+				amount_size_S,
+				amount_size_M,
+				amount_size_L,
+				amount_size_XL,
+			} = req.body;
+
+			// Check product
+			const checkProduct = await ProductModel.findById(idProduct);
+
+			if (checkProduct) {
+				// Lấy ra số lượng cũ
+				const amount_S = checkProduct.amount_size_S;
+				const amount_M = checkProduct.amount_size_M;
+				const amount_L = checkProduct.amount_size_L;
+				const amount_XL = checkProduct.amount_size_XL;
+
+				// Save database
+				const saveProduct = await ProductModel.updateOne(
+					{
+						_id: idProduct,
+					},
+					{
+						$set: {
+							amount_size_S:
+								Number(amount_S) + Number(amount_size_S),
+							amount_size_M:
+								Number(amount_M) + Number(amount_size_M),
+							amount_size_L:
+								Number(amount_L) + Number(amount_size_L),
+							amount_size_XL:
+								Number(amount_XL) + Number(amount_size_XL),
+						},
+					}
+				);
+
+				if (saveProduct) {
+					const showProduct = await ProductModel.findById(idProduct);
+
+					if (showProduct) {
+						return res.status(200).json(
+							resultData({
+								code: 200,
+								status: 1,
+								message: 'Thêm số lượng sản phẩm thành công!',
+								data: {},
+							})
+						);
+					}
+				}
+			} else {
+				return res.status(201).json(
+					resultData({
+						code: 201,
+						status: 0,
+						message: 'Sản phẩm không tồn tại!',
+						data: {},
+					})
+				);
+			}
+		} catch (error) {
+			return res.status(500).json(
+				resultData({
+					code: 500,
+					status: 0,
+					message: 'Có lỗi xảy ra!',
+					data: {},
+				})
+			);
+		}
+	},
 };
 
 export default ProductController;

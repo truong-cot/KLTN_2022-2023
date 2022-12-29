@@ -11,6 +11,29 @@ import clsx from 'clsx';
 import Link from 'next/link';
 
 function InfoProduct({product}: any) {
+	const list_star: Array<any> = [
+		{
+			id: 1,
+			star: <AiFillStar size={16} />,
+		},
+		{
+			id: 2,
+			star: <AiFillStar size={16} />,
+		},
+		{
+			id: 3,
+			star: <AiFillStar size={16} />,
+		},
+		{
+			id: 4,
+			star: <AiFillStar size={16} />,
+		},
+		{
+			id: 5,
+			star: <AiFillStar size={16} />,
+		},
+	];
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.box_image}>
@@ -21,15 +44,7 @@ function InfoProduct({product}: any) {
 				<Link href={`product/${product._id}`} className={styles.text_2}>
 					{product.name}
 				</Link>
-				{/* <Link
-					href={{
-						pathname: `/product/[id]`,
-						query: {id: `${product._id}`},
-					}}
-					className={styles.text_2}
-				>
-					{product.name}
-				</Link> */}
+
 				<div className={styles.price}>
 					<p className={styles.price_1}>
 						{convertCoin(
@@ -41,13 +56,18 @@ function InfoProduct({product}: any) {
 					</p>
 					<p className={styles.price_2}>{convertCoin(product.price)}đ</p>
 				</div>
-				<div className={styles.star}>
-					<AiFillStar />
-					<AiFillStar />
-					<AiFillStar />
-					<AiFillStar />
-					<AiFillStar />
-					<span>({product.star})</span>
+				<div className={styles.list_star}>
+					{list_star.map((v, i) => (
+						<div
+							key={i}
+							className={clsx(styles.star, {
+								[styles.active_star]: v.id <= Number(product?.star),
+							})}
+						>
+							{v.star}
+						</div>
+					))}
+					<p className={styles.review}>({product?.reviews?.length} đánh giá)</p>
 				</div>
 			</div>
 
@@ -59,13 +79,6 @@ function InfoProduct({product}: any) {
 					<VscGitCompare />
 				</div>
 			</div>
-
-			{/* <div className={styles.position_2}>
-				<div className={styles.icon_cart}>
-					<BsCartPlus />
-				</div>
-				<p>Thêm vào giỏ hàng</p>
-			</div> */}
 		</div>
 	);
 }

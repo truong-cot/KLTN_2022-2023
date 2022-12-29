@@ -137,7 +137,7 @@
 			}
 		}
 
-		.star {
+		.list_star {
 			display: flex;
 			align-items: center;
 			gap: 4px;
@@ -146,7 +146,15 @@
 			margin-top: 8px;
 			margin-bottom: 20px;
 
-			span {
+			.star {
+				color: #ccc;
+
+				&.active_star {
+					color: #fcb941;
+				}
+			}
+
+			.review {
 				color: #ccc;
 				font-size: 1.3rem;
 			}

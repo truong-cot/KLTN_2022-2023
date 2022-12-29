@@ -9,29 +9,32 @@ import TagPage from '~/components/controls/TagPage';
 import ProfileLayout from '~/components/layout/ProfileLayout';
 import MainMyOrder from '~/components/pages/Profile/MainMyOrder';
 import BaseLayout from '~/components/layout/BaseLayout';
+import RequireAuth from '~/components/protected/RequiredAuth';
 
 function MyOrder() {
 	return (
-		<Page title='Đơn hàng của bạn'>
-			<div className={styles.header}>
-				<h4 className={styles.title_header}>Chào mừng bạn đến với MOLLA</h4>
-				<p className={styles.text_header}>Đơn hàng của bạn</p>
-			</div>
-			<LayoutGrid>
-				<div className={styles.container}>
-					<TagPage
-						text_1='Home'
-						href_1='/'
-						text_2='Trang cá nhân'
-						text_3='Đơn hàng của bạn'
-						href_2='/profile'
-					/>
-					<ProfileLayout>
-						<MainMyOrder />
-					</ProfileLayout>
+		<RequireAuth>
+			<Page title='Đơn hàng của bạn'>
+				<div className={styles.header}>
+					<h4 className={styles.title_header}>Chào mừng bạn đến với MOLLA</h4>
+					<p className={styles.text_header}>Đơn hàng của bạn</p>
 				</div>
-			</LayoutGrid>
-		</Page>
+				<LayoutGrid>
+					<div className={styles.container}>
+						<TagPage
+							text_1='Home'
+							href_1='/'
+							text_2='Trang cá nhân'
+							text_3='Đơn hàng của bạn'
+							href_2='/profile'
+						/>
+						<ProfileLayout>
+							<MainMyOrder />
+						</ProfileLayout>
+					</div>
+				</LayoutGrid>
+			</Page>
+		</RequireAuth>
 	);
 }
 
