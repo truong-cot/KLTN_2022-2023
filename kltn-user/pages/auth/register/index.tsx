@@ -35,12 +35,12 @@ function Register() {
 			setIsLoading(true);
 			try {
 				const res: any = await authService.register(form);
-				const dataUser = res.data;
+				// const dataUser = res.data;
 
 				if (res.status === 1) {
-					router.push(routerPrev);
-					dispatch(updateDataUser(dataUser));
-					dispatch(login({token: dataUser.token}));
+					router.push('/auth/login');
+					// dispatch(updateDataUser(dataUser));
+					// dispatch(login({token: dataUser.token}));
 					toast.success(res.message || 'Đăng nhập thành công!');
 				} else {
 					toast.warn(res.message || 'Đăng nhập thất bại');

@@ -25,7 +25,6 @@
 // export default uploader;
 
 import cloudinary_v1 from 'cloudinary';
-// import dotenv from 'dotenv';
 
 const cloudinary = cloudinary_v1.v2;
 

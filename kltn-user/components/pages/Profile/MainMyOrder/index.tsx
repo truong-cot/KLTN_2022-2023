@@ -7,6 +7,7 @@ import MainOrderPendding from '../MainOrderPendding';
 import MainOrderDelivering from '../MainOrderDelivering';
 import MainOrderAccomplished from '../MainOrderAccomplished';
 import MainOrderCancelled from '../MainOrderCancelled';
+import RequireAuth from '~/components/protected/RequiredAuth';
 
 function MainMyOrder() {
 	const router = useRouter();
@@ -34,20 +35,23 @@ function MainMyOrder() {
 			pathname: '/profile/my-order',
 		},
 	];
-	return (
-		<div className={styles.container}>
-			<div className={styles.main}>
-				<p className={styles.title}>Quản lý đơn hàng</p>
-				<TabNavLinkActive listHref={listTab} query='_type' />
 
-				<div className={styles.wrapper}>
-					{!_type && <MainOrderPendding />}
-					{_type === 'delivering' && <MainOrderDelivering />}
-					{_type === 'accomplished' && <MainOrderAccomplished />}
-					{_type === 'cancelled' && <MainOrderCancelled />}
+	return (
+		<RequireAuth>
+			<div className={styles.container}>
+				<div className={styles.main}>
+					<p className={styles.title}>Quản lý đơn hàng</p>
+					<TabNavLinkActive listHref={listTab} query='_type' />
+
+					<div className={styles.wrapper}>
+						{!_type && <MainOrderPendding />}
+						{_type === 'delivering' && <MainOrderDelivering />}
+						{_type === 'accomplished' && <MainOrderAccomplished />}
+						{_type === 'cancelled' && <MainOrderCancelled />}
+					</div>
 				</div>
 			</div>
-		</div>
+		</RequireAuth>
 	);
 }
 

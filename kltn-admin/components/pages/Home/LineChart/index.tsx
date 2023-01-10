@@ -9,11 +9,12 @@ import {useSelector} from 'react-redux';
 import {RootState} from '~/redux/store';
 import {toast} from 'react-toastify';
 import LoadingData from '~/components/common/LoadingData';
+import {TypeLineChart} from './interfaces';
 
-function LineChart() {
+function LineChart({year}: TypeLineChart) {
 	Chart.register(CategoryScale);
 
-	const [list, setList] = useState<Array<Number>>([]);
+	const [data, setData] = useState<Array<Number>>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const {token} = useSelector((state: RootState) => state.auth);
 
@@ -39,10 +40,11 @@ function LineChart() {
 				setIsLoading(true);
 				const res: any = await revenueService.getRevenueMonthToYear({
 					token: String(token),
+					_type: year,
 				});
 
 				if (res.status === 1) {
-					setList(res.data);
+					setData(res.data);
 					setIsLoading(false);
 				} else {
 					setIsLoading(false);
@@ -53,17 +55,17 @@ function LineChart() {
 				toast.error('Có lỗi xảy ra!');
 			}
 		})();
-	}, [token]);
+	}, [year]);
 
-	// Cấu hình biểu đò
-	const data = {
+	// Cấu hình biểu đồ
+	const dataChart = {
 		labels: labels,
 		datasets: [
 			{
 				label: 'Doanh thu theo tháng',
 				backgroundColor: 'rgb(255, 99, 132)',
 				borderColor: 'rgb(255, 99, 132)',
-				data: list,
+				data: data,
 			},
 		],
 	};
@@ -71,7 +73,7 @@ function LineChart() {
 	return (
 		<LoadingData isLoading={isLoading}>
 			<div className={styles.container}>
-				<Line data={data} />
+				<Line data={dataChart} />
 			</div>
 		</LoadingData>
 	);

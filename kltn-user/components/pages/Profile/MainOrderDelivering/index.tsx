@@ -80,8 +80,8 @@ function MainOrderDelivering() {
 					</div>
 				) : (
 					<Fragment>
-						{listData.map((v, i) => (
-							<div className={styles.main}>
+						{listData.map((v) => (
+							<div key={String(v._id)} className={styles.main}>
 								{v.products.map((v, i) => (
 									<ItemOrder data={v} key={i} />
 								))}

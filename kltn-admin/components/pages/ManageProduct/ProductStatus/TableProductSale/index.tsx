@@ -66,7 +66,7 @@ function TableProductSale() {
 				toast.error('Có lỗi xảy ra!');
 			}
 		})();
-	}, [debounceKeyword, limit, page, token]);
+	}, [debounceKeyword, limit, page, token, router]);
 
 	// Xóa sản phẩm
 	const handleDelete = async () => {
@@ -83,7 +83,7 @@ function TableProductSale() {
 			} else if (res.status === 1) {
 				setIsloading(false);
 				toast.success(res.message || 'Xóa sản phẩm thành công!');
-				router.replace(router.asPath, undefined, {scroll: false}); // reload page
+				router.replace(router.asPath); // reload page
 				setOpen(false);
 			}
 		} catch (error) {

@@ -31,7 +31,8 @@ function PopupDeleteCart({onClose, idCart}: TypePopup) {
 		if (res.status === 1) {
 			setIsLoading(false);
 			toast.success('Xóa giỏ hàng thành công!');
-			router.reload();
+			// router.reload();
+			router.replace(router.asPath);
 			onClose();
 		} else {
 			toast.warn('Có lỗi xảy ra!');

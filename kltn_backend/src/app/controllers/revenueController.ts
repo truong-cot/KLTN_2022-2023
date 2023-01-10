@@ -109,25 +109,25 @@ const revenueController = {
 					{
 						amount_size_S: {
 							$gte: 0,
-							$lte: 10,
+							$lte: Number(process.env.PRODUCT_OUT_STOCK),
 						},
 					},
 					{
 						amount_size_M: {
 							$gte: 0,
-							$lte: 10,
+							$lte: Number(process.env.PRODUCT_OUT_STOCK),
 						},
 					},
 					{
 						amount_size_L: {
 							$gte: 0,
-							$lte: 10,
+							$lte: Number(process.env.PRODUCT_OUT_STOCK),
 						},
 					},
 					{
 						amount_size_XL: {
 							$gte: 0,
-							$lte: 10,
+							$lte: Number(process.env.PRODUCT_OUT_STOCK),
 						},
 					},
 				],
@@ -155,29 +155,29 @@ const revenueController = {
 		}
 	},
 
-	// [GET] => /revenue/get-order-revenue ==> Lất sản phẩm sắp hết hàng
+	// [GET] => /revenue/get-order-revenue ==> Lất sản phẩm đang tồn kho
 	getProductInStock: async (req: Request, res: Response) => {
 		try {
 			const list = await productSchema.find({
 				$or: [
 					{
 						amount_size_S: {
-							$gte: 30,
+							$gte: Number(process.env.PRODUCT_IN_STOCK),
 						},
 					},
 					{
 						amount_size_M: {
-							$gte: 30,
+							$gte: Number(process.env.PRODUCT_IN_STOCK),
 						},
 					},
 					{
 						amount_size_L: {
-							$gte: 30,
+							$gte: Number(process.env.PRODUCT_IN_STOCK),
 						},
 					},
 					{
 						amount_size_XL: {
-							$gte: 30,
+							$gte: Number(process.env.PRODUCT_IN_STOCK),
 						},
 					},
 				],
@@ -211,6 +211,7 @@ const revenueController = {
 			var totalRevenue = 0;
 			var revenueYear = 0;
 			var revenueMonth = 0;
+			var revenueDay = 0;
 
 			const listData = await orderSchema.aggregate([
 				{
@@ -218,9 +219,9 @@ const revenueController = {
 				},
 				{
 					$project: {
+						day: {$dayOfMonth: '$createdAt'},
 						year: {$year: '$createdAt'},
 						month: {$month: '$createdAt'},
-						day: {$dayOfMonth: '$createdAt'},
 						totalPrice: {$sum: '$totalPrice'},
 					},
 				},
@@ -236,8 +237,19 @@ const revenueController = {
 				}
 
 				// Tính tổng doanh thu trong tháng
-				if (data.month === new Date().getMonth() + 1) {
-					revenueMonth = +data.totalPrice;
+				if (
+					data.month === new Date().getMonth() + 1 &&
+					data.year === new Date().getFullYear()
+				) {
+					revenueMonth += data.totalPrice;
+				}
+
+				// Tính tổng doanh thu trong tháng
+				if (
+					data.day === new Date().getDate() &&
+					data.year === new Date().getFullYear()
+				) {
+					revenueDay += data.totalPrice;
 				}
 			}
 
@@ -251,6 +263,7 @@ const revenueController = {
 						totalRevenue,
 						revenueYear,
 						revenueMonth,
+						revenueDay,
 					},
 				})
 			);
@@ -266,9 +279,20 @@ const revenueController = {
 		}
 	},
 
-	// [GET] => /revenue/get-total-revenue ==> Doanh thu hàng tháng trong năm
+	// [GET] => /revenue/get-revenue-month-to-year?_type=2 ==> Doanh thu hàng tháng trong năm trước (1: năm trước, 2: năm ngoái)
 	getRevenueMonthToYear: async (req: Request, res: Response) => {
 		try {
+			const {_type} = req.query;
+
+			// Time
+			const date = new Date();
+
+			// Năm hiện tại
+			const currentYear = date.getFullYear();
+
+			// Năm trước
+			const lastYear = date.getFullYear() - 1;
+
 			var thang1 = 0;
 			var thang2 = 0;
 			var thang3 = 0;
@@ -289,49 +313,92 @@ const revenueController = {
 				},
 				{
 					$project: {
-						month: {$month: '$createdAt'},
 						day: {$dayOfMonth: '$createdAt'},
+						month: {$month: '$createdAt'},
+						year: {$year: '$createdAt'},
 						totalPrice: {$sum: '$totalPrice'},
 					},
 				},
 			]);
 
 			for (let data of listData) {
-				if (data.month === 1) {
-					thang1 += data.totalPrice;
+				// Data năm trước
+				if (Number(_type) === 1) {
+					if (data.month === 1 && data.year === lastYear) {
+						thang1 += data.totalPrice;
+					}
+					if (data.month === 2 && data.year === lastYear) {
+						thang2 += data.totalPrice;
+					}
+					if (data.month === 3 && data.year === lastYear) {
+						thang3 += data.totalPrice;
+					}
+					if (data.month === 4 && data.year === lastYear) {
+						thang4 += data.totalPrice;
+					}
+					if (data.month === 5 && data.year === lastYear) {
+						thang5 += data.totalPrice;
+					}
+					if (data.month === 6 && data.year === lastYear) {
+						thang6 += data.totalPrice;
+					}
+					if (data.month === 7 && data.year === lastYear) {
+						thang7 += data.totalPrice;
+					}
+					if (data.month === 8 && data.year === lastYear) {
+						thang8 += data.totalPrice;
+					}
+					if (data.month === 9 && data.year === lastYear) {
+						thang9 += data.totalPrice;
+					}
+					if (data.month === 10 && data.year === lastYear) {
+						thang10 += data.totalPrice;
+					}
+					if (data.month === 11 && data.year === lastYear) {
+						thang11 += data.totalPrice;
+					}
+					if (data.month === 12 && data.year === lastYear) {
+						thang12 += data.totalPrice;
+					}
 				}
-				if (data.month === 2) {
-					thang2 += data.totalPrice;
-				}
-				if (data.month === 3) {
-					thang3 += data.totalPrice;
-				}
-				if (data.month === 4) {
-					thang4 += data.totalPrice;
-				}
-				if (data.month === 5) {
-					thang5 += data.totalPrice;
-				}
-				if (data.month === 6) {
-					thang6 += data.totalPrice;
-				}
-				if (data.month === 7) {
-					thang7 += data.totalPrice;
-				}
-				if (data.month === 8) {
-					thang8 += data.totalPrice;
-				}
-				if (data.month === 9) {
-					thang9 += data.totalPrice;
-				}
-				if (data.month === 10) {
-					thang10 += data.totalPrice;
-				}
-				if (data.month === 11) {
-					thang11 += data.totalPrice;
-				}
-				if (data.month === 12) {
-					thang12 += data.totalPrice;
+				// Năm hiện tại
+				else if (Number(_type) === 2) {
+					if (data.month === 1 && data.year === currentYear) {
+						thang1 += data.totalPrice;
+					}
+					if (data.month === 2 && data.year === currentYear) {
+						thang2 += data.totalPrice;
+					}
+					if (data.month === 3 && data.year === currentYear) {
+						thang3 += data.totalPrice;
+					}
+					if (data.month === 4 && data.year === currentYear) {
+						thang4 += data.totalPrice;
+					}
+					if (data.month === 5 && data.year === currentYear) {
+						thang5 += data.totalPrice;
+					}
+					if (data.month === 6 && data.year === currentYear) {
+						thang6 += data.totalPrice;
+					}
+					if (data.month === 7 && data.year === currentYear) {
+						thang7 += data.totalPrice;
+					}
+					if (data.month === 8 && data.year === currentYear) {
+						thang8 += data.totalPrice;
+					}
+					if (data.month === 9 && data.year === currentYear) {
+						thang9 += data.totalPrice;
+					}
+					if (data.month === 10 && data.year === currentYear) {
+						thang10 += data.totalPrice;
+					}
+					if (data.month === 11 && data.year === currentYear) {
+						thang11 += data.totalPrice;
+					}
+					if (data.month === 12 && data.year === currentYear) {
+						thang12 += data.totalPrice;
+					}
 				}
 			}
 

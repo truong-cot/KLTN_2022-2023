@@ -7,13 +7,14 @@ import {TypeProductOrder} from './interfaces';
 import Button from '~/components/controls/Button';
 import Popup from '~/components/common/Popup';
 import PopupEvaluate from '~/components/Popup/PopupEvaluate';
+import RequireAuth from '~/components/protected/RequiredAuth';
 
 function ItemOrder({data, check}: TypeProductOrder) {
 	const [show, setShow] = useState<boolean>(false);
 	const [idProduct, setIdProduct] = useState<String>('');
 
 	return (
-		<Fragment>
+		<RequireAuth>
 			<div className={styles.container}>
 				<div className={styles.box_image}>
 					<Image
@@ -70,7 +71,7 @@ function ItemOrder({data, check}: TypeProductOrder) {
 			<Popup open={show} onClose={() => setShow(false)}>
 				<PopupEvaluate idProduct={idProduct} onClose={() => setShow(false)} />
 			</Popup>
-		</Fragment>
+		</RequireAuth>
 	);
 }
 

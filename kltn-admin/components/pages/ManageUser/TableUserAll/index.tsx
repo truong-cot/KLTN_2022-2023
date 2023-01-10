@@ -65,7 +65,7 @@ function TableUserAll() {
 				toast.error('Có lỗi xảy ra!');
 			}
 		})();
-	}, [token, limit, page, debounceKeyword]);
+	}, [token, limit, page, debounceKeyword, router]);
 
 	const handleDelete = async () => {
 		try {
@@ -81,7 +81,7 @@ function TableUserAll() {
 			} else if (res.status === 1) {
 				setIsloading(false);
 				toast.success(res.message || 'Xóa tài khoản thành công!');
-				router.replace(router.asPath, undefined, {scroll: false}); // reload page
+				router.replace(router.asPath); // reload page
 				setOpen(false);
 			}
 		} catch (error) {
@@ -107,7 +107,7 @@ function TableUserAll() {
 				setOpenChangeRole(false);
 				setIsloading(false);
 				toast.success(res.message || 'Thay đổi quyền thành công!');
-				router.replace(router.asPath, undefined, {scroll: false}); // reload page
+				router.replace(router.asPath); // reload page
 			}
 		} catch (error) {
 			setIsloading(false);

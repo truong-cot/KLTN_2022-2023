@@ -17,13 +17,13 @@ import icons from '~/constants/images/icons';
 
 function MainCart() {
 	const router = useRouter();
+	const {carts} = useSelector((state: RootState) => state.cart);
+
+	// STATE
 	const [show, setShow] = useState<boolean>(false);
 	const [idCart, setIdCart] = useState<String>('');
-
 	const [shippingMethod, setShippingMethod] = useState<Number>(1);
 	const [priceShipping, setpriceShipping] = useState<Number>(30000);
-
-	const {carts} = useSelector((state: RootState) => state.cart);
 
 	// Tính tổng tiền giỏ hàng
 	const totalPriceCart = useMemo(() => {
@@ -87,7 +87,7 @@ function MainCart() {
 								</thead>
 
 								<tbody>
-									{carts.map((v, i) => (
+									{carts.map((v) => (
 										<tr key={String(v._id)}>
 											<td>
 												<div className={styles.box_image}>

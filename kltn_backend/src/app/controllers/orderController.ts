@@ -275,79 +275,81 @@ const orderController = {
 				const order = await orderSchema.findById(idOrder);
 
 				if (order) {
-					// Lấy ra danh sách sản phẩm trong đơn hàng
-					const listProduct: any = order.products;
+					if (order.statusOrder === 1) {
+						// Lấy ra danh sách sản phẩm trong đơn hàng
+						const listProduct: any = order.products;
 
-					// Trừ sô lượng theo sản phẩm, size
-					for (var product of listProduct) {
-						const idProduct = product.idProduct;
+						// Trừ sô lượng theo sản phẩm, size
+						for (var product of listProduct) {
+							const idProduct = product.idProduct;
 
-						var productModel = await productSchema.findById(
-							idProduct
-						);
-
-						if (product.size === 'S') {
-							const amount_size_S =
-								Number(productModel?.amount_size_S) +
-								product.amount;
-
-							// Cập nhật lại số lượng
-							await productSchema.updateOne(
-								{_id: idProduct},
-								{
-									$set: {
-										amount_size_S: amount_size_S,
-									},
-								}
+							var productModel = await productSchema.findById(
+								idProduct
 							);
-						}
 
-						if (product.size === 'M') {
-							const amount_size_M =
-								Number(productModel?.amount_size_M) +
-								product.amount;
+							if (product.size === 'S') {
+								const amount_size_S =
+									Number(productModel?.amount_size_S) +
+									product.amount;
 
-							// Cập nhật lại số lượng
-							await productSchema.updateOne(
-								{_id: idProduct},
-								{
-									$set: {
-										amount_size_M: amount_size_M,
-									},
-								}
-							);
-						}
+								// Cập nhật lại số lượng
+								await productSchema.updateOne(
+									{_id: idProduct},
+									{
+										$set: {
+											amount_size_S: amount_size_S,
+										},
+									}
+								);
+							}
 
-						if (product.size === 'L') {
-							const amount_size_L =
-								Number(productModel?.amount_size_L) +
-								product.amount;
+							if (product.size === 'M') {
+								const amount_size_M =
+									Number(productModel?.amount_size_M) +
+									product.amount;
 
-							// Cập nhật lại số lượng
-							await productSchema.updateOne(
-								{_id: idProduct},
-								{
-									$set: {
-										amount_size_L: amount_size_L,
-									},
-								}
-							);
-						}
+								// Cập nhật lại số lượng
+								await productSchema.updateOne(
+									{_id: idProduct},
+									{
+										$set: {
+											amount_size_M: amount_size_M,
+										},
+									}
+								);
+							}
 
-						if (product.size === 'XL') {
-							const amount_size_XL =
-								Number(productModel?.amount_size_XL) +
-								product.amount;
+							if (product.size === 'L') {
+								const amount_size_L =
+									Number(productModel?.amount_size_L) +
+									product.amount;
 
-							// Cập nhật lại số lượng
-							await productSchema.updateOne(
-								{_id: idProduct},
-								{
-									$set: {
-										amount_size_XL: amount_size_XL,
-									},
-								}
-							);
+								// Cập nhật lại số lượng
+								await productSchema.updateOne(
+									{_id: idProduct},
+									{
+										$set: {
+											amount_size_L: amount_size_L,
+										},
+									}
+								);
+							}
+
+							if (product.size === 'XL') {
+								const amount_size_XL =
+									Number(productModel?.amount_size_XL) +
+									product.amount;
+
+								// Cập nhật lại số lượng
+								await productSchema.updateOne(
+									{_id: idProduct},
+									{
+										$set: {
+											amount_size_XL: amount_size_XL,
+										},
+									}
+								);
+							}
 						}
 					}
 

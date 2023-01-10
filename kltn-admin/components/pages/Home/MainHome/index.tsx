@@ -19,11 +19,11 @@ import {useRouter} from 'next/router';
 import DatePicker from '~/components/controls/DatePicker';
 import LineChart from '../LineChart';
 import clsx from 'clsx';
+import Select, {Option} from '~/components/controls/Select';
 
 function MainHome() {
 	const router = useRouter();
 
-	const [date, setDate] = useState<String>('');
 	const [data, setData] = useState<TypeData>();
 	const [open, setOpen] = useState<boolean>(false);
 	const [idProduct, setIdProduct] = useState<String>('');
@@ -33,6 +33,8 @@ function MainHome() {
 	const [totalRevenue, setTotalRevenue] = useState<Number>();
 	const [totalRevenueYear, setTotalRevenueYear] = useState<Number>();
 	const [totalRevenueMonth, setTotalRevenueMonth] = useState<Number>();
+	const [totalRevenueDay, setTotalRevenueDay] = useState<Number>();
+	const [year, setYear] = useState<number>(2);
 
 	const {token} = useSelector((state: RootState) => state.auth);
 
@@ -80,7 +82,7 @@ function MainHome() {
 				toast.error('Có lỗi xảy ra!');
 			}
 		})();
-	}, [token]);
+	}, [token, router]);
 
 	// Lấy sản phẩm tồn kho
 	useEffect(() => {
@@ -103,9 +105,9 @@ function MainHome() {
 				toast.error('Có lỗi xảy ra!');
 			}
 		})();
-	}, [token]);
+	}, [token, router]);
 
-	// Lấy tổng doanh thu, năm, tháng
+	// Lấy tổng doanh thu, năm, tháng, ngày
 	useEffect(() => {
 		(async () => {
 			try {
@@ -118,6 +120,7 @@ function MainHome() {
 					setTotalRevenue(res.data.totalRevenue);
 					setTotalRevenueYear(res.data.revenueYear);
 					setTotalRevenueMonth(res.data.revenueMonth);
+					setTotalRevenueDay(res.data.revenueDay);
 					setIsLoading(false);
 				} else {
 					setIsLoading(false);
@@ -208,11 +211,6 @@ function MainHome() {
 
 					<div className={styles.top}>
 						<p className={styles.title_1}>Doanh thu tổng quan</p>
-						{/* <DatePicker
-							value={date}
-							onSetValue={setDate}
-							placeholder='Doanh thu theo ngày'
-						/> */}
 					</div>
 					<div className={styles.list}>
 						<div className={styles.item}>
@@ -231,15 +229,32 @@ function MainHome() {
 								{convertCoin(Number(totalRevenueMonth))}đ
 							</p>
 						</div>
-						{/* <div className={styles.item}>
+						<div className={styles.item}>
 							<p className={styles.text}>Tổng số doanh thu trong ngày</p>
-							<p className={styles.number}>{convertCoin(1240000)}đ</p>
-						</div> */}
+							<p className={styles.number}>{convertCoin(Number(totalRevenueDay))}đ</p>
+						</div>
 					</div>
 
 					<div className={clsx(styles.div_chart1, styles.chart_line)}>
-						<p className={styles.text_title}>Doanh thu theo từng tháng trong năm</p>
-						<LineChart />
+						<div className={styles.top}>
+							<p className={styles.text_title}>Doanh thu theo từng tháng trong năm</p>
+							<div>
+								<Select
+									placeholder='Lọc theo năm'
+									name='year'
+									value={year}
+									onChange={(e) => setYear(e.target.value)}
+								>
+									<Option title='Năm trước' value={1}>
+										Năm trước
+									</Option>
+									<Option title='Năm nay' value={2}>
+										Năm nay
+									</Option>
+								</Select>
+							</div>
+						</div>
+						<LineChart year={year} />
 					</div>
 
 					<p className={styles.title_1}>Đơn hàng sắp hết hàng</p>
@@ -314,71 +329,73 @@ function MainHome() {
 
 					<p className={styles.title_1}>Đơn hàng đang tồn kho</p>
 					<div className={styles.table}>
-						<DataTable
-							data={productInStock}
-							columns={[
-								{
-									title: 'Tên sản phẩm',
-									template: (data: TypeProduct) => (
-										<p>{data.name || 'Chưa cập nhật'}</p>
-									),
-								},
+						<CheckDataEmpty isEmpty={productInStock?.length <= 0}>
+							<DataTable
+								data={productInStock}
+								columns={[
+									{
+										title: 'Tên sản phẩm',
+										template: (data: TypeProduct) => (
+											<p>{data.name || 'Chưa cập nhật'}</p>
+										),
+									},
 
-								{
-									title: 'Thể loại',
-									template: (data: TypeProduct) => (
-										<p>
-											{data.category === 1
-												? 'Áo len'
-												: data.category === 2
-												? 'Quần Jeans'
-												: 'Áo Phông'}
-										</p>
-									),
-								},
-								{
-									title: 'Số lượng size S',
-									template: (data: TypeProduct) => (
-										<p>{Number(data.amount_size_S) || 'Chưa cập nhật'}</p>
-									),
-								},
-								{
-									title: 'Số lượng size M',
-									template: (data: TypeProduct) => (
-										<p>{Number(data.amount_size_M) || 'Chưa cập nhật'}</p>
-									),
-								},
-								{
-									title: 'Số lượng size L',
-									template: (data: TypeProduct) => (
-										<p>{Number(data.amount_size_L) || 'Chưa cập nhật'}</p>
-									),
-								},
-								{
-									title: 'Số lượng size XL',
-									template: (data: TypeProduct) => (
-										<p>{Number(data.amount_size_XL) || 'Chưa cập nhật'}</p>
-									),
-								},
-								{
-									title: 'Chỉnh sửa',
-									template: (data: TypeProduct) => (
-										<div className={styles.control}>
-											<div
-												className={styles.edit}
-												onClick={() =>
-													router.push(
-														`/manage-product/edit-product/${data._id}`
-													)
-												}
-											>
-												<ImPencil size={20} />
+									{
+										title: 'Thể loại',
+										template: (data: TypeProduct) => (
+											<p>
+												{data.category === 1
+													? 'Áo len'
+													: data.category === 2
+													? 'Quần Jeans'
+													: 'Áo Phông'}
+											</p>
+										),
+									},
+									{
+										title: 'Số lượng size S',
+										template: (data: TypeProduct) => (
+											<p>{Number(data.amount_size_S) || 'Chưa cập nhật'}</p>
+										),
+									},
+									{
+										title: 'Số lượng size M',
+										template: (data: TypeProduct) => (
+											<p>{Number(data.amount_size_M) || 'Chưa cập nhật'}</p>
+										),
+									},
+									{
+										title: 'Số lượng size L',
+										template: (data: TypeProduct) => (
+											<p>{Number(data.amount_size_L) || 'Chưa cập nhật'}</p>
+										),
+									},
+									{
+										title: 'Số lượng size XL',
+										template: (data: TypeProduct) => (
+											<p>{Number(data.amount_size_XL) || 'Chưa cập nhật'}</p>
+										),
+									},
+									{
+										title: 'Chỉnh sửa',
+										template: (data: TypeProduct) => (
+											<div className={styles.control}>
+												<div
+													className={styles.edit}
+													onClick={() =>
+														router.push(
+															`/manage-product/edit-product/${data._id}`
+														)
+													}
+												>
+													<ImPencil size={20} />
+												</div>
 											</div>
-										</div>
-									),
-								},
-							]}
-						></DataTable>
+										),
+									},
+								]}
+							></DataTable>
+						</CheckDataEmpty>
 					</div>
 				</div>
 				{/* Popup */}

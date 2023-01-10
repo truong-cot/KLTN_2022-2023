@@ -13,11 +13,9 @@ import {useRouter} from 'next/router';
 
 function PopupAddAmountProduct({onClose, idProduct}: TypePopup) {
 	const router = useRouter();
+	const {token} = useSelector((state: RootState) => state.auth);
 
 	const [isLoading, setIsloading] = useState<boolean>(false);
-
-	//
-	const {token} = useSelector((state: RootState) => state.auth);
 
 	// State form
 	const [form, setForm] = useState<TypeAmount>({
@@ -43,7 +41,7 @@ function PopupAddAmountProduct({onClose, idProduct}: TypePopup) {
 				onClose();
 				setIsloading(false);
 				toast.success(res.message || 'Cập nhật số lượng thành công!');
-				router.reload();
+				router.replace(router.asPath);
 			} else {
 				setIsloading(false);
 				toast.error(res.message || 'Cập nhật số lượng không thành công!');

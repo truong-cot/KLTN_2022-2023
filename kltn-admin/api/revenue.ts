@@ -59,11 +59,12 @@ const revenueService = {
 	},
 	getRevenueMonthToYear: (
 		data: {
-			token: String;
+			token: string;
+			_type: number;
 		},
 		tokenAxios?: any
 	) => {
-		return axiosClient.get(`${routeName}/get-revenue-month-to-year`, {
+		return axiosClient.get(`${routeName}/get-revenue-month-to-year?_type=${data._type}`, {
 			cancelToken: tokenAxios,
 			headers: {
 				token: 'Bearer ' + data.token,

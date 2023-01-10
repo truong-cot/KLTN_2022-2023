@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken';
 import UserModel from '../models/user';
 import resultData from '../../common/resultData';
 import isEmail from '../../common/isEmail';
+import hasWhiteSpace from '../../common/usernameCheck';
+import checkSpecialCharacters from '../../common/checkSpecialCharacters';
 
 const AuthController = {
 	// [POST] ==> /auth/register (Đăng kí tài khoản)
@@ -53,7 +55,32 @@ const AuthController = {
 				);
 			}
 
-			// Check isEmail
+			// Check username không được chưa có dấu cách
+			if (hasWhiteSpace(username)) {
+				return res.status(201).json(
+					resultData({
+						code: 201,
+						status: 0,
+						message: 'Tên đăng nhập không được chứa khoảng trắng!',
+						data: {},
+					})
+				);
+			}
+
+			// Check username không được chứa kí tự đặc biệt
+			if (checkSpecialCharacters(username)) {
+				return res.status(201).json(
+					resultData({
+						code: 201,
+						status: 0,
+						message:
+							'Tên đăng nhập không được chứa kí tự đặc biệt!',
+						data: {},
+					})
+				);
+			}
+
+			// Check isEmail đúng định dạng
 			if (!isEmail(email)) {
 				return res.status(201).json(
 					resultData({

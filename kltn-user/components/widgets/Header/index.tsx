@@ -73,7 +73,7 @@ function Header({isScroll}: any) {
 				}
 			})();
 		}
-	}, [token, userData]);
+	}, [token, userData, router]);
 
 	return (
 		<div

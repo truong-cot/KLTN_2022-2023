@@ -62,7 +62,7 @@ function TableAdmin() {
 				setIsloading(false); //hidden loading overlay
 			}
 		})();
-	}, [token, limit, page, debounceKeyword]);
+	}, [token, limit, page, debounceKeyword, router]);
 
 	const handleDelete = async () => {
 		try {
@@ -78,7 +78,7 @@ function TableAdmin() {
 			} else if (res.status === 1) {
 				setIsloading(false);
 				toast.success(res.message || 'Xóa tài khoản thành công!');
-				router.replace(router.asPath, undefined, {scroll: false}); // reload page
+				router.replace(router.asPath); // reload page
 				setOpen(false);
 			}
 		} catch (error) {
@@ -102,7 +102,7 @@ function TableAdmin() {
 				setOpenChangeRole(false);
 				setIsloading(false);
 				toast.success(res.message || 'Thay đổi quyền thành công!');
-				router.replace(router.asPath, undefined, {scroll: false}); // reload page
+				router.replace(router.asPath); // reload page
 			}
 		} catch (error) {
 			setIsloading(false);

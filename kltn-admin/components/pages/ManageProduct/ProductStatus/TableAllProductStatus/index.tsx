@@ -38,7 +38,6 @@ function TableAllProductStatus() {
 
 	// Lấy id sản phẩm
 	const [idProduct, setIdProduct] = useState<String>('');
-
 	const [data, setData] = useState<Array<TypeProduct>>([]);
 
 	// Lấy danh sách sản phẩm
@@ -87,7 +86,7 @@ function TableAllProductStatus() {
 			} else if (res.status === 1) {
 				setIsloading(false);
 				toast.success(res.message || 'Xóa sản phẩm thành công!');
-				router.replace(router.asPath, undefined, {scroll: false}); // reload page
+				router.replace(router.asPath); // reload page
 				setOpen(false);
 			}
 		} catch (error) {

@@ -1,5 +1,5 @@
 import express from 'express';
-import CartController from '../app/controllers/CartController';
+import CartController from '../app/controllers/cartController';
 import {authMiddlewares} from '../middlewares/auth';
 
 const router = express.Router();

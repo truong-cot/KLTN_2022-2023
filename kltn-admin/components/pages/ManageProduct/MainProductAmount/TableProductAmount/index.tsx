@@ -66,7 +66,7 @@ function TableProductAmount() {
 				toast.error('Có lỗi xảy ra!');
 			}
 		})();
-	}, [debounceKeyword, limit, page, token]);
+	}, [debounceKeyword, limit, page, token, router]);
 
 	return (
 		<RequireAuth>

@@ -19,6 +19,8 @@ function PopupEvaluate({onClose, idProduct}: PropsPopupEvaluate) {
 	const [numberStar, setNumberStar] = useState<number>();
 	const [content, setContent] = useState<String>('');
 
+	// const [isReview, setIsReview] = useState<boolean>(false);
+
 	const listStar: Array<any> = [
 		{
 			id: 1,
