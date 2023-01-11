@@ -72,7 +72,7 @@ function PopupPreviewImage({onClose}: TypePopup) {
 						onClose();
 						setIsloading(false);
 						toast.success(res.message || 'Thêm ảnh thành công!');
-						router.replace(router.asPath, undefined, {scroll: false}); // reload page
+						router.replace(router.asPath); // reload page
 					} else {
 						setIsloading(false);
 						toast.warn(res.message || 'Thêm ảnh thất bại!');
@@ -93,7 +93,7 @@ function PopupPreviewImage({onClose}: TypePopup) {
 				<p className={styles.text}>Thêm ảnh cho sản phẩm!</p>
 				<div className={styles.select_preview}>
 					{preview ? (
-						<div className='closed-img' onClick={handleColsed}>
+						<div className={styles.closed_img} onClick={handleColsed}>
 							<FaTimes />
 						</div>
 					) : (
@@ -122,7 +122,7 @@ function PopupPreviewImage({onClose}: TypePopup) {
 						Hủy
 					</Button>
 					<Button primary4 p_8_24 rounded_6 onClick={handleSubmit}>
-						Thay đổi
+						Thêm ảnh
 					</Button>
 				</div>
 			</div>

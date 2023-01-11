@@ -105,14 +105,14 @@ function Header({isScroll}: any) {
 
 					{isLogged ? (
 						<div className={styles.box_right}>
-							<Link href='/' className={styles.icon_heart}>
+							{/* <Link href='/' className={styles.icon_heart}>
 								<BsHeart />
 								<span className={styles.qlt}>3</span>
 							</Link>
 							<Link href='/' className={styles.icon_compare}>
 								<IoGitCompareOutline />
 								<span className={styles.qlt}>3</span>
-							</Link>
+							</Link> */}
 							<HeadlessTippy
 								interactive
 								visible={showCart}

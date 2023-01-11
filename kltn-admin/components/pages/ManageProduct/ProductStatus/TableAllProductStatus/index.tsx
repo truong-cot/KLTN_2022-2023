@@ -119,7 +119,9 @@ function TableAllProductStatus() {
 								{
 									title: 'Tên sản phẩm',
 									template: (data: TypeProduct) => (
-										<p>{data.name || 'Chưa cập nhật'}</p>
+										<p className={styles.name_product}>
+											{data.name || 'Chưa cập nhật'}
+										</p>
 									),
 								},
 								{
@@ -164,16 +166,16 @@ function TableAllProductStatus() {
 										<p>{convertCoin(Number(data.star))}</p>
 									),
 								},
+								// {
+								// 	title: 'Ngày chỉnh sửa',
+								// 	template: (data: TypeProduct) => (
+								// 		<p>
+								// 			{convertDate(String(data.updatedAt)).getFullDateTime()}
+								// 		</p>
+								// 	),
+								// },
 								{
-									title: 'Ngày chỉnh sửa',
-									template: (data: TypeProduct) => (
-										<p>
-											{convertDate(String(data.updatedAt)).getFullDateTime()}
-										</p>
-									),
-								},
-								{
-									title: '',
+									title: 'Thao tác',
 									template: (data: TypeProduct) => (
 										<div className={styles.control}>
 											<div

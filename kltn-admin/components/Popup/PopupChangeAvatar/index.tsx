@@ -7,13 +7,13 @@ import Button from '~/components/controls/Button';
 import {RootState} from '~/redux/store';
 import Image from 'next/image';
 
-import styles from './PopupPreviewImage.module.scss';
+import styles from './PopupChangeAvatar.module.scss';
 import {TypePopup} from './interfaces';
 import LoadingData from '~/components/common/LoadingData';
 import userService from '~/api/user';
 import {updateDataUser} from '~/redux/reducers/userSlice';
 
-function PopupPreviewImage({onClose}: TypePopup) {
+function PopupChangeAvatar({onClose}: TypePopup) {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
@@ -133,4 +133,4 @@ function PopupPreviewImage({onClose}: TypePopup) {
 	);
 }
 
-export default PopupPreviewImage;
+export default PopupChangeAvatar;

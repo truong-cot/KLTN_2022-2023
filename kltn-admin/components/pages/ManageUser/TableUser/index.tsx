@@ -167,12 +167,14 @@ function TableUser() {
 									),
 								},
 								{
-									title: '',
+									title: 'Thao tác',
 									template: (data: User) => (
 										<div className={styles.control}>
 											<div
 												className={styles.detail}
-												onClick={() => console.log('detail')}
+												onClick={() =>
+													router.push(`/manage-user/detail/${data._id}`)
+												}
 											>
 												<HiOutlineDotsCircleHorizontal size={22} />
 											</div>

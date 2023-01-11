@@ -172,7 +172,7 @@ function TableUserAll() {
 									),
 								},
 								{
-									title: '',
+									title: 'Thao tác',
 									template: (data: User) => (
 										<div className={styles.control}>
 											<div

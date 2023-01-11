@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import LoadingData from '~/components/common/LoadingData';
 import RequireAuth from '~/components/protected/RequiredAuth';
@@ -257,146 +257,166 @@ function MainHome() {
 						<LineChart year={year} />
 					</div>
 
-					<p className={styles.title_1}>Đơn hàng sắp hết hàng</p>
-					<div className={styles.table}>
-						<CheckDataEmpty isEmpty={productOutStock?.length <= 0}>
-							<DataTable
-								data={productOutStock}
-								columns={[
-									{
-										title: 'Tên sản phẩm',
-										template: (data: TypeProduct) => (
-											<p>{data.name || 'Chưa cập nhật'}</p>
-										),
-									},
+					{productOutStock?.length > 0 && (
+						<Fragment>
+							<p className={styles.title_1}>Đơn hàng sắp hết hàng</p>
+							<div className={styles.table}>
+								<DataTable
+									data={productOutStock}
+									columns={[
+										{
+											title: 'Tên sản phẩm',
+											template: (data: TypeProduct) => (
+												<p>{data.name || 'Chưa cập nhật'}</p>
+											),
+										},
 
-									{
-										title: 'Thể loại',
-										template: (data: TypeProduct) => (
-											<p>
-												{data.category === 1
-													? 'Áo len'
-													: data.category === 2
-													? 'Quần Jeans'
-													: 'Áo Phông'}
-											</p>
-										),
-									},
-									{
-										title: 'Số lượng size S',
-										template: (data: TypeProduct) => (
-											<p>{Number(data.amount_size_S) || 'Chưa cập nhật'}</p>
-										),
-									},
-									{
-										title: 'Số lượng size M',
-										template: (data: TypeProduct) => (
-											<p>{Number(data.amount_size_M) || 'Chưa cập nhật'}</p>
-										),
-									},
-									{
-										title: 'Số lượng size L',
-										template: (data: TypeProduct) => (
-											<p>{Number(data.amount_size_L) || 'Chưa cập nhật'}</p>
-										),
-									},
-									{
-										title: 'Số lượng size XL',
-										template: (data: TypeProduct) => (
-											<p>{Number(data.amount_size_XL) || 'Chưa cập nhật'}</p>
-										),
-									},
-									{
-										title: 'Nhập hàng',
-										template: (data: any) => (
-											<div className={styles.control}>
-												<div
-													className={styles.edit}
-													onClick={() => {
-														setIdProduct(data._id);
-														setOpen(true);
-													}}
-												>
-													<MdOutlineAddBusiness size={20} />
+										{
+											title: 'Thể loại',
+											template: (data: TypeProduct) => (
+												<p>
+													{data.category === 1
+														? 'Áo len'
+														: data.category === 2
+														? 'Quần Jeans'
+														: 'Áo Phông'}
+												</p>
+											),
+										},
+										{
+											title: 'Số lượng size S',
+											template: (data: TypeProduct) => (
+												<p>
+													{Number(data.amount_size_S) || 'Chưa cập nhật'}
+												</p>
+											),
+										},
+										{
+											title: 'Số lượng size M',
+											template: (data: TypeProduct) => (
+												<p>
+													{Number(data.amount_size_M) || 'Chưa cập nhật'}
+												</p>
+											),
+										},
+										{
+											title: 'Số lượng size L',
+											template: (data: TypeProduct) => (
+												<p>
+													{Number(data.amount_size_L) || 'Chưa cập nhật'}
+												</p>
+											),
+										},
+										{
+											title: 'Số lượng size XL',
+											template: (data: TypeProduct) => (
+												<p>
+													{Number(data.amount_size_XL) || 'Chưa cập nhật'}
+												</p>
+											),
+										},
+										{
+											title: 'Nhập hàng',
+											template: (data: any) => (
+												<div className={styles.control}>
+													<div
+														className={styles.edit}
+														onClick={() => {
+															setIdProduct(data._id);
+															setOpen(true);
+														}}
+													>
+														<MdOutlineAddBusiness size={20} />
+													</div>
 												</div>
-											</div>
-										),
-									},
-								]}
-							></DataTable>
-						</CheckDataEmpty>
-					</div>
+											),
+										},
+									]}
+								></DataTable>
+							</div>
+						</Fragment>
+					)}
 
-					<p className={styles.title_1}>Đơn hàng đang tồn kho</p>
-					<div className={styles.table}>
-						<CheckDataEmpty isEmpty={productInStock?.length <= 0}>
-							<DataTable
-								data={productInStock}
-								columns={[
-									{
-										title: 'Tên sản phẩm',
-										template: (data: TypeProduct) => (
-											<p>{data.name || 'Chưa cập nhật'}</p>
-										),
-									},
+					{productInStock?.length > 0 && (
+						<Fragment>
+							<p className={styles.title_1}>Đơn hàng đang tồn kho</p>
+							<div className={styles.table}>
+								<DataTable
+									data={productInStock}
+									columns={[
+										{
+											title: 'Tên sản phẩm',
+											template: (data: TypeProduct) => (
+												<p>{data.name || 'Chưa cập nhật'}</p>
+											),
+										},
 
-									{
-										title: 'Thể loại',
-										template: (data: TypeProduct) => (
-											<p>
-												{data.category === 1
-													? 'Áo len'
-													: data.category === 2
-													? 'Quần Jeans'
-													: 'Áo Phông'}
-											</p>
-										),
-									},
-									{
-										title: 'Số lượng size S',
-										template: (data: TypeProduct) => (
-											<p>{Number(data.amount_size_S) || 'Chưa cập nhật'}</p>
-										),
-									},
-									{
-										title: 'Số lượng size M',
-										template: (data: TypeProduct) => (
-											<p>{Number(data.amount_size_M) || 'Chưa cập nhật'}</p>
-										),
-									},
-									{
-										title: 'Số lượng size L',
-										template: (data: TypeProduct) => (
-											<p>{Number(data.amount_size_L) || 'Chưa cập nhật'}</p>
-										),
-									},
-									{
-										title: 'Số lượng size XL',
-										template: (data: TypeProduct) => (
-											<p>{Number(data.amount_size_XL) || 'Chưa cập nhật'}</p>
-										),
-									},
-									{
-										title: 'Chỉnh sửa',
-										template: (data: TypeProduct) => (
-											<div className={styles.control}>
-												<div
-													className={styles.edit}
-													onClick={() =>
-														router.push(
-															`/manage-product/edit-product/${data._id}`
-														)
-													}
-												>
-													<ImPencil size={20} />
+										{
+											title: 'Thể loại',
+											template: (data: TypeProduct) => (
+												<p>
+													{data.category === 1
+														? 'Áo len'
+														: data.category === 2
+														? 'Quần Jeans'
+														: 'Áo Phông'}
+												</p>
+											),
+										},
+										{
+											title: 'Số lượng size S',
+											template: (data: TypeProduct) => (
+												<p>
+													{Number(data.amount_size_S) || 'Chưa cập nhật'}
+												</p>
+											),
+										},
+										{
+											title: 'Số lượng size M',
+											template: (data: TypeProduct) => (
+												<p>
+													{Number(data.amount_size_M) || 'Chưa cập nhật'}
+												</p>
+											),
+										},
+										{
+											title: 'Số lượng size L',
+											template: (data: TypeProduct) => (
+												<p>
+													{Number(data.amount_size_L) || 'Chưa cập nhật'}
+												</p>
+											),
+										},
+										{
+											title: 'Số lượng size XL',
+											template: (data: TypeProduct) => (
+												<p>
+													{Number(data.amount_size_XL) || 'Chưa cập nhật'}
+												</p>
+											),
+										},
+										{
+											title: 'Chỉnh sửa',
+											template: (data: TypeProduct) => (
+												<div className={styles.control}>
+													<div
+														className={styles.edit}
+														onClick={() =>
+															router.push(
+																`/manage-product/edit-product/${data._id}`
+															)
+														}
+													>
+														<ImPencil size={20} />
+													</div>
 												</div>
-											</div>
-										),
-									},
-								]}
-							></DataTable>
-						</CheckDataEmpty>
-					</div>
+											),
+										},
+									]}
+								></DataTable>
+							</div>
+						</Fragment>
+					)}
 				</div>
 				{/* Popup */}
 				<Popup open={open} onClose={() => setOpen(false)}>

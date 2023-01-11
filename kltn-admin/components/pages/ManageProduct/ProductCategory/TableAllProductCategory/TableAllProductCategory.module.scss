@@ -11,6 +11,14 @@
 	}
 }
 
+.name_product {
+	overflow: hidden;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	display: -webkit-box;
+	width: 250px;
+}
+
 .control {
 	width: 100%;
 	display: flex;

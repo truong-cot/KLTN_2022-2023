@@ -11,7 +11,6 @@ import {toast} from 'react-toastify';
 import {IoMdClose} from 'react-icons/io';
 import Button from '../Button';
 import clsx from 'clsx';
-import {Fragment} from 'react';
 import LoadingData from '~/components/common/LoadingData';
 import Popup from '~/components/common/Popup';
 import PopupPreviewImage from '~/components/Popup/PopupPreviewImage';
@@ -42,7 +41,7 @@ function FormChangeImage({images}: TypeForm) {
 			} else if (res.status === 1) {
 				setIsloading(false);
 				toast.success(res.message || 'Xóa ảnh sản phẩm thành công!');
-				router.replace(router.asPath, undefined, {scroll: false}); // reload page
+				router.replace(router.asPath); // reload page
 			}
 		} catch (error) {
 			setIsloading(false);
