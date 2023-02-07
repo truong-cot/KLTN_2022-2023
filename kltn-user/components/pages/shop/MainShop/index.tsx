@@ -111,7 +111,7 @@ function MainShop() {
 							<span>sản phẩm</span>
 						</p> */}
 							<div></div>
-							<div className={styles.filter_right}>
+							{/* <div className={styles.filter_right}>
 								<span>Sắp xếp theo: </span>
 								<Select placeholder='Sắp xếp theo'>
 									<Option title='Sắp xếp theo tên' value='1' />
@@ -146,7 +146,7 @@ function MainShop() {
 										<rect x='12' y='6' width='4' height='4'></rect>
 									</svg>
 								</span>
-							</div>
+							</div> */}
 						</div>
 					</div>
 					<ShopLayout>
@@ -166,14 +166,14 @@ function MainShop() {
 							</GridColumn>
 						)}
 					</ShopLayout>
-					<div className={styles.pagination}>
+					{/* <div className={styles.pagination}>
 						<Pagination
 							total={total}
 							onSetPage={setPage}
 							pageSize={pageSize}
 							currentPage={page}
 						/>
-					</div>
+					</div> */}
 				</LayoutGrid>
 			</div>
 		</LoadingData>

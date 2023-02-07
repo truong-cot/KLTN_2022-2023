@@ -5,7 +5,9 @@ const axiosClient = axios.create({
 	headers: {
 		'content-type': 'application/json',
 	},
-	baseURL: 'http://localhost:8000',
+	baseURL: process.env.NEXT_PUBLIC_API_URL_DEV
+		? process.env.NEXT_PUBLIC_API_URL_DEV
+		: 'http://localhost:8000',
 	// paramsSerializer: (params: any) => queryString.stringify(params),
 });
 

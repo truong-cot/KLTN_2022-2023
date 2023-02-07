@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	env: {
+		SHIPPER: 30000,
+	},
 	images: {
 		domains: ['res.cloudinary.com', 'd-themes.com', 'futbolita.com'],
 	},

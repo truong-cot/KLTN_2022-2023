@@ -21,8 +21,8 @@ export interface TypeProductOrder {
 		idProduct: String;
 		image: String;
 		nameProduct: String;
-		orderPrice: Number;
 		price: Number;
+		orderPrice: Number;
 		sale: Number;
 		size: String;
 	};

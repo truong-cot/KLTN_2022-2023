@@ -37,10 +37,6 @@ function ItemOrder({data, check}: TypeProductOrder) {
 						<p className={styles.type}>{Number(data.amount)}</p>
 					</div>
 					<div className={styles.item}>
-						<p className={styles.category}>Đơn giá:</p>
-						<p className={styles.type}>{convertCoin(Number(data.price))}đ</p>
-					</div>
-					<div className={styles.item}>
 						<p className={styles.category}>Thành tiền:</p>
 						<p className={styles.type}>
 							{convertCoin(
@@ -50,6 +46,10 @@ function ItemOrder({data, check}: TypeProductOrder) {
 							)}
 						</p>
 					</div>
+					{/* <div className={styles.item}>
+						<p className={styles.category}>Đơn giá:</p>
+						<p className={styles.type}>{convertCoin(Number(data.totalPrice))}đ</p>
+					</div> */}
 				</div>
 				{check && (
 					<div className={styles.btn}>

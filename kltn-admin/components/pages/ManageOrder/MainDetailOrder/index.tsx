@@ -169,6 +169,12 @@ function MainDetailOrder() {
 								</p>
 							</div>
 							<div className={styles.item}>
+								<p className={styles.text_1}>Phí vận chuyển :</p>
+								<p className={styles.text_2}>
+									{convertCoin(Number(data?.transportFee))}đ
+								</p>
+							</div>
+							<div className={styles.item}>
 								<p className={styles.text_1}>Tổng giá trị đơn hàng :</p>
 								<p className={styles.text_2}>
 									{convertCoin(Number(data?.totalPrice))}đ

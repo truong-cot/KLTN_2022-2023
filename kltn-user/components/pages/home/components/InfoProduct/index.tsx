@@ -71,14 +71,14 @@ function InfoProduct({product}: any) {
 				</div>
 			</div>
 
-			<div className={styles.position_1}>
+			{/* <div className={styles.position_1}>
 				<div className={clsx(styles.icon, styles.icon_1)}>
 					<FiHeart />
 				</div>
 				<div className={clsx(styles.icon, styles.icon_2)}>
 					<VscGitCompare />
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 }

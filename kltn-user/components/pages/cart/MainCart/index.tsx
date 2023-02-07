@@ -41,7 +41,7 @@ function MainCart() {
 	// Gửi data qua trang thanh toán
 	const handlePayment = () => {
 		if (shippingMethod === 1) {
-			setItemStorage('moneyShipping', 30000);
+			setItemStorage('moneyShipping', Number(process.env.SHIPPER));
 			setItemStorage('shippingMethod', 1);
 		} else if (shippingMethod === 2) {
 			setItemStorage('moneyShipping', 40000);
@@ -57,6 +57,8 @@ function MainCart() {
 	const handleBack = () => {
 		router.push('/shop?type=all&status=all');
 	};
+
+	console.log(Number(process.env.SHIPPER));
 
 	return (
 		<RequireAuth>
