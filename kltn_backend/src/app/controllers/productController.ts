@@ -34,11 +34,11 @@ const ProductController = {
 				name &&
 				price &&
 				category &&
-				sale &&
-				amount_size_S &&
-				amount_size_M &&
-				amount_size_L &&
-				amount_size_XL &&
+				// sale &&
+				// amount_size_S &&
+				// amount_size_M &&
+				// amount_size_L &&
+				// amount_size_XL &&
 				main_des &&
 				general_des &&
 				detail_des &&
@@ -63,13 +63,13 @@ const ProductController = {
 								name: name,
 								price: price,
 								category: Number(category),
-								sale: sale,
+								sale: Number(sale),
 								isHot: false,
 								trending: false,
-								amount_size_S: amount_size_S,
-								amount_size_M: amount_size_M,
-								amount_size_L: amount_size_L,
-								amount_size_XL: amount_size_XL,
+								amount_size_S: Number(amount_size_S),
+								amount_size_M: Number(amount_size_M),
+								amount_size_L: Number(amount_size_L),
+								amount_size_XL: Number(amount_size_XL),
 								main_des: main_des,
 								general_des: general_des,
 								detail_des: detail_des,
@@ -90,13 +90,13 @@ const ProductController = {
 								name: name,
 								price: price,
 								category: Number(category),
-								sale: sale,
+								sale: Number(sale),
 								isHot: false,
 								trending: true,
-								amount_size_S: amount_size_S,
-								amount_size_M: amount_size_M,
-								amount_size_L: amount_size_L,
-								amount_size_XL: amount_size_XL,
+								amount_size_S: Number(amount_size_S),
+								amount_size_M: Number(amount_size_M),
+								amount_size_L: Number(amount_size_L),
+								amount_size_XL: Number(amount_size_XL),
 								main_des: main_des,
 								general_des: general_des,
 								detail_des: detail_des,
@@ -119,13 +119,13 @@ const ProductController = {
 								name: name,
 								price: price,
 								category: Number(category),
-								sale: sale,
 								isHot: true,
 								trending: false,
-								amount_size_S: amount_size_S,
-								amount_size_M: amount_size_M,
-								amount_size_L: amount_size_L,
-								amount_size_XL: amount_size_XL,
+								sale: Number(sale),
+								amount_size_S: Number(amount_size_S),
+								amount_size_M: Number(amount_size_M),
+								amount_size_L: Number(amount_size_L),
+								amount_size_XL: Number(amount_size_XL),
 								main_des: main_des,
 								general_des: general_des,
 								detail_des: detail_des,
@@ -146,13 +146,13 @@ const ProductController = {
 								name: name,
 								price: price,
 								category: Number(category),
-								sale: sale,
 								isHot: true,
 								trending: true,
-								amount_size_S: amount_size_S,
-								amount_size_M: amount_size_M,
-								amount_size_L: amount_size_L,
-								amount_size_XL: amount_size_XL,
+								sale: Number(sale),
+								amount_size_S: Number(amount_size_S),
+								amount_size_M: Number(amount_size_M),
+								amount_size_L: Number(amount_size_L),
+								amount_size_XL: Number(amount_size_XL),
 								main_des: main_des,
 								general_des: general_des,
 								detail_des: detail_des,

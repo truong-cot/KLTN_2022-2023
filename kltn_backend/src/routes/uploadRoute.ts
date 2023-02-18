@@ -8,14 +8,6 @@ const storage = multer.diskStorage({
 		cb(null, file.fieldname + '-' + Date.now());
 	},
 });
-const upload = multer({storage});
-
-// // Upload nhiều ảnh
-// router.post(
-// 	'/images',
-// 	upload.array('images', 12),
-// 	authMiddlewares.authVerify,
-// 	UploadController.uploadImages
-// );
+// const upload = multer({storage});
 
 export default router;

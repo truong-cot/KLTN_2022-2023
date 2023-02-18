@@ -52,8 +52,12 @@ function MainAddProduct() {
 	// Submit form
 	const handleSubmit = async () => {
 		try {
-			setIsloading(true);
+			if (form.sale < 0) {
+				toast.warn('Phần trăm khuyến mãi không được nhỏ hơn 0!');
+				return;
+			}
 
+			setIsloading(true);
 			const res: any = await productService.createProduct({
 				...form,
 				token: String(token),

@@ -12,6 +12,7 @@ const storage = multer.diskStorage({
 		cb(null, file.fieldname + '-' + Date.now());
 	},
 });
+
 const upload = multer({storage});
 
 // Lấy tất cả user
