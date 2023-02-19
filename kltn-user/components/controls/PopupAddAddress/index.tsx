@@ -19,7 +19,7 @@ interface TypeFrom {
 	city: string;
 	district: string;
 	ward: string;
-	specific: String;
+	specific: string;
 }
 
 interface TypePopup {

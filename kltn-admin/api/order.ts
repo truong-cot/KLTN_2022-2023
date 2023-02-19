@@ -5,11 +5,11 @@ const routeName = '/order';
 const orderService = {
 	getAllOrder: (
 		data: {
-			token: String;
-			keyword: String;
-			statusOrder: Number;
-			limit: Number;
-			page: Number;
+			token: string;
+			keyword: string;
+			statusOrder: number;
+			limit: number;
+			page: number;
 		},
 		tokenAxios?: any
 	) => {
@@ -26,8 +26,8 @@ const orderService = {
 
 	getDetailOrder: (
 		data: {
-			token: String;
-			idOrder: String;
+			token: string;
+			idOrder: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -41,8 +41,8 @@ const orderService = {
 
 	confirmationOrder: (
 		data: {
-			token: String;
-			idOrder: String;
+			token: string;
+			idOrder: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -55,8 +55,8 @@ const orderService = {
 	},
 	confirmationDelivery: (
 		data: {
-			token: String;
-			idOrder: String;
+			token: string;
+			idOrder: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -70,8 +70,8 @@ const orderService = {
 
 	cancelOrder: (
 		data: {
-			token: String;
-			idOrder: String;
+			token: string;
+			idOrder: string;
 		},
 		tokenAxios?: any
 	) => {

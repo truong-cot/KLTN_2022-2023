@@ -1,12 +1,12 @@
 export interface TypeItemAddress {
 	data: {
-		id: String;
-		name: String;
-		phone: Number;
-		city: String;
-		district: String;
-		ward: String;
-		specifically: String;
+		id: string;
+		name: string;
+		phone: number;
+		city: string;
+		district: string;
+		ward: string;
+		specifically: string;
 		isDefault: boolean;
 	};
 }

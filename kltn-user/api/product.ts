@@ -5,14 +5,14 @@ const routeName = '/product';
 const productService = {
 	getAllProduct: (
 		data: {
-			token: String;
-			keyword: String;
-			category: Number;
-			status: Number;
-			priceMin: Number;
-			priceMax: Number;
-			limit: Number;
-			page: Number;
+			token: string;
+			keyword: string;
+			category: number;
+			status: number;
+			priceMin: number;
+			priceMax: number;
+			limit: number;
+			page: number;
 		},
 		tokenAxios?: any
 	) => {
@@ -28,8 +28,8 @@ const productService = {
 	},
 	getDetailProduct: (
 		data: {
-			token: String;
-			idProduct: String;
+			token: string;
+			idProduct: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -43,10 +43,10 @@ const productService = {
 
 	createReview: (
 		data: {
-			token: String;
+			token: string;
 			idUser: string;
 			idProduct: string;
-			numberStart: Number;
+			numberStart: number;
 			content: string;
 		},
 		tokenAxios?: any

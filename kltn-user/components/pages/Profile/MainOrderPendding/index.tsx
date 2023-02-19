@@ -24,7 +24,7 @@ function MainOrderPendding() {
 	const [data, setData] = useState<Array<TypeOrder>>([]);
 	const [showPopupCancel, setShowPopupCancel] = useState<boolean>(false);
 
-	const [idOrder, setIdOrder] = useState<String>('');
+	const [idOrder, setIdOrder] = useState<string>('');
 
 	var listData: Array<TypeOrder> = [];
 

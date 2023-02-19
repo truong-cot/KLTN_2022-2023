@@ -23,8 +23,8 @@ function FormChangeImage({images}: TypeForm) {
 	const {token} = useSelector((state: RootState) => state.auth);
 
 	const [isLoading, setIsloading] = useState<boolean>(false);
-	const [activeImage, setActiveImage] = useState<Number>();
-	const [idImage, setIdImage] = useState<String>('');
+	const [activeImage, setActiveImage] = useState<number>();
+	const [idImage, setIdImage] = useState<string>('');
 
 	// Xóa ảnh sản phẩm
 	const handleDeleteImage = async () => {

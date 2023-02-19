@@ -38,7 +38,7 @@ function TableUserAll() {
 	const debounceKeyword = useDebounce(keyword, 500);
 
 	const [data, setData] = useState<Array<User>>([]);
-	const [idUser, setIdUser] = useState<String>('');
+	const [idUser, setIdUser] = useState<string>('');
 
 	useEffect(() => {
 		(async () => {

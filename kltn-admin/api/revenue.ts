@@ -5,7 +5,7 @@ const routeName = '/revenue';
 const revenueService = {
 	getAllRevenue: (
 		data: {
-			token: String;
+			token: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -18,7 +18,7 @@ const revenueService = {
 	},
 	getProductOutStock: (
 		data: {
-			token: String;
+			token: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -32,7 +32,7 @@ const revenueService = {
 
 	getProductInStock: (
 		data: {
-			token: String;
+			token: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -46,7 +46,7 @@ const revenueService = {
 
 	getTotalRevenue: (
 		data: {
-			token: String;
+			token: string;
 		},
 		tokenAxios?: any
 	) => {

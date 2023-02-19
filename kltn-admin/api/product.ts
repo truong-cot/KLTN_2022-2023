@@ -5,14 +5,14 @@ const routeName = '/product';
 const productService = {
 	getAllProduct: (
 		data: {
-			token: String;
-			keyword: String;
-			category: Number;
-			status: Number;
-			priceMin: Number;
-			priceMax: Number;
-			limit: Number;
-			page: Number;
+			token: string;
+			keyword: string;
+			category: number;
+			status: number;
+			priceMin: number;
+			priceMax: number;
+			limit: number;
+			page: number;
 		},
 		tokenAxios?: any
 	) => {
@@ -27,7 +27,7 @@ const productService = {
 		);
 	},
 
-	deleteProduct: (data: {token: string; idProduct: String}, tokenAxios?: any) => {
+	deleteProduct: (data: {token: string; idProduct: string}, tokenAxios?: any) => {
 		return axiosClient.delete(`${routeName}/delete-product?idProduct=${data.idProduct}`, {
 			cancelToken: tokenAxios,
 			headers: {
@@ -37,19 +37,19 @@ const productService = {
 	},
 	createProduct: (
 		data: {
-			token: String;
-			name: String;
-			price: String;
-			amount_size_S: Number;
-			amount_size_M: Number;
-			amount_size_L: Number;
-			amount_size_XL: Number;
-			sale: Number;
-			isHot: String;
-			trending: String;
-			category: String;
-			main_des: String;
-			general_des: String;
+			token: string;
+			name: string;
+			price: string;
+			amount_size_S: number;
+			amount_size_M: number;
+			amount_size_L: number;
+			amount_size_XL: number;
+			sale: number;
+			isHot: string;
+			trending: string;
+			category: string;
+			main_des: string;
+			general_des: string;
 			detail_des: any;
 		},
 		tokenAxios?: any
@@ -63,8 +63,8 @@ const productService = {
 	},
 	getDetailProduct: (
 		data: {
-			token: String;
-			idProduct: String;
+			token: string;
+			idProduct: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -76,7 +76,7 @@ const productService = {
 		});
 	},
 	deleteImageProduct: (
-		data: {token: string; idProduct: String; idImage: String},
+		data: {token: string; idProduct: string; idImage: string},
 		tokenAxios?: any
 	) => {
 		return axiosClient.delete(
@@ -99,20 +99,20 @@ const productService = {
 	},
 	updateProduct: (
 		data: {
-			token: String;
-			idProduct: String;
-			name: String;
-			price: String;
-			amount_size_S: Number;
-			amount_size_M: Number;
-			amount_size_L: Number;
-			amount_size_XL: Number;
-			sale: Number;
-			isHot: String;
-			trending: String;
-			category: String;
-			main_des: String;
-			general_des: String;
+			token: string;
+			idProduct: string;
+			name: string;
+			price: string;
+			amount_size_S: number;
+			amount_size_M: number;
+			amount_size_L: number;
+			amount_size_XL: number;
+			sale: number;
+			isHot: string;
+			trending: string;
+			category: string;
+			main_des: string;
+			general_des: string;
 			detail_des: any;
 		},
 		tokenAxios?: any
@@ -127,12 +127,12 @@ const productService = {
 
 	addAmountProduct: (
 		data: {
-			token: String;
-			idProduct: String;
-			amount_size_S: Number;
-			amount_size_M: Number;
-			amount_size_L: Number;
-			amount_size_XL: Number;
+			token: string;
+			idProduct: string;
+			amount_size_S: number;
+			amount_size_M: number;
+			amount_size_L: number;
+			amount_size_XL: number;
 		},
 		tokenAxios?: any
 	) => {

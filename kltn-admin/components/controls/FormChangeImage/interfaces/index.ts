@@ -1,6 +1,6 @@
 export interface TypeImage {
-	id: String;
-	url: String;
+	id: string;
+	url: string;
 }
 
 export interface TypeForm {

@@ -12,7 +12,7 @@ import LoadingData from '~/components/common/LoadingData';
 
 interface TypePopup {
 	onClose: () => void;
-	idOrder: String;
+	idOrder: string;
 }
 
 function PopupCancelOrder({onClose, idOrder}: TypePopup) {

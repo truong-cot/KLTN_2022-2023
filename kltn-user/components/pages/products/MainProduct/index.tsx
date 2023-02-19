@@ -26,12 +26,12 @@ function MainProduct() {
 	const {userData} = useSelector((state: RootState) => state.user);
 	const idProduct = router.query.id;
 
-	const [size, setSize] = useState<String>('');
+	const [size, setSize] = useState<string>('');
 	const [tab, setTab] = useState<number>(1);
 	const [data, setData] = useState<TypeProduct>();
 	const [listImage, setListImage] = useState<Array<TypeImage>>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [amount, setAmount] = useState<Number>(1);
+	const [amount, setAmount] = useState<number>(1);
 
 	const list_star: Array<any> = [
 		{

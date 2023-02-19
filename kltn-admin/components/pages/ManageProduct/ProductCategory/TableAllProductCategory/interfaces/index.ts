@@ -1,26 +1,26 @@
 export interface TypeImage {
-	id: String;
-	url: String;
+	id: string;
+	url: string;
 }
 
 export interface TypeProduct {
 	trending: boolean;
-	_id: String;
-	name: String;
-	price: Number;
-	category: Number;
-	sale: Number;
+	_id: string;
+	name: string;
+	price: number;
+	category: number;
+	sale: number;
 	images: Array<TypeImage>;
-	amount_size_s: Number;
-	amount_size_M: Number;
-	amount_size_L: Number;
-	amount_size_XL: Number;
-	main_des: String;
-	general_des: String;
-	detail_des: String;
+	amount_size_s: number;
+	amount_size_M: number;
+	amount_size_L: number;
+	amount_size_XL: number;
+	main_des: string;
+	general_des: string;
+	detail_des: string;
 	isHot: boolean;
-	star: Number;
+	star: number;
 	reviews: Array<any>;
-	createdAt: String | null;
-	updatedAt: String | null;
+	createdAt: string | null;
+	updatedAt: string | null;
 }

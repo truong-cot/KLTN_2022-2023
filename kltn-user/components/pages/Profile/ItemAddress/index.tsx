@@ -11,7 +11,7 @@ import PopupChangeDefaultAddress from '~/components/Popup/PopupChangeDefaultAddr
 function ItemAddress({data}: TypeItemAddress) {
 	const [show, setShow] = useState<boolean>(false);
 	const [showChange, setShowChange] = useState<boolean>(false);
-	const [idAddress, setIdAddress] = useState<String>('');
+	const [idAddress, setIdAddress] = useState<string>('');
 
 	return (
 		<Fragment>

@@ -5,8 +5,8 @@ const routeName = '/auth';
 const authService = {
 	login: (
 		data: {
-			acc: String;
-			password: String;
+			acc: string;
+			password: string;
 		},
 		tokenAxios?: any
 	) => {

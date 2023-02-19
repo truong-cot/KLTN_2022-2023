@@ -13,11 +13,11 @@ const userService = {
 	},
 	changeUser: (
 		data: {
-			token: String;
-			idUser: String;
-			name: String;
-			phone: Number;
-			email: String;
+			token: string;
+			idUser: string;
+			name: string;
+			phone: number;
+			email: string;
 			dateBirth: Number;
 			monthBirth: Number;
 			yearBirth: Number;
@@ -46,7 +46,7 @@ const userService = {
 			}
 		);
 	},
-	deleteUser: (data: {token: string; idUser: String}, tokenAxios?: any) => {
+	deleteUser: (data: {token: string; idUser: string}, tokenAxios?: any) => {
 		return axiosClient.delete(`${routeName}/delete-user?idUser=${data.idUser}`, {
 			cancelToken: tokenAxios,
 			headers: {
@@ -57,8 +57,8 @@ const userService = {
 
 	changeRoleUser: (
 		data: {
-			token: String;
-			idUser: String;
+			token: string;
+			idUser: string;
 		},
 		tokenAxios?: any
 	) => {

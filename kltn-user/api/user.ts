@@ -5,15 +5,15 @@ const routeName = '/user';
 const userService = {
 	changeUser: (
 		data: {
-			token: String;
-			idUser: String;
-			name: String;
-			phone: Number;
-			email: String;
-			dateBirth: Number;
-			monthBirth: Number;
-			yearBirth: Number;
-			sex: Number;
+			token: string;
+			idUser: string;
+			name: string;
+			phone: number;
+			email: string;
+			dateBirth: number;
+			monthBirth: number;
+			yearBirth: number;
+			sex: number;
 		},
 		tokenAxios?: any
 	) => {
@@ -34,14 +34,14 @@ const userService = {
 	},
 	addAddress: (
 		data: {
-			token: String;
-			idUser: String;
-			name: String;
-			phone: Number;
-			city: String;
-			district: String;
-			ward: String;
-			specifically: String;
+			token: string;
+			idUser: string;
+			name: string;
+			phone: number;
+			city: string;
+			district: string;
+			ward: string;
+			specifically: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -55,9 +55,9 @@ const userService = {
 
 	changeDefaultAddress: (
 		data: {
-			token: String;
-			idUser: String;
-			idAddress: String;
+			token: string;
+			idUser: string;
+			idAddress: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -71,9 +71,9 @@ const userService = {
 
 	deleteAddress: (
 		data: {
-			token: String;
-			idUser: String;
-			idAddress: String;
+			token: string;
+			idUser: string;
+			idAddress: string;
 		},
 		tokenAxios?: any
 	) => {

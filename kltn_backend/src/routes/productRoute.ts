@@ -54,18 +54,10 @@ router.post(
 );
 
 // Lấy tất cả sản phẩm
-router.get(
-	'/get-all-product',
-	authMiddlewares.authVerify,
-	ProductController.getAllProduct
-);
+router.get('/get-all-product', ProductController.getAllProduct);
 
 // Lấy chi tiết sản phẩm
-router.get(
-	'/get-detail-product/:id',
-	authMiddlewares.authVerify,
-	ProductController.getDetailProduct
-);
+router.get('/get-detail-product/:id', ProductController.getDetailProduct);
 
 // Đánh giá sản phẩm
 router.post(

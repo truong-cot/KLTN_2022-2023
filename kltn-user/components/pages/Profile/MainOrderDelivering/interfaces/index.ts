@@ -1,27 +1,27 @@
 export interface TypeOrder {
-	address: String;
-	createdAt: String | null;
-	idUser: String;
-	nameReceiver: String;
-	nameUser: String;
-	note: String;
-	phone: Number;
+	address: string;
+	createdAt: string | null;
+	idUser: string;
+	nameReceiver: string;
+	nameUser: string;
+	note: string;
+	phone: number;
 	products: Array<TypeProductOrder>;
-	shippingMethod: Number;
-	statusOrder: Number;
-	totalPrice: Number;
-	transportFee: Number;
-	updatedAt: String | null;
-	_id: String;
+	shippingMethod: number;
+	statusOrder: number;
+	totalPrice: number;
+	transportFee: number;
+	updatedAt: string | null;
+	_id: string;
 }
 
 export interface TypeProductOrder {
-	amount: Number;
-	idProduct: String;
-	image: String;
-	nameProduct: String;
-	orderPrice: Number;
-	price: Number;
-	sale: Number;
-	size: String;
+	amount: number;
+	idProduct: string;
+	image: string;
+	nameProduct: string;
+	orderPrice: number;
+	price: number;
+	sale: number;
+	size: string;
 }

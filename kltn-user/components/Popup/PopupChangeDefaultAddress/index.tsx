@@ -14,7 +14,7 @@ import {updateDataUser} from '~/redux/reducers/userSlice';
 
 interface TypePopup {
 	onClose: () => void;
-	idAddress: String;
+	idAddress: string;
 }
 
 function PopupChangeDefaultAddress({onClose, idAddress}: TypePopup) {

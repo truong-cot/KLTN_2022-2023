@@ -1,17 +1,17 @@
 export interface TypeCart {
-	_id: String;
-	idUser: String;
-	nameUser: String;
-	idProduct: String;
-	nameProduct: String;
-	size: String;
-	price: Number;
-	amount: Number;
-	sale: Number;
-	totalPrice: Number;
-	image: String;
-	createdAt: String | null;
-	updatedAt: String | null;
+	_id: string;
+	idUser: string;
+	nameUser: string;
+	idProduct: string;
+	nameProduct: string;
+	size: string;
+	price: number;
+	amount: number;
+	sale: number;
+	totalPrice: number;
+	image: string;
+	createdAt: string | null;
+	updatedAt: string | null;
 }
 
 export interface TypeFrom {
@@ -25,12 +25,12 @@ export interface TypeFrom {
 }
 
 export interface TypeItemAddress {
-	id: String;
-	name: String;
-	phone: Number;
-	city: String;
-	district: String;
-	ward: String;
-	specifically: String;
+	id: string;
+	name: string;
+	phone: number;
+	city: string;
+	district: string;
+	ward: string;
+	specifically: string;
 	isDefault: boolean;
 }

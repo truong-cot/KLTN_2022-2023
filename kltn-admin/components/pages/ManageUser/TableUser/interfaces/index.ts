@@ -1,16 +1,16 @@
 export interface User {
-	_id: String;
-	name: String;
-	username: String;
-	email: String;
+	_id: string;
+	name: string;
+	username: string;
+	email: string;
 	isAdmin: boolean;
-	phone: String;
+	phone: string;
 	datebBirth: number;
 	monthBirth: number;
 	yearBirth: number;
-	avatar: String;
-	address: String;
+	avatar: string;
+	address: string;
 	sex: number;
-	createdAt: String | null;
-	updatedAt: String | null;
+	createdAt: string | null;
+	updatedAt: string | null;
 }

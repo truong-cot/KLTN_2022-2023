@@ -37,7 +37,7 @@ function MainPayment() {
 	const [ward, setWard] = useState<any>('');
 
 	const [addressDefault, setAddressDefault] = useState<TypeItemAddress>();
-	const [attention, setAttention] = useState<String>('');
+	const [attention, setAttention] = useState<string>('');
 
 	const {state, onCitySelect, onDistrictSelect, onWardSelect} = useLocationForm(true);
 	const {

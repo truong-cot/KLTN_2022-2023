@@ -37,7 +37,7 @@ function TableProductSweater() {
 	const debounceKeyword = useDebounce(keyword, 500);
 
 	// Lấy id sản phẩm
-	const [idProduct, setIdProduct] = useState<String>('');
+	const [idProduct, setIdProduct] = useState<string>('');
 
 	const [data, setData] = useState<Array<TypeProduct>>([]);
 

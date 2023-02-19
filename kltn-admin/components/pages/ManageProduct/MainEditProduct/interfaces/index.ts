@@ -1,20 +1,20 @@
 export interface TypeImage {
-	id: String;
-	url: String;
+	id: string;
+	url: string;
 }
 
 export interface TypeForm {
-	name: String;
-	price: String;
-	category: String;
-	amount_size_S: Number;
-	amount_size_M: Number;
-	amount_size_L: Number;
-	amount_size_XL: Number;
-	sale: Number;
-	isHot: String;
-	trending: String;
-	main_des: String;
-	general_des: String;
-	detail_des: String;
+	name: string;
+	price: string;
+	category: string;
+	amount_size_S: number;
+	amount_size_M: number;
+	amount_size_L: number;
+	amount_size_XL: number;
+	sale: number;
+	isHot: string;
+	trending: string;
+	main_des: string;
+	general_des: string;
+	detail_des: string;
 }

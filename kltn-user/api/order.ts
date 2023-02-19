@@ -5,14 +5,14 @@ const routeName = '/order';
 const orderService = {
 	createOrder: (
 		data: {
-			token: String;
-			idUser: String;
-			nameUser: String;
-			nameReceiver: String;
-			phone: Number;
-			address: String;
-			shippingMethod: Number;
-			note: String;
+			token: string;
+			idUser: string;
+			nameUser: string;
+			nameReceiver: string;
+			phone: number;
+			address: string;
+			shippingMethod: number;
+			note: string;
 			products: any;
 		},
 		tokenAxios?: any
@@ -24,8 +24,8 @@ const orderService = {
 
 	getOrderUser: (
 		data: {
-			token: String;
-			idUser: String;
+			token: string;
+			idUser: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -39,8 +39,8 @@ const orderService = {
 
 	cancelOrder: (
 		data: {
-			token: String;
-			idOrder: String;
+			token: string;
+			idOrder: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -54,8 +54,8 @@ const orderService = {
 
 	confirmationDelivery: (
 		data: {
-			token: String;
-			idOrder: String;
+			token: string;
+			idOrder: string;
 		},
 		tokenAxios?: any
 	) => {

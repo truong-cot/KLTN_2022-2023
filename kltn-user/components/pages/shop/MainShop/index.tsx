@@ -29,8 +29,8 @@ function MainShop() {
 	const [isLoading, setIsloading] = useState<boolean>(false);
 	const {token} = useSelector((state: RootState) => state.auth);
 
-	const [category, setCategory] = useState<Number>(0);
-	const [statusFilter, setStatusFilter] = useState<Number>(0);
+	const [category, setCategory] = useState<number>(0);
+	const [statusFilter, setStatusFilter] = useState<number>(0);
 
 	const router = useRouter();
 

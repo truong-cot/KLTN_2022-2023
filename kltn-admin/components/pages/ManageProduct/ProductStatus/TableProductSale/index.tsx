@@ -27,7 +27,7 @@ function TableProductSale() {
 	const {token} = useSelector((state: RootState) => state.auth);
 
 	const [open, setOpen] = useState<boolean>(false);
-	const [idProduct, setIdProduct] = useState<String>('');
+	const [idProduct, setIdProduct] = useState<string>('');
 
 	const [isLoading, setIsloading] = useState<boolean>(false);
 	const [keyword, setKeyword] = useState<string>('');

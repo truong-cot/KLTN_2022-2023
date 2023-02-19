@@ -5,13 +5,13 @@ const routeName = '/cart';
 const cartService = {
 	addToCart: (
 		data: {
-			token: String;
-			idUser: String;
-			idProduct: String;
-			price: Number;
-			sale: Number;
-			amount: Number;
-			size: String;
+			token: string;
+			idUser: string;
+			idProduct: string;
+			price: number;
+			sale: number;
+			amount: number;
+			size: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -24,8 +24,8 @@ const cartService = {
 	},
 	getCart: (
 		data: {
-			token: String;
-			idUser: String;
+			token: string;
+			idUser: string;
 		},
 		tokenAxios?: any
 	) => {
@@ -37,7 +37,7 @@ const cartService = {
 		});
 	},
 
-	deleteCart: (data: {token: string; idCart: String}, tokenAxios?: any) => {
+	deleteCart: (data: {token: string; idCart: string}, tokenAxios?: any) => {
 		return axiosClient.delete(`${routeName}/delete-cart?idCart=${data.idCart}`, {
 			cancelToken: tokenAxios,
 			headers: {
